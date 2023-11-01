@@ -1,4 +1,4 @@
-import React from 'react'
+
 import OtpVerificationForm from '../../components/auth/OtpVerificationForm'
 
 function VerifyOtp() {

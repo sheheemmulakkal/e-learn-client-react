@@ -25,6 +25,11 @@ const studentSlice = createSlice({
 
         saveStudent(state, action: PayloadAction<Student | null>) {
             state.student = action.payload
+        },
+
+        studentLogout(state) {
+            state.student = null,
+            state.studentEmail = null
         }
     }
 })

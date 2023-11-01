@@ -24,7 +24,9 @@ function OtpVerificationForm() {
     try {
       const response = await verifyOtp(otp, email!);
       if (response) {
-        dispatch(studentActions.saveStudent(response.student));
+        console.log(response);
+        
+        dispatch(studentActions.saveStudent(response));
         navigate("/");
       }
     } catch (error) {

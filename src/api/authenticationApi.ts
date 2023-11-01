@@ -12,11 +12,9 @@ interface StudentCredentials {
 
 const studentSignup = async (
   studentCredentials: StudentCredentials
-): Promise<{success: boolean, email: string} | undefined  > => {
+): Promise<{ success: boolean; email: string } | undefined> => {
   try {
-    const response = await axiosInstance.post("/signup", 
-      studentCredentials
-    );
+    const response = await axiosInstance.post("/signup", studentCredentials);
 
     const { message, email } = response.data;
 
@@ -24,7 +22,6 @@ const studentSignup = async (
       return Promise.resolve({ success: true, email });
     }
   } catch (error) {
-    
     if (axios.isAxiosError(error)) {
       const axiosError = error;
       if (
@@ -45,7 +42,6 @@ const studentSignup = async (
     } else {
       return Promise.reject("An unexpected error occurred.");
     }
-    return Promise.reject(error);
   }
 };
 
@@ -62,11 +58,36 @@ const verifyOtp = async (otp: string, email: string) => {
 };
 
 const resendOtp = async (email: string) => {
-    await axiosInstance.post("/resend-otp", {email}) 
-}
+  await axiosInstance.post("/resend-otp", { email });
+};
+
+const studentLogin = async (studentCredentials: StudentCredentials) => {
+  try {
+    const response = await axiosInstance.post("/login", studentCredentials);
+    if( response.data.success) {
+      localStorage.setItem("studentToken", response.data.studentToken)
+      return Promise.resolve(response.data.student)
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+          return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
 
 const studentLogout = async () => {
   localStorage.removeItem("studentToken");
 };
 
-export { studentSignup, verifyOtp, studentLogout, resendOtp };
+export { studentSignup, verifyOtp, studentLogout, resendOtp,studentLogin };
