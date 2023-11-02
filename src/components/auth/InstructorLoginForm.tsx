@@ -3,6 +3,7 @@ import { instructorLogin, InstructorResendOtp } from "../../api/authenticationAp
 import { instructorActions } from "../../redux/InstructorSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginValidation } from "../../validations/loginSchema";
 
 const InstructorLoginForm = () => {
     const dispatch = useDispatch();
@@ -24,10 +25,16 @@ const InstructorLoginForm = () => {
       };
 
       const handleSubmit = async (event: React.FormEvent) => {
+        setErr("")
         event.preventDefault();
+
+        const result = loginValidation(formData)
+        if( !result.success ) {
+          setErr(result.message!)
+        }
         try {
-            dispatch(instructorActions.setEmail(formData.email))
-          const response = await instructorLogin(formData);
+            dispatch(instructorActions.setEmail(result.credential!.email))
+          const response = await instructorLogin(result.credential!);
           if( response) {
             dispatch(instructorActions.saveInstructor(response))
             navigate('/instructor')

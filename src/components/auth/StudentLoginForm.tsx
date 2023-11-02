@@ -3,6 +3,7 @@ import { studentLogin, resendOtp } from "../../api/authenticationApi";
 import { studentActions } from "../../redux/studentSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginValidation } from "../../validations/loginSchema";
 
 const StudentLoginForm = () => {
     const dispatch = useDispatch();
@@ -24,10 +25,17 @@ const StudentLoginForm = () => {
       };
 
       const handleSubmit = async (event: React.FormEvent) => {
+        setErr("")
         event.preventDefault();
+        const result = loginValidation(formData)
+        if( !result.success) {
+          setErr(result.message!)
+          return
+        }
+
         try {
-            dispatch(studentActions.setEmail(formData.email))
-          const response = await studentLogin(formData);
+          dispatch(studentActions.setEmail(result.credential!.email))
+          const response = await studentLogin(result.credential!);
           if( response) {
             dispatch(studentActions.saveStudent(response))
             navigate('/')
@@ -36,7 +44,7 @@ const StudentLoginForm = () => {
         } catch (error) {
           if (typeof error === "string") {
             if(error === "Not verified"){
-                await resendOtp(formData.email);
+                await resendOtp(result.credential!.email);
                 navigate("/verify-otp")
             } else {
                 setErr(error); 
@@ -75,7 +83,7 @@ const StudentLoginForm = () => {
         />
         
         {err && (
-          <p className="my-2 h-8 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
+          <p className="my-2 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}
           </p>
         )}

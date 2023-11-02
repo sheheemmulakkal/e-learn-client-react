@@ -1,47 +1,58 @@
 import React, { useState } from "react";
 // import { useDispatch } from 'react-redux'
 import { studentSignup } from "../../api/authenticationApi";
-import  {useNavigate} from 'react-router-dom'
-import {  useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { studentActions } from "../../redux/studentSlice";
+import { signupValidation } from "../../validations/singnupSchema";
 
+interface Credentials {
+  firstname: string;
+  lastname: string;
+  email: string;
+  mobile: number;
+  password: string;
+}
 const SignupForm: React.FC = () => {
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const dispatch = useDispatch();
   const [err, setErr] = useState("");
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
     email: "",
-    mobile: 0,
+    mobile: "",
     password: "",
+    confirmpassword: "",
   });
 
-
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setErr("")
+    setErr("");
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: name === "mobile" ? (value === "" ? "" : value) : value,
     });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const credentials: {success: boolean, credential?: Credentials, message?: string} =
+      signupValidation(formData);
+    if (!credentials.success) {
+      setErr(credentials.message!);
+      return;
+    }
     try {
-      const response = await studentSignup(formData);
-      if( response?.success) {
-        dispatch(studentActions.setEmail(response.email))
-        navigate('/verify-otp')
+      const response = await studentSignup(credentials.credential!);
+      if (response?.success) {
+        dispatch(studentActions.setEmail(response.email));
+        navigate("/verify-otp");
       }
-      
     } catch (error) {
       if (typeof error === "string") {
-        setErr(error); 
+        setErr(error);
       } else {
         setErr("An unexpected error occurred.");
       }
@@ -104,10 +115,11 @@ const SignupForm: React.FC = () => {
           name="confirmpassword"
           id=""
           placeholder="Confirm password"
+          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
         {err && (
-          <p className="my-2 h-8 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
+          <p className="my-2  rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}
           </p>
         )}

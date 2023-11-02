@@ -3,7 +3,16 @@ import React, { useState } from "react";
 import { instructorSignup } from "../../api/authenticationApi";
 import  {useNavigate} from 'react-router-dom'
 import {  useDispatch } from "react-redux";
-    import { instructorActions } from "../../redux/InstructorSlice";
+import { instructorActions } from "../../redux/InstructorSlice";
+import { signupValidation } from "../../validations/singnupSchema";
+
+interface Credentials {
+  firstname: string;
+  lastname: string;
+  email: string;
+  mobile: number;
+  password: string;
+}
 
 const InstructorSignupForm: React.FC = () => {
 
@@ -15,8 +24,10 @@ const InstructorSignupForm: React.FC = () => {
     firstname: "",
     lastname: "",
     email: "",
-    mobile: 0,
+    mobile: "",
     password: "",
+    confirmpassword: ""
+
   });
 
 
@@ -25,14 +36,20 @@ const InstructorSignupForm: React.FC = () => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: name === "mobile" ? (value === "" ? "" : value) : value,
     });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    const result: {success: boolean, credential?: Credentials, message?: string} =
+      signupValidation(formData);
+      if( !result.success) {
+        setErr(result.message!)
+      }
+      
     try {
-      const response = await instructorSignup(formData);
+      const response = await instructorSignup(result.credential!);
       if( response?.success) {
         dispatch(instructorActions.setEmail(response.email))
         navigate('/instructor/verify-otp')

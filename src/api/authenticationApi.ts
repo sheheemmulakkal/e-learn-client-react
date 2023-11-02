@@ -5,14 +5,14 @@ interface StudentCredentials {
   firstname?: string;
   lastname?: string;
   password?: string;
-  mobile?: number;
+  mobile?: number | string;
   email?: string;
 }
 interface InstructorCredentials {
   firstname?: string;
   lastname?: string;
   password?: string;
-  mobile?: number;
+  mobile?: number | string;
   email?: string;
 }
 

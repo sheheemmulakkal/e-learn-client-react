@@ -3,6 +3,7 @@ import { adminLogin } from "../../api/authenticationApi";
 import { adminActions } from "../../redux/adminSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginValidation } from "../../validations/loginSchema";
 
 const AdminLoginForm = () => {
   const dispatch = useDispatch();
@@ -24,9 +25,14 @@ const AdminLoginForm = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
+    setErr("")
     event.preventDefault();
+    const result = loginValidation(formData)
+    if( result.success ) {
+      setErr(result.message!) 
+    }
     try {
-      const response = await adminLogin(formData);
+      const response = await adminLogin(result.credential!);
       console.log(response);
 
       if (response) {
