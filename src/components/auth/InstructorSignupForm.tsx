@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 // import { useDispatch } from 'react-redux'
-import { studentSignup } from "../../api/authenticationApi";
+import { instructorSignup } from "../../api/authenticationApi";
 import  {useNavigate} from 'react-router-dom'
 import {  useDispatch } from "react-redux";
-import { studentActions } from "../../redux/studentSlice";
+    import { instructorActions } from "../../redux/InstructorSlice";
 
-const SignupForm: React.FC = () => {
+const InstructorSignupForm: React.FC = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -20,7 +20,6 @@ const SignupForm: React.FC = () => {
   });
 
 
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setErr("")
     const { name, value } = event.target;
@@ -33,10 +32,10 @@ const SignupForm: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const response = await studentSignup(formData);
+      const response = await instructorSignup(formData);
       if( response?.success) {
-        dispatch(studentActions.setEmail(response.email))
-        navigate('/verify-otp')
+        dispatch(instructorActions.setEmail(response.email))
+        navigate('/instructor/verify-otp')
       }
       
     } catch (error) {
@@ -122,4 +121,4 @@ const SignupForm: React.FC = () => {
   );
 };
 
-export default SignupForm;
+export default InstructorSignupForm;

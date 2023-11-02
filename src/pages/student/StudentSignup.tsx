@@ -1,6 +1,6 @@
-import React from 'react'
-import SignupForm from '../../components/auth/SignupForm'
-import { Link } from 'react-router-dom'
+import React from "react";
+import SignupForm from "../../components/auth/SignupForm";
+import { Link } from "react-router-dom";
 
 const StudentSignup: React.FC = () => {
   return (
@@ -21,16 +21,20 @@ const StudentSignup: React.FC = () => {
           <p className="text-center text-sm">
             Already a member!{" "}
             <Link to={"/login"}>
-              <span className="text-sky-600 cursor-pointer hover:text-sky-900 hover:underline">sign in</span>
+              <span className="text-sky-600 cursor-pointer hover:text-sky-900 hover:underline">
+                Log in
+              </span>
             </Link>
           </p>
-          <p className="text-center text-sm text-sky-600 cursor-pointer underline">
-            Become an Instructor
-          </p>
+          <Link to={"/instructor/signup"}>
+            <p className="text-center text-sm text-sky-600 cursor-pointer underline">
+              Become an Instructor
+            </p>
+          </Link>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StudentSignup
+export default StudentSignup;

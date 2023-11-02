@@ -9,8 +9,16 @@ interface AuthProtectedRoutesProps {
 
 const AuthProtected: React.FC<AuthProtectedRoutesProps> = ({element}) => {
     const student = useSelector((store: RootState) => store.student.student)
+    const instructor = useSelector((store: RootState) => store.instructor.instructor)
+    const admin = useSelector((store: RootState) => store.admin.admin)
     if( student ) {
         return <Navigate to="/" replace />
+    } 
+    if( instructor ) {
+        return <Navigate to="/instructor" replace />
+    }
+    if( admin ) {
+        return <Navigate to="/admin" replace />
     }
   return <>{element}</>;
 }

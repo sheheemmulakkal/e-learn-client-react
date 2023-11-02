@@ -1,10 +1,10 @@
-
+import React from 'react'
 import OtpVerificationForm from '../../components/auth/OtpVerificationForm'
 
-function VerifyOtp() {
+const VerifyOtp: React.FC<{isInstructor: boolean}> = (props) => {
   return (
     <div className='w-full h-screen flex justify-center items-center'>
-        <OtpVerificationForm />
+        <OtpVerificationForm isInstructor={props.isInstructor} />
     </div>
   )
 }

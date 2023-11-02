@@ -1,20 +1,27 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { verifyOtp, resendOtp } from "../../api/authenticationApi";
+import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import {
+  verifyOtp,
+  resendOtp,
+  InstructorResendOtp,
+  InstructorVerifyOtp,
+} from "../../api/authenticationApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { studentActions } from "../../redux/studentSlice";
 import { useNavigate } from "react-router-dom";
+import { instructorActions } from "../../redux/InstructorSlice";
 
-function OtpVerificationForm() {
-
+const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState("");
   const [err, setErr] = useState("");
   const [showButton, setShowButton] = useState(false);
-
   const email = useSelector((store: RootState) => store.student.studentEmail);
+  const instructorEmail = useSelector(
+    (store: RootState) => store.instructor.instructorEmail
+  );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOtp(e.target.value);
@@ -22,12 +29,18 @@ function OtpVerificationForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await verifyOtp(otp, email!);
-      if (response) {
-        console.log(response);
-        
-        dispatch(studentActions.saveStudent(response));
-        navigate("/");
+      if (!props.isInstructor) {
+        const response = await verifyOtp(otp, email!);
+        if (response) {
+          dispatch(studentActions.saveStudent(response));
+          navigate("/");
+        }
+      } else {
+        const response = await InstructorVerifyOtp(otp, instructorEmail!);
+        if (response) {
+          dispatch(instructorActions.saveInstructor(response));
+          navigate("/instructor");
+        }
       }
     } catch (error) {
       if (error) {
@@ -36,23 +49,24 @@ function OtpVerificationForm() {
     }
   };
   const handleResend = () => {
-    resendOtp(email!)
-    setShowButton(false); 
+    props.isInstructor
+      ? resendOtp(email!)
+      : InstructorResendOtp(instructorEmail!);
+    setShowButton(false);
     setTimeout(() => {
-      setShowButton(true); 
+      setShowButton(true);
     }, 15000);
   };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setShowButton(true); 
+      setShowButton(true);
     }, 15000);
 
     return () => {
-      clearTimeout(timeout); 
+      clearTimeout(timeout);
     };
   }, []);
-
 
   return (
     <div className="max-w-4/5 w-full h-3/6 flex justify-center py-2 md:py-5 md:w-3/5 bg-slate-300 rounded-md shadow-2xl">
@@ -86,12 +100,17 @@ function OtpVerificationForm() {
           Submit
         </button>
 
-        {showButton &&<p className="text-center text-sm text-sky-600 cursor-pointer underline" onClick={handleResend}>
-          Resend otp
-        </p>}
+        {showButton && (
+          <p
+            className="text-center text-sm text-sky-600 cursor-pointer underline"
+            onClick={handleResend}
+          >
+            Resend otp
+          </p>
+        )}
       </form>
     </div>
   );
-}
+};
 
 export default OtpVerificationForm;
