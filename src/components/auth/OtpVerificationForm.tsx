@@ -89,7 +89,7 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
         />
 
         {err && (
-          <p className="my-2 h-8 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
+          <p className="my-2 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}
           </p>
         )}

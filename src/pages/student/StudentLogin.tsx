@@ -1,5 +1,5 @@
-import StudentLoginForm from "../../components/auth/StudentLoginForm"
-import { Link } from "react-router-dom"
+import StudentLoginForm from "../../components/auth/StudentLoginForm";
+import { Link } from "react-router-dom";
 
 const StudentLogin = () => {
   return (
@@ -13,26 +13,30 @@ const StudentLogin = () => {
           />
         </div>
         <div className="w-full h-full flex md:rounded-r-md rounded-md justify-center flex-col py-8 bg-slate-300">
-          <h1 className="text-center text-2xl font-bold text-sky-800">
-            Login
-          </h1>
+          <Link to={"/"}>
+            <h1 className="text-center text-3xl font-extrabold text-sky-800 cursor-pointer">
+              EduVista
+            </h1>
+          </Link>
+          <h1 className="text-center text-2xl font-bold text-sky-800">Login</h1>
           <StudentLoginForm />
           <p className="text-center text-sm">
             Don't have an account!{" "}
             <Link to={"/signup"}>
-                <span className="text-sky-600 cursor-pointer hover:text-sky-900 hover:underline">Sign up</span>
+              <span className="text-sky-600 cursor-pointer hover:text-sky-900 hover:underline">
+                Sign up
+              </span>
             </Link>
           </p>
-          <Link to={"/instructor/login"} >
-          <p className="text-center text-sm text-sky-600 cursor-pointer underline">
-            Login as Instructor
-          </p>
+          <Link to={"/instructor/login"}>
+            <p className="text-center text-sm text-sky-600 cursor-pointer underline">
+              Login as Instructor
+            </p>
           </Link>
-            
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default StudentLogin
+export default StudentLogin;

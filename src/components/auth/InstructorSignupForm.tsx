@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // import { useDispatch } from 'react-redux'
 import { instructorSignup } from "../../api/authenticationApi";
-import  {useNavigate} from 'react-router-dom'
-import {  useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { instructorActions } from "../../redux/InstructorSlice";
 import { signupValidation } from "../../validations/singnupSchema";
 
@@ -15,9 +15,8 @@ interface Credentials {
 }
 
 const InstructorSignupForm: React.FC = () => {
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // const dispatch = useDispatch();
   const [err, setErr] = useState("");
   const [formData, setFormData] = useState({
@@ -26,13 +25,11 @@ const InstructorSignupForm: React.FC = () => {
     email: "",
     mobile: "",
     password: "",
-    confirmpassword: ""
-
+    confirmpassword: "",
   });
 
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setErr("")
+    setErr("");
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -42,22 +39,24 @@ const InstructorSignupForm: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const result: {success: boolean, credential?: Credentials, message?: string} =
-      signupValidation(formData);
-      if( !result.success) {
-        setErr(result.message!)
-      }
-      
+    const result: {
+      success: boolean;
+      credential?: Credentials;
+      message?: string;
+    } = signupValidation(formData);
+    if (!result.success) {
+      setErr(result.message!);
+    }
+
     try {
       const response = await instructorSignup(result.credential!);
-      if( response?.success) {
-        dispatch(instructorActions.setEmail(response.email))
-        navigate('/instructor/verify-otp')
+      if (response?.success) {
+        dispatch(instructorActions.setEmail(response.email));
+        navigate("/instructor/verify-otp");
       }
-      
     } catch (error) {
       if (typeof error === "string") {
-        setErr(error); 
+        setErr(error);
       } else {
         setErr("An unexpected error occurred.");
       }
@@ -123,7 +122,7 @@ const InstructorSignupForm: React.FC = () => {
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
         {err && (
-          <p className="my-2 h-8 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
+          <p className="my-2 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}
           </p>
         )}

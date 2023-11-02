@@ -25,11 +25,11 @@ const AdminLoginForm = () => {
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
-    setErr("")
+    setErr("");
     event.preventDefault();
-    const result = loginValidation(formData)
-    if( result.success ) {
-      setErr(result.message!) 
+    const result = loginValidation(formData);
+    if (result.success) {
+      setErr(result.message!);
     }
     try {
       const response = await adminLogin(result.credential!);
@@ -75,7 +75,7 @@ const AdminLoginForm = () => {
         />
 
         {err && (
-          <p className="my-2 h-8 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
+          <p className="my-2 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}
           </p>
         )}

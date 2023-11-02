@@ -14,6 +14,11 @@ const StudentSignup: React.FC = () => {
           />
         </div>
         <div className="w-full h-full flex md:rounded-r-md rounded-md justify-center flex-col py-8 bg-slate-300">
+          <Link to={"/"}>
+            <h1 className="text-center text-3xl font-extrabold text-sky-800  cursor-pointer">
+              EduVista
+            </h1>
+          </Link>
           <h1 className="text-center text-2xl font-bold text-sky-800">
             Signup
           </h1>

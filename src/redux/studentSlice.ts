@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Student } from "../dtos/Student";
+import { IStudent } from "../dtos/Student";
 
 
 
 interface studentState {
 
     studentEmail: string | null
-    student: Student | null
+    student: IStudent | null
 }
 
 const initialState: studentState = {
@@ -23,7 +23,7 @@ const studentSlice = createSlice({
             state.studentEmail = action.payload
         },
 
-        saveStudent(state, action: PayloadAction<Student | null>) {
+        saveStudent(state, action: PayloadAction<IStudent | null>) {
             state.student = action.payload
         },
 

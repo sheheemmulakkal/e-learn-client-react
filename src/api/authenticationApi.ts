@@ -101,7 +101,6 @@ const studentLogout = async () => {
   localStorage.removeItem("studentToken");
 };
 
-// =====================================================
 const instructorSignup = async (
   instructorCredentials: InstructorCredentials
 ): Promise<{ success: boolean; email: string } | undefined> => {
