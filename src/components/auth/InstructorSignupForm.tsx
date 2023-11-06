@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 // import { useDispatch } from 'react-redux'
+import { userActions } from "../../redux/userSlice";
 import { instructorSignup } from "../../api/authenticationApi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { instructorActions } from "../../redux/InstructorSlice";
 import { signupValidation } from "../../validations/singnupSchema";
 
 interface Credentials {
@@ -51,7 +51,7 @@ const InstructorSignupForm: React.FC = () => {
     try {
       const response = await instructorSignup(result.credential!);
       if (response?.success) {
-        dispatch(instructorActions.setEmail(response.email));
+        dispatch(userActions.setEmail(response.email));
         navigate("/instructor/verify-otp");
       }
     } catch (error) {

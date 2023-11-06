@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { studentLogin, resendOtp } from "../../api/authenticationApi";
-import { studentActions } from "../../redux/studentSlice";
+import { userActions } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginValidation } from "../../validations/loginSchema";
@@ -34,10 +34,10 @@ const StudentLoginForm = () => {
     }
 
     try {
-      dispatch(studentActions.setEmail(result.credential!.email));
+      dispatch(userActions.setEmail(result.credential!.email));
       const response = await studentLogin(result.credential!);
       if (response) {
-        dispatch(studentActions.saveStudent(response));
+        dispatch(userActions.saveUser(response));
         navigate("/");
       }
     } catch (error) {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { adminLogin } from "../../api/authenticationApi";
-import { adminActions } from "../../redux/adminSlice";
+import { userActions } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginValidation } from "../../validations/loginSchema";
@@ -33,10 +33,8 @@ const AdminLoginForm = () => {
     }
     try {
       const response = await adminLogin(result.credential!);
-      console.log(response);
-
       if (response) {
-        dispatch(adminActions.saveAdmin());
+        dispatch(userActions.saveUser(response));
         navigate("/admin");
       }
     } catch (error) {

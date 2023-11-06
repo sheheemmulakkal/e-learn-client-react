@@ -3,7 +3,8 @@ import StudentHome from "../pages/student/StudentHome";
 import StudentSignup from "../pages/student/StudentSignup";
 import StudentLogin from "../pages/student/StudentLogin";
 import VerifyOtp from "../pages/student/VerifyOtp";
-import StudentProtectedRoutes from "../components/common/protectedRoutes/StudentProtectedRoutes";
+import ProtectedRoute from "../components/common/protectedRoutes/ProtectedRoute";
+import { Roles } from "../dtos/Roles";
 import AuthProtected from "../components/common/protectedRoutes/AuthPotected";
 import StudentProfile from "../pages/student/StudentProfile";
 
@@ -24,7 +25,12 @@ function StudentRoute() {
       />
       <Route
         path="/profile"
-        element={<StudentProtectedRoutes element={<StudentProfile />} />}
+        element={
+          <ProtectedRoute
+            allowedRoles={[Roles.student]}
+            element={<StudentProfile />}
+          />
+        }
       />
       <Route path="/" element={<StudentHome />} />
     </Routes>

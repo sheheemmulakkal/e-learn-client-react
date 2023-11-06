@@ -3,10 +3,10 @@ import {
   instructorLogin,
   InstructorResendOtp,
 } from "../../api/authenticationApi";
-import { instructorActions } from "../../redux/InstructorSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginValidation } from "../../validations/loginSchema";
+import { userActions } from "../../redux/userSlice";
 
 const InstructorLoginForm = () => {
   const dispatch = useDispatch();
@@ -36,10 +36,10 @@ const InstructorLoginForm = () => {
       setErr(result.message!);
     }
     try {
-      dispatch(instructorActions.setEmail(result.credential!.email));
+      dispatch(userActions.setEmail(result.credential!.email));
       const response = await instructorLogin(result.credential!);
       if (response) {
-        dispatch(instructorActions.saveInstructor(response));
+        dispatch(userActions.saveUser(response));
         navigate("/instructor");
       }
     } catch (error) {

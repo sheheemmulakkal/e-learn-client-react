@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { studentSignup } from "../../api/authenticationApi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { studentActions } from "../../redux/studentSlice";
+import { userActions } from "../../redux/userSlice";
 import { signupValidation } from "../../validations/singnupSchema";
 
 interface Credentials {
@@ -38,8 +38,11 @@ const SignupForm: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const credentials: {success: boolean, credential?: Credentials, message?: string} =
-      signupValidation(formData);
+    const credentials: {
+      success: boolean;
+      credential?: Credentials;
+      message?: string;
+    } = signupValidation(formData);
     if (!credentials.success) {
       setErr(credentials.message!);
       return;
@@ -47,7 +50,7 @@ const SignupForm: React.FC = () => {
     try {
       const response = await studentSignup(credentials.credential!);
       if (response?.success) {
-        dispatch(studentActions.setEmail(response.email));
+        dispatch(userActions.setEmail(response.email));
         navigate("/verify-otp");
       }
     } catch (error) {

@@ -7,7 +7,7 @@ import {
 } from "../../api/authenticationApi";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
-import { studentActions } from "../../redux/studentSlice";
+import { userActions } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 import { instructorActions } from "../../redux/InstructorSlice";
 
@@ -32,7 +32,7 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
       if (!props.isInstructor) {
         const response = await verifyOtp(otp, email!);
         if (response) {
-          dispatch(studentActions.saveStudent(response));
+          dispatch(userActions.saveUser(response));
           navigate("/");
         }
       } else {

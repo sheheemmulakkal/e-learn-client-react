@@ -199,7 +199,7 @@ const adminLogin = async (adminCredentials: AdminCredentials) => {
     if( success ) {
       localStorage.setItem("adminToken", adminToken);
     }
-    return Promise.resolve(response);
+    return Promise.resolve(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error;

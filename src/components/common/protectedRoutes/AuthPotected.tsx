@@ -1,26 +1,28 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../redux/store'
-import { Navigate } from 'react-router-dom'
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { Roles } from "../../../dtos/Roles";
+import { Navigate } from "react-router-dom";
 
 interface AuthProtectedRoutesProps {
-    element: React.ReactNode
+  element: React.ReactNode;
 }
 
-const AuthProtected: React.FC<AuthProtectedRoutesProps> = ({element}) => {
-    const student = useSelector((store: RootState) => store.student.student)
-    const instructor = useSelector((store: RootState) => store.instructor.instructor)
-    const admin = useSelector((store: RootState) => store.admin.admin)
-    if( student ) {
-        return <Navigate to="/" replace />
-    } 
-    if( instructor ) {
-        return <Navigate to="/instructor" replace />
+const AuthProtected: React.FC<AuthProtectedRoutesProps> = ({ element }) => {
+  const user = useSelector((store: RootState) => store.user.user);
+  if (user) {
+    if (user.role === Roles.student) {
+      return <Navigate to="/" replace />;
     }
-    if( admin ) {
-        return <Navigate to="/admin" replace />
+    if (user.role === Roles.instructor) {
+      return <Navigate to="/instructor" replace />;
     }
+    if (user.role === Roles.admin) {
+      return <Navigate to="/admin" replace />;
+    }
+  }
+
   return <>{element}</>;
-}
+};
 
-export default AuthProtected
+export default AuthProtected;

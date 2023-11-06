@@ -1,0 +1,35 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { Navigate } from "react-router-dom";
+import { Roles } from "../../../dtos/Roles";
+
+interface ProtectedRouteProps {
+  element: React.ReactNode;
+  allowedRoles?: Roles[];
+}
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  element,
+  allowedRoles,
+}) => {
+  const user = useSelector((store: RootState) => store.user.user);
+  if (!user) {
+    return <Navigate to={"/login"} replace />;
+  }
+  const userRole = user.role as Roles;
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    if (user.role === Roles.student) {
+      return <Navigate to="/login" replace={true} />;
+    }
+    if (user.role === Roles.instructor) {
+      return <Navigate to="/instructor/login" replace={true} />;
+    }
+    if (user.role === Roles.admin) {
+      return <Navigate to="/admin/login" replace={true} />;
+    }
+  }
+
+  return element;
+};
+
+export default ProtectedRoute;
