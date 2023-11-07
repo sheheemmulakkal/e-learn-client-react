@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { RootState } from "../../redux/store";
 import { Roles } from "../../dtos/Roles";
-import { studentLogout, instructorLogout } from "../../api/authenticationApi";
+
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
@@ -12,8 +12,6 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    studentLogout();
-    instructorLogout();
     dispatch(userActions.userLogout());
     if (user?.role === Roles.student) {
       navigate("/login");
@@ -31,7 +29,7 @@ function Navbar() {
           </span>
         </Link>
         <div className="flex md:order-2">
-          {user ? (
+          {user?.role === Roles.student || user?.role === Roles.instructor ? (
             <button
               type="button"
               onClick={handleLogout}

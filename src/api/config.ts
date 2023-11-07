@@ -12,16 +12,11 @@ const axiosAuthorized: AxiosInstance = axios.create({
 
 axiosAuthorized.interceptors.request.use(
   (config) => {
-    const studentToken = localStorage.getItem("studentToken");
-    const adminToken = localStorage.getItem("adminToken");
-    const instructorToken = localStorage.getItem("instructorToken");
-    if (studentToken) {
-      config.headers["Authorization"] = `Bearer ${studentToken}`;
-    } else if (adminToken) {
-      config.headers["Authorization"] = `Bearer ${adminToken}`;
-    } else if (instructorToken) {
-      config.headers["Authorization"] = `Bearer ${instructorToken}`;
-    }
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    } 
     return config;
   },
   (error: AxiosError) => {

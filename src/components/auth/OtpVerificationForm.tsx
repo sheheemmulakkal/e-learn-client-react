@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../redux/store";
 import { userActions } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
-import { instructorActions } from "../../redux/InstructorSlice";
 
 const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
   const dispatch = useDispatch();
@@ -18,10 +17,7 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
   const [otp, setOtp] = useState("");
   const [err, setErr] = useState("");
   const [showButton, setShowButton] = useState(false);
-  const email = useSelector((store: RootState) => store.student.studentEmail);
-  const instructorEmail = useSelector(
-    (store: RootState) => store.instructor.instructorEmail
-  );
+  const email = useSelector((store: RootState) => store.user.userEmail);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOtp(e.target.value);
@@ -36,9 +32,9 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
           navigate("/");
         }
       } else {
-        const response = await InstructorVerifyOtp(otp, instructorEmail!);
+        const response = await InstructorVerifyOtp(otp, email!);
         if (response) {
-          dispatch(instructorActions.saveInstructor(response));
+          dispatch(userActions.saveUser(response));
           navigate("/instructor");
         }
       }
@@ -49,9 +45,7 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
     }
   };
   const handleResend = () => {
-    props.isInstructor
-      ? resendOtp(email!)
-      : InstructorResendOtp(instructorEmail!);
+    props.isInstructor ? resendOtp(email!) : InstructorResendOtp(email!);
     setShowButton(false);
     setTimeout(() => {
       setShowButton(true);

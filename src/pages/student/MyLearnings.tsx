@@ -1,5 +1,3 @@
-import React from "react";
-
 function MyLearnings() {
   return (
     <div className="mt-19">

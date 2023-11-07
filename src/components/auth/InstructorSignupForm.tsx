@@ -49,6 +49,8 @@ const InstructorSignupForm: React.FC = () => {
     }
 
     try {
+      console.log(formData, "cresd");
+
       const response = await instructorSignup(result.credential!);
       if (response?.success) {
         dispatch(userActions.setEmail(response.email));
@@ -109,6 +111,7 @@ const InstructorSignupForm: React.FC = () => {
         <input
           type="password"
           name="password"
+          value={formData.password}
           id=""
           placeholder="Password"
           onChange={handleInputChange}
@@ -117,7 +120,9 @@ const InstructorSignupForm: React.FC = () => {
         <input
           type="password"
           name="confirmpassword"
+          value={formData.confirmpassword}
           id=""
+          onChange={handleInputChange}
           placeholder="Confirm password"
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />

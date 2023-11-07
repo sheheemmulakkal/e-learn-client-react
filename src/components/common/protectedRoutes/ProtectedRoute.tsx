@@ -19,17 +19,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const userRole = user.role as Roles;
   if (allowedRoles && !allowedRoles.includes(userRole)) {
     if (user.role === Roles.student) {
-      return <Navigate to="/login" replace={true} />;
+      return <Navigate to="/" replace={true} />;
     }
     if (user.role === Roles.instructor) {
-      return <Navigate to="/instructor/login" replace={true} />;
+      return <Navigate to="/instructor" replace={true} />;
     }
     if (user.role === Roles.admin) {
-      return <Navigate to="/admin/login" replace={true} />;
+      return <Navigate to="/admin" replace={true} />;
     }
   }
 
-  return element;
+  return <>{element}</>;
 };
 
 export default ProtectedRoute;

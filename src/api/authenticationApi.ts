@@ -59,9 +59,8 @@ const studentSignup = async (
 const verifyOtp = async (otp: string, email: string) => {
   try {
     const response = await axiosInstance.post("/verify-otp", { otp, email });
-    const { studentToken, student } = response.data;
-    localStorage.setItem("studentToken", studentToken as string);
-    localStorage.setItem("student", student);
+    const { token, student } = response.data;
+    localStorage.setItem("token", token as string);
     return Promise.resolve(student);
   } catch (error) {
     return Promise.reject(error);
@@ -76,7 +75,7 @@ const studentLogin = async (studentCredentials: StudentCredentials) => {
   try {
     const response = await axiosInstance.post("/login", studentCredentials);
     if (response.data.success) {
-      localStorage.setItem("studentToken", response.data.studentToken);
+      localStorage.setItem("token", response.data.token);
       return Promise.resolve(response.data.student);
     }
   } catch (error) {
@@ -95,10 +94,6 @@ const studentLogin = async (studentCredentials: StudentCredentials) => {
       return Promise.reject("An unexpected error occurred.");
     }
   }
-};
-
-const studentLogout = async () => {
-  localStorage.removeItem("studentToken");
 };
 
 const instructorSignup = async (
@@ -146,8 +141,8 @@ const InstructorVerifyOtp = async (otp: string, email: string) => {
       otp,
       email,
     });
-    const { instructorToken, instructor } = response.data;
-    localStorage.setItem("instructorToken", instructorToken as string);
+    const { token, instructor } = response.data;
+    localStorage.setItem("token", token as string);
     return Promise.resolve(instructor);
   } catch (error) {
     return Promise.reject(error);
@@ -167,7 +162,7 @@ const instructorLogin = async (
       instructorCredentials
     );
     if (response.data.success) {
-      localStorage.setItem("instructorToken", response.data.instructorToken);
+      localStorage.setItem("token", response.data.token);
       return Promise.resolve(response.data.instructor);
     }
   } catch (error) {
@@ -188,18 +183,15 @@ const instructorLogin = async (
   }
 };
 
-const instructorLogout = async () => {
-  localStorage.removeItem("instructorToken");
-};
 
 const adminLogin = async (adminCredentials: AdminCredentials) => {
   try {
     const response = await axiosInstance.post("/admin/login", adminCredentials)
-    const { adminToken, success } = response.data;
+    const { token, success } = response.data;
     if( success ) {
-      localStorage.setItem("adminToken", adminToken);
+      localStorage.setItem("token", token);
     }
-    return Promise.resolve(response.data);
+    return Promise.resolve(response.data.admin);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error;
@@ -218,22 +210,20 @@ const adminLogin = async (adminCredentials: AdminCredentials) => {
   }
 };
 
-const adminLogout = async () => {
-  localStorage.removeItem("adminToken");
-};
-
+const userLogout = async () => {
+  localStorage.removeItem("token")
+}
 
 export {
   studentSignup,
   verifyOtp,
-  studentLogout,
   resendOtp,
   studentLogin,
   instructorLogin,
   instructorSignup,
-  instructorLogout,
   InstructorResendOtp,
   InstructorVerifyOtp,
   adminLogin,
-  adminLogout
+
+  userLogout
 };
