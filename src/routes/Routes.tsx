@@ -8,6 +8,8 @@ import StudentSignup from "../pages/student/StudentSignup";
 import InstructorLogin from "../pages/instructor/InstructorLogin";
 import StudentProfile from "../pages/student/StudentProfile";
 import InstructorSignup from "../pages/instructor/InstructorSignup";
+import MyCourses from "../pages/instructor/MyCourses";
+import AddCourse from "../pages/instructor/AddCourse";
 import InstructorHome from "../pages/instructor/InstructorHome";
 import AdminLogin from "../pages/admin/AdminLogin";
 import StudentsList from "../pages/admin/StudentsList";
@@ -15,9 +17,11 @@ import InstructorsList from "../pages/admin/InstructorsList";
 import Categories from "../pages/admin/Categories";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import VerifyOtp from "../pages/student/VerifyOtp";
+import CourseListTable from "../pages/admin/CourseListTable";
 
 import { Roles } from "../dtos/Roles";
 import Instructor from "../pages/instructor/Instructor";
+import ChangePassword from "../pages/admin/ChangePassword";
 
 const RoutePage = () => {
   return (
@@ -33,6 +37,7 @@ const RoutePage = () => {
           <Route path="students-list" element={<StudentsList />} />
           <Route path="instructor-list" element={<InstructorsList />} />
           <Route path="categories" element={<Categories />} />
+          <Route path="courses" element={<CourseListTable />} />
         </Route>
         <Route
           path="/instructor"
@@ -44,6 +49,8 @@ const RoutePage = () => {
           }
         >
           <Route index={true} element={<InstructorHome />} />
+          <Route path="add-course" element={<AddCourse />} />
+          <Route path="my-courses" element={<MyCourses />} />
         </Route>
         <Route
           path="/instructor/login"
@@ -83,6 +90,15 @@ const RoutePage = () => {
             <ProtectedRoute
               allowedRoles={[Roles.student]}
               element={<StudentProfile />}
+            />
+          }
+        />
+        <Route
+          path="/change-password"
+          element={
+            <ProtectedRoute
+              allowedRoles={[Roles.student]}
+              element={<ChangePassword />}
             />
           }
         />

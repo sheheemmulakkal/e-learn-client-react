@@ -1,11 +1,11 @@
 import React from "react";
+import NewCourses from "../../components/student/NewCourses";
 import Navbar from "../../components/navbar/Navbar";
-
 const StudentHome: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="mt-19 w-full h-screen bg-gray-50">
+      <div className="flex w-full h-screen bg-gray-50">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-gray-50">
           <div className="flex flex-col justify-center items-center">
             <h4 className="font-medium text-2xl text-sky-900 text-left">
@@ -24,6 +24,9 @@ const StudentHome: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className=" flex flex-row pl-10 py-9">
+        <NewCourses />
       </div>
     </>
   );

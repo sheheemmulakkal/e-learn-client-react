@@ -30,10 +30,8 @@ function CategoryList() {
   };
 
   const handleEdit = (category: ICategory) => {
-    console.log(category, "cat state");
-
     setShowForm(true);
-    setFormData(category.category || ""); // Populate the input field with the category data
+    setFormData(category.category || "");
     setEditCategoryId(category.id || "");
   };
 
@@ -44,10 +42,6 @@ function CategoryList() {
     }
     try {
       if (editCategoryId) {
-        // If in "edit" mode, call the editCategory function
-        console.log(editCategoryId, "call");
-        console.log(formData);
-
         const { category, id, status }: ICategory = await editCategory(
           editCategoryId,
           formData.trim()
@@ -122,7 +116,7 @@ function CategoryList() {
         <div className="relative mt-28">
           <div className="flex items-center justify-between">
             <div>
-              <h1>Categories</h1>
+              <h1 className="font-bold text-lg text-sky-800">Categories</h1>
             </div>
             <div>
               <button

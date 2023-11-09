@@ -1,9 +1,5 @@
-import Navbar from '../../components/navbar/Navbar'
-
 function InstructorHome() {
-  return (
-    <Navbar />
-  )
+  return <div></div>;
 }
 
-export default InstructorHome
+export default InstructorHome;

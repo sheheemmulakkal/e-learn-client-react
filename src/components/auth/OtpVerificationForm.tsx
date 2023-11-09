@@ -16,6 +16,7 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
 
   const [otp, setOtp] = useState("");
   const [err, setErr] = useState("");
+  const [resendTimer, setResendTimer] = useState(15);
   const [showButton, setShowButton] = useState(false);
   const email = useSelector((store: RootState) => store.user.userEmail);
 
@@ -47,20 +48,24 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
   const handleResend = () => {
     props.isInstructor ? resendOtp(email!) : InstructorResendOtp(email!);
     setShowButton(false);
-    setTimeout(() => {
-      setShowButton(true);
-    }, 15000);
+    setResendTimer(15); // Reset the timer
   };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    const resendTimeout = setTimeout(() => {
       setShowButton(true);
-    }, 15000);
+    }, resendTimer * 1000);
+
+    // Update the countdown every second
+    const countdownInterval = setInterval(() => {
+      setResendTimer((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(resendTimeout);
+      clearInterval(countdownInterval);
     };
-  }, []);
+  }, [resendTimer]);
 
   return (
     <div className="max-w-4/5 w-full h-3/6 flex justify-center py-2 md:py-5 md:w-3/5 bg-slate-300 rounded-md shadow-2xl">
@@ -94,12 +99,16 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
           Submit
         </button>
 
-        {showButton && (
+        {showButton ? (
           <p
             className="text-center text-sm text-sky-600 cursor-pointer underline"
             onClick={handleResend}
           >
             Resend otp
+          </p>
+        ) : (
+          <p className="text-center text-sm text-sky-600">
+            Resend OTP in {resendTimer} seconds
           </p>
         )}
       </form>

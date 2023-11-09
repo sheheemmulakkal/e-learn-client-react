@@ -1,4 +1,5 @@
 import Navbar from "../../components/navbar/Navbar";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 function StudentProfile() {
@@ -8,8 +9,8 @@ function StudentProfile() {
     <>
       <Navbar />
       <div className="w-full">
-        <div className="flex justify-center md:flex-row flex-col mt-28 w-full">
-          <div className="flex md:w-2/5 w-full flex-col justify-center items-center h-64">
+        <div className=" justify-center grid grid-cols-1 md:grid-cols-3 mt-28 w-full">
+          <div className="flex  w-full flex-col justify-center items-center h-64">
             <div className="shadow-md rounded-md flex w-3/5 flex-col min-h-full justify-center items-center border pb-4 ">
               <div className="w-2/5 py-6 flex justify-center">
                 <img src="/banners/profile.png" className="w-4/5" alt="" />
@@ -24,8 +25,8 @@ function StudentProfile() {
             </div>
           </div>
 
-          <div className="w-3/5 flex flex-col border-l-2 p-4">
-            <div className="w-1/2">
+          <div className="w-full flex flex-col border-l-2 p-4">
+            <div className="w-full pr-5">
               <h1 className="underline font-bold">Joined date</h1>
               <h3 className="text-sm font-semibold text-slate-500">
                 28-12-2023
@@ -61,6 +62,21 @@ function StudentProfile() {
                 </h3>
               </div>
               <hr className="" />
+            </div>
+          </div>
+
+          <div className="w-full flex flex-col border-l-2 p-4">
+            <div className="w-full pr-5">
+              <h1 className="font-bold">Privacy and security</h1>
+              <Link to={"/change-password"}>
+                <h1 className=" cursor-pointer hover:underline  text-blue-500 font-semibold pt-6">
+                  Change password
+                </h1>
+              </Link>
+
+              <h1 className="cursor-pointer hover:underline text-blue-500 font-semibold pt-2">
+                Delete accound
+              </h1>
             </div>
           </div>
         </div>

@@ -113,8 +113,6 @@ const addCategory = async (categoryName: string) => {
 
 const editCategory = async (categoryId: string, data: string) => {
   try {
-    console.log(categoryId, data);
-
     const response = await axiosAuthorized.put("/admin/category", {
       categoryId,
       data,
@@ -239,6 +237,37 @@ const unlistLanguage = async (languageId: string) => {
   }
 };
 
+const getAllCourses = async () => {
+  try {
+    const response = await axiosAuthorized.get("/admin/courses");
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+const approveCourse = async (courseId: string) => {
+  try {
+    const response = await axiosAuthorized.patch("/admin/approve-course", {
+      courseId,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
+const rejectCourse = async (courseId: string) => {
+  try {
+    const response = await axiosAuthorized.patch("/admin/reject-course", {
+      courseId,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
 // const getLevelList = async () => {
 //   try {
 //     const response = await axiosAuthorized.get("/admin/")
@@ -265,4 +294,7 @@ export {
   unlistLanguage,
   addCategory,
   editCategory,
+  getAllCourses,
+  approveCourse,
+  rejectCourse,
 };
