@@ -4,7 +4,6 @@ import {
   blockStudent,
   unblockStudent,
 } from "../../api/adminApi";
-import AdminNavbar from "../../components/navbar/AdminNavbar";
 
 interface Student {
   id?: string;
@@ -60,7 +59,6 @@ function StudentsList() {
 
   return (
     <div>
-      <AdminNavbar />
       <div className="px-20">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-28">
           <table className="w-full text-sm text-left text-gray-500">

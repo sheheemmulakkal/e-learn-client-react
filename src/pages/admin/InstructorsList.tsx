@@ -4,7 +4,6 @@ import {
   blockInstructor,
   unblockInstructor,
 } from "../../api/adminApi";
-import AdminNavbar from "../../components/navbar/AdminNavbar";
 
 interface Instructor {
   id?: string;
@@ -61,7 +60,6 @@ function InstructorsList() {
 
   return (
     <div>
-      <AdminNavbar />
       <div className="px-20">
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-28">
           <table className="w-full text-sm text-left text-gray-500">

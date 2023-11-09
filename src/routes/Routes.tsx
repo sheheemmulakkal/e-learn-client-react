@@ -12,6 +12,7 @@ import InstructorHome from "../pages/instructor/InstructorHome";
 import AdminLogin from "../pages/admin/AdminLogin";
 import StudentsList from "../pages/admin/StudentsList";
 import InstructorsList from "../pages/admin/InstructorsList";
+import Categories from "../pages/admin/Categories";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import VerifyOtp from "../pages/student/VerifyOtp";
 
@@ -31,6 +32,7 @@ const RoutePage = () => {
           <Route index={true} element={<AdminDashboard />} />
           <Route path="students-list" element={<StudentsList />} />
           <Route path="instructor-list" element={<InstructorsList />} />
+          <Route path="categories" element={<Categories />} />
         </Route>
         <Route
           path="/instructor"
