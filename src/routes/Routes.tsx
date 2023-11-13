@@ -1,27 +1,33 @@
 import { Routes, Route } from "react-router-dom";
 import AuthProtected from "../components/common/protectedRoutes/AuthPotected";
 import ProtectedRoute from "../components/common/protectedRoutes/ProtectedRoute";
-import Admin from "../pages/admin/Admin";
-import StudentHome from "../pages/student/StudentHome";
-import StudentLogin from "../pages/student/StudentLogin";
-import StudentSignup from "../pages/student/StudentSignup";
-import InstructorLogin from "../pages/instructor/InstructorLogin";
-import StudentProfile from "../pages/student/StudentProfile";
-import InstructorSignup from "../pages/instructor/InstructorSignup";
-import MyCourses from "../pages/instructor/MyCourses";
-import AddCourse from "../pages/instructor/AddCourse";
-import InstructorHome from "../pages/instructor/InstructorHome";
-import AdminLogin from "../pages/admin/AdminLogin";
-import StudentsList from "../pages/admin/StudentsList";
-import InstructorsList from "../pages/admin/InstructorsList";
-import Categories from "../pages/admin/Categories";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import VerifyOtp from "../pages/student/VerifyOtp";
-import CourseListTable from "../pages/admin/CourseListTable";
+import {
+  InstructorLogin,
+  InstructorSignup,
+  MyCourses,
+  AddCourse,
+  InstructorHome,
+  Instructor,
+} from "../pages/instructor/index";
+import {
+  StudentHome,
+  StudentLogin,
+  StudentSignup,
+  StudentProfile,
+  VerifyOtp,
+  ChangePassword,
+} from "../pages/student/index";
+import {
+  Admin,
+  AdminLogin,
+  StudentsList,
+  InstructorsList,
+  Categories,
+  AdminDashboard,
+  CourseListTable,
+} from "../pages/admin/index";
 
 import { Roles } from "../dtos/Roles";
-import Instructor from "../pages/instructor/Instructor";
-import ChangePassword from "../pages/admin/ChangePassword";
 
 const RoutePage = () => {
   return (
