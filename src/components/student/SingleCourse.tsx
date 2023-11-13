@@ -27,8 +27,7 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
           </div>
         </div>
         <div className="pb-2">
-          <p className="text-sm font-semibold ">
-            Category:{" "}
+          <p className="text-xs font-bold italic text-gray-500">
             {typeof course.category === "object"
               ? course.category.category
               : course.category}

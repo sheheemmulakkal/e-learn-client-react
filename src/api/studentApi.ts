@@ -13,8 +13,6 @@ const getCourses = async () => {
 
 const changePassword = async (newPassword: string, currentPassword: string) => {
   try {
-    console.log("huii");
-
     const response = await axiosAuthorized.patch("/change-password", {
       newPassword,
       currentPassword,

@@ -16,11 +16,15 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
       </div>
       <div className="px-4 pb-4">
         <div>
-          <h5 className="text-md font-semibold tracking-tight text-gray-900">
+          <h5 className="text-lg font-bold tracking-tight text-gray-900">
             {course.name}
           </h5>
           <div className="pb-2">
-            <p className="truncate">{course.description}</p>
+            <p className="truncate text-xs italic">
+              {typeof course.category === "object"
+                ? course.category.category
+                : course.category}
+            </p>
           </div>
         </div>
         <div className="pb-2">

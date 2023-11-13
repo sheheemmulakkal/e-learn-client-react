@@ -3,39 +3,34 @@ import { studentLogin, resendOtp } from "../../api/authenticationApi";
 import { userActions } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginValidation } from "../../validations/loginSchema";
+import { loginSchema } from "../../validations/loginSchema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+interface Credentials {
+  email: string;
+  password: string;
+}
 
 const StudentLoginForm = () => {
+  const [err, setErr] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [err, setErr] = useState("");
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Credentials>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const submitData = async (data: Credentials) => {
     setErr("");
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    setErr("");
-    event.preventDefault();
-    const result = loginValidation(formData);
-    if (!result.success) {
-      setErr(result.message!);
-      return;
-    }
-
     try {
-      dispatch(userActions.setEmail(result.credential!.email));
-      const response = await studentLogin(result.credential!);
+      dispatch(userActions.setEmail(data.email));
+      const response = await studentLogin(data);
       if (response) {
         dispatch(userActions.saveUser(response));
         navigate("/");
@@ -43,7 +38,7 @@ const StudentLoginForm = () => {
     } catch (error) {
       if (typeof error === "string") {
         if (error === "Not verified") {
-          await resendOtp(result.credential!.email);
+          await resendOtp(data.email);
           navigate("/verify-otp");
         } else {
           setErr(error);
@@ -58,28 +53,31 @@ const StudentLoginForm = () => {
     <div className="max-w-4/5 w-full flex justify-center py-2 md:py-5">
       <form
         action=""
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(submitData)}
         className="flex flex-col justify-center w-4/5 md:w-3/5"
       >
         <input
           type="email"
-          name="email"
-          id=""
-          value={formData.email}
+          {...register("email")}
           placeholder="Email"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
-
+        {errors.email && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.email.message}
+          </span>
+        )}
         <input
           type="password"
-          name="password"
-          id=""
+          {...register("password")}
           placeholder="Password"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
-
+        {errors.password && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.password.message}
+          </span>
+        )}
         {err && (
           <p className="my-2 rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}

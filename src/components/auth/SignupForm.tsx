@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-// import { useDispatch } from 'react-redux'
-import { studentSignup } from "../../api/authenticationApi";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { studentSignup } from "../../api/authenticationApi";
 import { userActions } from "../../redux/userSlice";
-import { signupValidation } from "../../validations/singnupSchema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schema } from "../../validations/singnupSchema";
 
 interface Credentials {
   firstname: string;
@@ -12,43 +13,24 @@ interface Credentials {
   email: string;
   mobile: number;
   password: string;
+  confirmpassword?: string;
 }
 const SignupForm: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const dispatch = useDispatch();
   const [err, setErr] = useState("");
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    mobile: "",
-    password: "",
-    confirmpassword: "",
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Credentials>({
+    resolver: zodResolver(schema),
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setErr("");
-    const { name, value } = event.target;
-    setFormData({
-      ...formData,
-      [name]: name === "mobile" ? (value === "" ? "" : value) : value,
-    });
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const credentials: {
-      success: boolean;
-      credential?: Credentials;
-      message?: string;
-    } = signupValidation(formData);
-    if (!credentials.success) {
-      setErr(credentials.message!);
-      return;
-    }
+  const submitData = async (data: Credentials) => {
     try {
-      const response = await studentSignup(credentials.credential!);
+      const response = await studentSignup(data);
       if (response?.success) {
         dispatch(userActions.setEmail(response.email));
         navigate("/verify-otp");
@@ -65,62 +47,75 @@ const SignupForm: React.FC = () => {
   return (
     <div className="max-w-4/5 w-full flex justify-center py-2 md:py-5">
       <form
-        action=""
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(submitData)}
         className="flex flex-col justify-center w-4/5 md:w-3/5"
       >
         <input
           type="text"
-          name="firstname"
-          id=""
-          value={formData.firstname}
+          {...register("firstname")}
           placeholder="First name"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
+        {errors.firstname && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.firstname.message}
+          </span>
+        )}
         <input
           type="text"
-          name="lastname"
-          id=""
-          value={formData.lastname}
+          {...register("lastname")}
           placeholder="Last name"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
+        {errors.lastname && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.lastname.message}
+          </span>
+        )}
         <input
           type="email"
-          name="email"
-          id=""
-          value={formData.email}
+          {...register("email")}
           placeholder="Email"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
+        {errors.email && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.email.message}
+          </span>
+        )}
         <input
           type="number"
-          name="mobile"
-          id=""
-          value={formData.mobile}
+          {...register("mobile", { valueAsNumber: true })}
           placeholder="mobile"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
+        {errors.mobile && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.mobile.message}
+          </span>
+        )}
         <input
           type="password"
-          name="password"
-          id=""
+          {...register("password")}
           placeholder="Password"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
+        {errors.password && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.password.message}
+          </span>
+        )}
         <input
           type="password"
-          name="confirmpassword"
-          id=""
+          {...register("confirmpassword")}
           placeholder="Confirm password"
-          onChange={handleInputChange}
           className="my-2 h-8 rounded-md border-0 border-black px-3 py-2 placeholder:italic shadow-md"
         />
+        {errors.confirmpassword && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.confirmpassword.message}
+          </span>
+        )}
         {err && (
           <p className="my-2  rounded-md border-2 border-red-950 bg-red-400 text-red-950 font-semibold px-3 pt-1">
             {err}

@@ -75,7 +75,7 @@ function StudentProfile() {
               </Link>
 
               <h1 className="cursor-pointer hover:underline text-blue-500 font-semibold pt-2">
-                Delete accound
+                Delete account
               </h1>
             </div>
           </div>

@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { AllCategories } from "../../dtos/AllCategories";
 import { useNavigate } from "react-router-dom";
-import { courseValidation } from "../../validations/courseValidation";
 import { addCourse } from "../../api/instructorApi";
+import { courseSchema } from "../../validations/courseValidation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+interface Credentials {
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  language: string;
+  level: string;
+}
 
 const AddCourseForm: React.FC<AllCategories> = ({
   categories,
@@ -10,54 +21,34 @@ const AddCourseForm: React.FC<AllCategories> = ({
   languages,
 }) => {
   const navigate = useNavigate();
+
   const [err, setErr] = useState("");
   const [success, setSuccess] = useState("");
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    price: "",
-    level: "",
-    language: "",
-    category: "",
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Credentials>({
+    resolver: zodResolver(courseSchema),
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
+  const submitData = async (data: Credentials) => {
     setErr("");
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === "price" ? (value === "" ? "" : value) : value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Handle form submission here, e.g., send data to the server
-    const result = courseValidation(formData);
-    if (result.success) {
-      try {
-        const response = await addCourse(result.courseData!);
-        if (response) {
-          setSuccess("Course successfully added");
-          setTimeout(() => navigate("/instructor/my-courses"), 2000);
-        }
-      } catch (error) {
-        if (typeof error === "string") {
-          setErr(error);
-        }
+    try {
+      const response = await addCourse(data);
+      if (response) {
+        setSuccess("Course successfully added");
+        setTimeout(() => navigate("/instructor/my-courses"), 2000);
       }
-    } else {
-      setErr(result.message!);
+    } catch (error) {
+      if (typeof error === "string") {
+        setErr(error);
+      }
     }
-
-    console.log(result);
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(submitData)} className="italic">
       {err && (
         <div className="err">
           <h3 className="text-red-900 font-semibold bg-red-400 w-full py-2 px-3 border-2 rounded-md">
@@ -72,12 +63,15 @@ const AddCourseForm: React.FC<AllCategories> = ({
         <input
           type="text"
           id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-lg"
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
           required
+          {...register("name")}
         />
+        {errors.name && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.name.message}
+          </span>
+        )}
       </div>
 
       <div className="mb-4">
@@ -86,12 +80,15 @@ const AddCourseForm: React.FC<AllCategories> = ({
         </label>
         <textarea
           id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-lg"
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
           required
+          {...register("description")}
         />
+        {errors.description && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.description.message}
+          </span>
+        )}
       </div>
 
       <div className="mb-4">
@@ -101,12 +98,15 @@ const AddCourseForm: React.FC<AllCategories> = ({
         <input
           type="number"
           id="price"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-lg"
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
           required
+          {...register("price", { valueAsNumber: true })}
         />
+        {errors.price && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.price.message}
+          </span>
+        )}
       </div>
 
       <div className="mb-4">
@@ -115,13 +115,13 @@ const AddCourseForm: React.FC<AllCategories> = ({
         </label>
         <select
           id="level"
-          name="level"
-          value={formData.level}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-lg"
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
+          {...register("level")}
           required
         >
-          <option value="">Select Level</option>
+          <option className="py-3" value="">
+            Select Level
+          </option>
           {levels.map((level) => (
             <option className="py-3" value={level.id}>
               {level.level}
@@ -129,6 +129,11 @@ const AddCourseForm: React.FC<AllCategories> = ({
           ))}
           {/* Add options for levels */}
         </select>
+        {errors.level && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.level.message}
+          </span>
+        )}
       </div>
 
       <div className="mb-4">
@@ -136,11 +141,8 @@ const AddCourseForm: React.FC<AllCategories> = ({
           Language:
         </label>
         <select
-          id="language"
-          name="language"
-          value={formData.language}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-lg"
+          {...register("language")}
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
           required
         >
           <option value="">Select Language</option>
@@ -148,6 +150,11 @@ const AddCourseForm: React.FC<AllCategories> = ({
             <option value={language.id}>{language.language}</option>
           ))}
         </select>
+        {errors.language && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.language.message}
+          </span>
+        )}
       </div>
 
       <div className="mb-4">
@@ -156,10 +163,8 @@ const AddCourseForm: React.FC<AllCategories> = ({
         </label>
         <select
           id="category"
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border rounded-lg"
+          {...register("category")}
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
           required
         >
           <option value="">Select Category</option>
@@ -167,6 +172,11 @@ const AddCourseForm: React.FC<AllCategories> = ({
             <option value={category.id}>{category.category}</option>
           ))}
         </select>
+        {errors.category && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.category.message}
+          </span>
+        )}
       </div>
 
       <div className="mt-6">
