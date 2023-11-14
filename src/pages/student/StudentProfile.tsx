@@ -1,9 +1,38 @@
-import Navbar from "../../components/navbar/Navbar";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import Navbar from "../../components/navbar/Navbar";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../redux/userSlice";
 import { RootState } from "../../redux/store";
+import React, { useState } from "react";
+import { updateProfileImage } from "../../api/studentApi";
+
 function StudentProfile() {
   const user = useSelector((store: RootState) => store.user.user);
+
+  const dispatch = useDispatch();
+  const [err, setErr] = useState("");
+  const [updating, setUpdating] = useState(false);
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      try {
+        setUpdating(true);
+        const response = await updateProfileImage(file);
+        if (response) {
+          dispatch(userActions.saveUser({ ...response, role: "student" }));
+          setUpdating(false);
+        }
+      } catch (error) {
+        setErr("Fail to update image");
+        setTimeout(() => {
+          setErr("");
+        }, 1000);
+      }
+    }
+  };
 
   return (
     <>
@@ -12,8 +41,31 @@ function StudentProfile() {
         <div className=" justify-center grid grid-cols-1 md:grid-cols-3 mt-28 w-full">
           <div className="flex  w-full flex-col justify-center items-center h-64">
             <div className="shadow-md rounded-md flex w-3/5 flex-col min-h-full justify-center items-center border pb-4 ">
-              <div className="w-2/5 py-6 flex justify-center">
-                <img src="/banners/profile.png" className="w-4/5" alt="" />
+              <div className="w-2/5 py-6 flex justify-center rounded-md">
+                <label htmlFor="fileInput" className="cursor-pointer w-4/5">
+                  {err && <p className="text-red-700 text-xs">{err}</p>}
+                  {updating ? (
+                    <div
+                      className="w-12 h-12 rounded-full animate-spin
+                      border-8 border-solid border-blue-700 border-t-transparent"
+                    ></div>
+                  ) : (
+                    <img
+                      src={
+                        user?.image ? `${user?.image}` : "/banners/profile.png"
+                      }
+                      className={"rounded-sm object-cover"}
+                      alt=""
+                    />
+                  )}
+                </label>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
               </div>
               <h1 className="text-lg font-bold">
                 {user?.firstname + " " + user?.lastname}

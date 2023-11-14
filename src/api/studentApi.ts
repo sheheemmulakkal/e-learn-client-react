@@ -36,4 +36,41 @@ const changePassword = async (newPassword: string, currentPassword: string) => {
   }
 };
 
-export { getCourses, changePassword };
+const updateProfileImage = async (file: File) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", file);
+    const response = await axiosAuthorized.put(
+      "/update-profile-image",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    if (response.data) {
+      return Promise.resolve(response.data);
+    } else {
+      return Promise.reject("Upload image failed");
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
+
+export { getCourses, changePassword, updateProfileImage };

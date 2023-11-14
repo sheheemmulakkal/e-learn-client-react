@@ -6,6 +6,7 @@ export interface User {
   profile?: string;
   role?: string;
   mobile?: number;
+  image?: string;
   wallet?: number;
   status?: boolean;
 }
