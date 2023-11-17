@@ -39,6 +39,7 @@ function CategoryList() {
     e.preventDefault();
     if (formData.trim() === "") {
       setErr("Enter valid category");
+      return;
     }
     try {
       if (editCategoryId) {
@@ -127,7 +128,7 @@ function CategoryList() {
                   setEditCategoryId("");
                   setFormData("");
                 }}
-                className={`text-white mt-2 bg-blue-600 font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2`}
+                className={`text-white mt-2 bg-blue-600 font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
               >
                 Add category
               </button>
@@ -147,12 +148,12 @@ function CategoryList() {
                     setErr(null);
                     setFormData(e.target.value);
                   }}
-                  className="px-6 py-1 rounded-lg border border-gray-300 my-2"
+                  className="px-6 py-1 rounded-sm border border-gray-300 my-2"
                   placeholder="New category"
                 />
                 <button
                   type="submit"
-                  className="text-white mt-2 bg-sky-800 mx-2 font-medium rounded-lg text-sm px-5 py-1"
+                  className="text-white mt-2 bg-sky-800 mx-2 font-medium rounded-sm text-sm px-5 py-1"
                 >
                   {editCategoryId ? "Save" : "Submit"}
                 </button>
@@ -162,7 +163,7 @@ function CategoryList() {
           {err && showForm && (
             <h3 className="font-bold text-red-600 pb-2">{err}</h3>
           )}
-          <div className=" overflow-x-auto shadow-md sm:rounded-lg">
+          <div className=" overflow-x-auto shadow-md sm:rounded-sm">
             <table className="w-full text-sm text-left text-gray-500">
               <thead className="text-xs text-white uppercase bg-sky-800 ">
                 <tr>
@@ -197,7 +198,7 @@ function CategoryList() {
                             !category.status
                               ? "bg-red-700 hover:bg-red-800"
                               : "bg-green-700 hover:bg-green-800"
-                          } font-medium rounded-lg text-sm px-5 py-1 mr-2 mb-2`}
+                          } font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
                         >
                           {!category.status ? "Unlisted" : "Listed"}
                         </button>
@@ -207,7 +208,7 @@ function CategoryList() {
                             setShowForm(!showForm);
                             handleEdit(category);
                           }}
-                          className={`text-white mt-2 bg-black font-medium rounded-lg text-sm px-5 py-1 mr-2 mb-2`}
+                          className={`text-white mt-2 bg-black font-medium rounded-sm text-sm px-5 py-1 mr-2 mb-2`}
                         >
                           Edit
                         </button>

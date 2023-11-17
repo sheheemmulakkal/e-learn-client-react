@@ -5,3 +5,4 @@ export { default as Categories } from "./Categories";
 export { default as CourseListTable } from "./CourseListTable";
 export { default as InstructorsList } from "./InstructorsList";
 export { default as StudentsList } from "./StudentsList";
+export { default as SingleCourseAdmin } from "./SingleCourseAdmin";

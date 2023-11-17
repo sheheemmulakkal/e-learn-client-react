@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Course } from "../../dtos/Course";
 import { getAllCourses, approveCourse, rejectCourse } from "../../api/adminApi";
+import { useNavigate } from "react-router-dom";
 
 const CourseList = () => {
   const [courses, setCourses] = useState<Course[]>([]);
-
+  const navigate = useNavigate();
   const getCourses = async () => {
     try {
       const response: Course[] = await getAllCourses();
       setCourses(response);
-      console.log(courses);
     } catch (error) {
       console.log(error);
     }
@@ -49,9 +49,9 @@ const CourseList = () => {
 
   return (
     <div>
-      <div className="px-20">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-28">
-          <table className="w-full text-sm text-left text-gray-500">
+      <div className="py-20 px-16">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-sm mt-14">
+          <table className="w-full text-sm text-left text-gray-500 pr-6">
             <thead className="text-xs text-white uppercase bg-sky-800 ">
               <tr>
                 <th scope="col" className="px-6 py-3">
@@ -76,7 +76,16 @@ const CourseList = () => {
               {courses &&
                 courses.map((course) => (
                   <tr key={course.id} className="bg-white border-b font-medium">
-                    <td className="px-6 py-4">{course.name}</td>
+                    <td
+                      className="px-6 py-4 cursor-pointer text-blue-800 hover:underline"
+                      onClick={() => {
+                        navigate("/admin/view-course", {
+                          state: { courseId: course.id },
+                        });
+                      }}
+                    >
+                      {course.name}
+                    </td>
                     <td className="px-6 py-4 max-w-xs truncate">
                       {course.description}
                     </td>
@@ -91,24 +100,7 @@ const CourseList = () => {
                         ? course.category!.category
                         : course.category}
                     </td>
-                    <td>
-                      {/* <button
-                        type="button"
-                        onClick={(e) => {
-                          if (user.isBlocked) {
-                            handleReject(course.id, e);
-                          } else {
-                            handleApproval(course.id, e);
-                          }
-                        }}
-                        className={`text-white mt-2 ${
-                          coures.approval
-                            ? "bg-red-700 hover:bg-red-800"
-                            : "bg-green-700 hover:bg-green-800"
-                        } font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2`}
-                      >
-                        {user.isBlocked ? "Blocked" : "Active"}
-                      </button> */}
+                    <td className="px-6 py-4">
                       {course.approval === "pending" ? (
                         <div>
                           <button

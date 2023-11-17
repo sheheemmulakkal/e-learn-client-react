@@ -8,6 +8,7 @@ import {
   AddCourse,
   InstructorHome,
   Instructor,
+  CourseOverview,
 } from "../pages/instructor/index";
 import {
   StudentHome,
@@ -16,6 +17,8 @@ import {
   StudentProfile,
   VerifyOtp,
   ChangePassword,
+  Courses,
+  SingleCourseStudent,
 } from "../pages/student/index";
 import {
   Admin,
@@ -25,6 +28,7 @@ import {
   Categories,
   AdminDashboard,
   CourseListTable,
+  SingleCourseAdmin,
 } from "../pages/admin/index";
 
 import { Roles } from "../dtos/Roles";
@@ -44,6 +48,7 @@ const RoutePage = () => {
           <Route path="instructor-list" element={<InstructorsList />} />
           <Route path="categories" element={<Categories />} />
           <Route path="courses" element={<CourseListTable />} />
+          <Route path="view-course" element={<SingleCourseAdmin />} />
         </Route>
         <Route
           path="/instructor"
@@ -57,6 +62,7 @@ const RoutePage = () => {
           <Route index={true} element={<InstructorHome />} />
           <Route path="add-course" element={<AddCourse />} />
           <Route path="my-courses" element={<MyCourses />} />
+          <Route path="course-overview" element={<CourseOverview />} />
         </Route>
         <Route
           path="/instructor/login"
@@ -108,6 +114,8 @@ const RoutePage = () => {
             />
           }
         />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/view-course" element={<SingleCourseStudent />} />
         <Route path="/" element={<StudentHome />} />
       </Routes>
     </>

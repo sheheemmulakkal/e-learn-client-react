@@ -73,4 +73,13 @@ const updateProfileImage = async (file: File) => {
   }
 };
 
-export { getCourses, changePassword, updateProfileImage };
+const getSingleCourse = async (courseId: string) => {
+  try {
+    const response = await axiosInstance.get(`/course/${courseId}`);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export { getCourses, changePassword, updateProfileImage, getSingleCourse };

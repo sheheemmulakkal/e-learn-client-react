@@ -1,4 +1,5 @@
 import { Module } from "./module";
+import { User } from "./User";
 
 type Catgory = {
   category?: string;
@@ -20,10 +21,12 @@ export interface Course {
   name?: string;
   description?: string;
   price?: number;
+  image?: string;
   level?: string | Level;
   category?: string | Catgory;
   language?: string | Language;
   approval?: string;
+  instructor?: string | User;
   status?: boolean;
   modules?: { module: string | Module; order: number }[];
 }

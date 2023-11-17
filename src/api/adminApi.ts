@@ -217,7 +217,6 @@ const listLanguage = async (languageId: string) => {
       languageId,
     });
     const { success } = response.data;
-
     return Promise.resolve(success);
   } catch (error) {
     return Promise.reject();
@@ -230,7 +229,6 @@ const unlistLanguage = async (languageId: string) => {
       languageId,
     });
     const { success } = response.data;
-
     return Promise.resolve(success);
   } catch (error) {
     return Promise.reject();
@@ -268,6 +266,15 @@ const rejectCourse = async (courseId: string) => {
   }
 };
 
+const getSingleCourse = async (courseId: string) => {
+  try {
+    const response = await axiosAuthorized.get(`/admin/course/${courseId}`);
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
+
 // const getLevelList = async () => {
 //   try {
 //     const response = await axiosAuthorized.get("/admin/")
@@ -297,4 +304,5 @@ export {
   getAllCourses,
   approveCourse,
   rejectCourse,
+  getSingleCourse,
 };

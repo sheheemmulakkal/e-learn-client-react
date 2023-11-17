@@ -1,15 +1,17 @@
 import React from "react";
 import { Course } from "../../dtos/Course";
+import { useNavigate } from "react-router-dom";
 
 interface SingleCourseProps {
   course: Course;
 }
 const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
+  const navigate = useNavigate();
   return (
-    <div className="max-w-[270px] bg-white border border-gray-200 rounded-md shadow">
-      <div>
+    <div className="max-w-[270px] bg-white border border-gray-200 rounded-sm shadow">
+      <div className="">
         <img
-          className="p-4 rounded-t-lg"
+          className="p-4 rounded-t-sm"
           src="/banners/nodejs.png"
           alt="product image"
         />
@@ -42,7 +44,14 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
           <span className="text-md font-bold text-gray-900">
             ${course.price}
           </span>
-          <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-1 text-center">
+          <button
+            onClick={() => {
+              navigate("/instructor/course-overview", {
+                state: { courseId: course.id },
+              });
+            }}
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-3 py-1 text-center"
+          >
             View course
           </button>
         </div>

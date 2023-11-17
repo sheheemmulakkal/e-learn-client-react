@@ -61,7 +61,7 @@ function InstructorsList() {
   return (
     <div>
       <div className="px-20">
-        <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-28">
+        <div className="relative overflow-x-auto shadow-md sm:rounded-sm mt-28">
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-white uppercase bg-sky-800 ">
               <tr>
@@ -104,7 +104,7 @@ function InstructorsList() {
                           user.isBlocked
                             ? "bg-red-700 hover:bg-red-800"
                             : "bg-green-700 hover:bg-green-800"
-                        } font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2`}
+                        } font-medium rounded-sm text-sm px-5 py-2 mr-2 mb-2`}
                       >
                         {user.isBlocked ? "Blocked" : "Active"}
                       </button>
