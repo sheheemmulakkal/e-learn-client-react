@@ -82,4 +82,41 @@ const getSingleCourse = async (courseId: string) => {
   }
 };
 
-export { getCourses, changePassword, updateProfileImage, getSingleCourse };
+const updateProfile = async (details: {
+  firstname: string;
+  lastname: string;
+}) => {
+  try {
+    const response = await axiosAuthorized.put("/update-profile", details);
+    console.log(details, "det");
+
+    if (response) {
+      return Promise.resolve(response.data);
+    }
+  } catch (error) {
+    console.log(error);
+
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
+
+export {
+  getCourses,
+  changePassword,
+  updateProfileImage,
+  getSingleCourse,
+  updateProfile,
+};

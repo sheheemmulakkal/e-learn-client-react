@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { RootState } from "../../redux/store";
 import React, { useState } from "react";
-import { updateProfileImage } from "../../api/studentApi";
+import { updateProfileImage, updateProfile } from "../../api/studentApi";
+import EditProfileModal from "../../components/student/EditProfileModal";
 
 function StudentProfile() {
   const user = useSelector((store: RootState) => store.user.user);
@@ -12,6 +13,35 @@ function StudentProfile() {
   const dispatch = useDispatch();
   const [err, setErr] = useState("");
   const [updating, setUpdating] = useState(false);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+
+  const handleAddModuleClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
+  const handleAddModuleSubmit = async (moduleData: {
+    firstname: string;
+    lastname: string;
+  }) => {
+    try {
+      const response = await updateProfile({
+        firstname: moduleData.firstname,
+        lastname: moduleData.lastname,
+      });
+      if (response) {
+        dispatch(userActions.saveUser({ ...response, role: "student" }));
+        return { success: true };
+      } else {
+        return { success: false };
+      }
+    } catch (error) {
+      return { success: false };
+    }
+  };
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -71,9 +101,18 @@ function StudentProfile() {
                 {user?.firstname + " " + user?.lastname}
               </h1>
               <h1 className="text-base font-semibold">{user?.email}</h1>
-              <h1 className="text-sm pt-4 font-semibold text-blue-500 cursor-pointer">
+              <h1
+                className="text-sm pt-4 font-semibold text-blue-500 cursor-pointer"
+                onClick={handleAddModuleClick}
+              >
                 Edit profile
               </h1>
+              {showPopup && (
+                <EditProfileModal
+                  onClose={handleClosePopup}
+                  onSubmit={handleAddModuleSubmit}
+                />
+              )}
             </div>
           </div>
 
