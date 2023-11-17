@@ -113,10 +113,22 @@ const updateProfile = async (details: {
   }
 };
 
+const searchCourse = async (searchKey: string) => {
+  try {
+    const response = await axiosInstance.get(
+      `search-course?search=${searchKey}`
+    );
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
   getCourses,
   changePassword,
   updateProfileImage,
   getSingleCourse,
   updateProfile,
+  searchCourse,
 };
