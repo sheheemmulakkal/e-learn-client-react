@@ -5,18 +5,20 @@ const StudentHome: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex w-full h-screen bg-gray-50">
+      <div className="flex w-screen h-[60vh] md:h-screen bg-gray-50">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-gray-50">
           <div className="flex flex-col justify-center items-center">
-            <h4 className="font-medium text-2xl text-sky-900 text-left">
+            <h4 className="font-medium text-2xl text-sky-900 text-center md:text-left">
               Explore with
             </h4>
             <h1 className=" font-extrabold text-sky-900 text-6xl text-left">
               EduVista
             </h1>
-            <p className="text-sky-900">
+            <p className="text-sky-900 md:w-screen w-3/5 text-center pt-4">
               Embrace Learning, Embrace Success – Your Journey Begins Now.
             </p>
+
+            <button className="bg-sky-800 text-white px-5 py-2">Explore</button>
           </div>
           <div className="hidden md:flex justify-center items-center">
             <div className="p-36">
@@ -25,7 +27,7 @@ const StudentHome: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className=" flex flex-row pl-10 py-9">
+      <div className=" flex flex-row overflow-hidden pl-10 py-9">
         <NewCourses />
       </div>
     </>

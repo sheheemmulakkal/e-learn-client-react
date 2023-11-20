@@ -24,8 +24,8 @@ const SingleCourseView = () => {
   }, []);
   return (
     <>
-      <div className="pt-24 p-6 flex justify-center bg-slate-100">
-        <div className="p-6 shadow-lg container grid grid-cols-1 md:grid-cols-3 bg-white">
+      <div className="pt-24 p-4 flex justify-center bg-slate-100">
+        <div className="p-6 shadow-sm container border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 grid grid-cols-1 md:grid-cols-3 bg-white">
           <div className="px-8 md:max-w-[300px]  flex justify-center items-center">
             {course?.image ? (
               <img src={course.image} alt="" />
@@ -68,14 +68,14 @@ const SingleCourseView = () => {
               {"₹ "}
               {course?.price}
             </h2>
-            <button className="px-6 py-2 shadow-lg rounded-sm bg-black text-white font-bold">
+            <button className="px-6 py-2 shadow-sm rounded-sm bg-black text-white font-bold">
               Enroll now
             </button>
           </div>
         </div>
       </div>
-      <div className="pt-1 p-6 flex justify-center bg-slate-100">
-        <div className="p-6 shadow-lg container bg-white">
+      <div className="pt-1 p-4 flex justify-center  bg-slate-100">
+        <div className="p-6 shadow-sm  border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 container bg-white">
           <div className="w-full flex justify-between px-3">
             <h1 className="font-bold text-lg">Modules</h1>
           </div>
@@ -113,8 +113,8 @@ const SingleCourseView = () => {
           )}
         </div>
       </div>
-      <div className="pt-1 p-6 flex justify-center bg-slate-100">
-        <div className="p-6 shadow-lg container bg-white">
+      <div className="pt-1 p-4 flex justify-center bg-slate-100">
+        <div className="p-6 shadow-sm  border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 container bg-white">
           <div className="w-full px-3">
             <h1 className="font-bold text-lg">Description</h1>
           </div>
@@ -123,8 +123,8 @@ const SingleCourseView = () => {
           </div>
         </div>
       </div>
-      <div className="pt-1 p-6 flex justify-center bg-slate-100">
-        <div className="p-6 shadow-lg container bg-white">
+      <div className="pt-1 p-4 flex justify-center bg-slate-100">
+        <div className="p-6 shadow-sm border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 container bg-white">
           <div className="w-full px-3 pb-4">
             <h1 className="font-bold text-lg">About Instructor</h1>
           </div>
