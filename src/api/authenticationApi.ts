@@ -18,7 +18,7 @@ interface InstructorCredentials {
 
 interface AdminCredentials {
   email: string;
-  password: string
+  password: string;
 }
 
 const studentSignup = async (
@@ -183,12 +183,117 @@ const instructorLogin = async (
   }
 };
 
+const studentOtpVerfication = async (email: string, otp: string) => {
+  try {
+    const response = await axiosInstance.post<{ success: boolean }>(
+      "/verify-forgot-password-otp",
+      {
+        email,
+        otp,
+      }
+    );
+    return Promise.resolve(response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
+
+const updateStudentForgotPassword = async (email: string, password: string) => {
+  try {
+    const response = await axiosInstance.post("/forgot-password", {
+      email,
+      password,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
+
+const updateInstructorForgotPassword = async (
+  email: string,
+  password: string
+) => {
+  try {
+    const response = await axiosInstance.post("/instructor/forgot-password", {
+      email,
+      password,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
+
+const InstructorOtpVerfication = async (email: string, otp: string) => {
+  try {
+    const response = await axiosInstance.post<{ success: boolean }>(
+      "/instructor/verify-forgot-password-otp",
+      { email, otp }
+    );
+    return Promise.resolve(response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
 
 const adminLogin = async (adminCredentials: AdminCredentials) => {
   try {
-    const response = await axiosInstance.post("/admin/login", adminCredentials)
+    const response = await axiosInstance.post("/admin/login", adminCredentials);
     const { token, success } = response.data;
-    if( success ) {
+    if (success) {
       localStorage.setItem("token", token);
     }
     return Promise.resolve(response.data.admin);
@@ -211,8 +316,8 @@ const adminLogin = async (adminCredentials: AdminCredentials) => {
 };
 
 const userLogout = async () => {
-  localStorage.removeItem("token")
-}
+  localStorage.removeItem("token");
+};
 
 export {
   studentSignup,
@@ -224,6 +329,9 @@ export {
   InstructorResendOtp,
   InstructorVerifyOtp,
   adminLogin,
-
-  userLogout
+  studentOtpVerfication,
+  InstructorOtpVerfication,
+  updateStudentForgotPassword,
+  updateInstructorForgotPassword,
+  userLogout,
 };

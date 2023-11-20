@@ -1,5 +1,5 @@
-import InstructorLoginForm from "../../components/auth/InstructorLoginForm"
-import { Link } from "react-router-dom"
+import InstructorLoginForm from "../../components/auth/InstructorLoginForm";
+import { Link } from "react-router-dom";
 
 const InstructorLogin = () => {
   return (
@@ -20,18 +20,25 @@ const InstructorLogin = () => {
           <p className="text-center text-sm">
             Don't have an account!{" "}
             <Link to={"/instructor/signup"}>
-                <span className="text-sky-600 cursor-pointer hover:text-sky-900 hover:underline">Sign up</span>
+              <span className="text-sky-600 cursor-pointer hover:text-sky-900 hover:underline">
+                Sign up
+              </span>
             </Link>
           </p>
           <Link to={"/login"}>
-          <p className="text-center text-sm text-sky-600 cursor-pointer underline">
-            Login as Student
-          </p>
+            <p className="text-center text-sm text-sky-600 cursor-pointer underline">
+              Login as Student
+            </p>
+          </Link>
+          <Link to={"/instructor/forgot-password"}>
+            <p className="text-center py-2 text-sm text-sky-600 cursor-pointer">
+              Forgot password
+            </p>
           </Link>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default InstructorLogin
+export default InstructorLogin;

@@ -1,17 +1,17 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import {
-  verifyOtp,
-  resendOtp,
+  InstructorOtpVerfication,
+  studentOtpVerfication,
   InstructorResendOtp,
-  InstructorVerifyOtp,
+  resendOtp,
 } from "../../api/authenticationApi";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { userActions } from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
-  const dispatch = useDispatch();
+const ForgotPasswordOtpVerificationForm: React.FC<{ isInstructor: boolean }> = (
+  props
+) => {
   const navigate = useNavigate();
 
   const [otp, setOtp] = useState("");
@@ -21,22 +21,24 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
   const email = useSelector((store: RootState) => store.user.userEmail);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setErr("");
     setOtp(e.target.value);
   };
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setErr("");
     e.preventDefault();
     try {
       if (!props.isInstructor) {
-        const response = await verifyOtp(otp, email!);
-        if (response) {
-          dispatch(userActions.saveUser(response));
-          navigate("/");
+        const response: { success?: boolean } | undefined =
+          await studentOtpVerfication(email!, otp);
+        if (response && response["success"]) {
+          navigate("/update-forgot-password");
         }
       } else {
-        const response = await InstructorVerifyOtp(otp, email!);
-        if (response) {
-          dispatch(userActions.saveUser(response));
-          navigate("/instructor");
+        const response: { success?: boolean } | undefined =
+          await InstructorOtpVerfication(email!, otp);
+        if (response && response["success"]) {
+          navigate("/instructor/update-forgot-password");
         }
       }
     } catch (error) {
@@ -77,6 +79,7 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
         <h1 className="text-center mb-10 font-bold text-xl text-sky-800">
           Verify OTP
         </h1>
+        <p>Enter password</p>
         <input
           type="number"
           name="firstname"
@@ -116,4 +119,4 @@ const OtpVerificationForm: React.FC<{ isInstructor: boolean }> = (props) => {
   );
 };
 
-export default OtpVerificationForm;
+export default ForgotPasswordOtpVerificationForm;

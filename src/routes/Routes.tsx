@@ -9,6 +9,8 @@ import {
   InstructorHome,
   Instructor,
   CourseOverview,
+  InstructorEnterMailForgotPassword,
+  InstructorForgotPassword,
 } from "../pages/instructor/index";
 import {
   StudentHome,
@@ -19,6 +21,8 @@ import {
   ChangePassword,
   Courses,
   SingleCourseStudent,
+  EnterMailForgotPassword,
+  StudnetForgotPassword,
 } from "../pages/student/index";
 import {
   Admin,
@@ -75,8 +79,32 @@ const RoutePage = () => {
         <Route
           path="/instructor/verify-otp"
           element={
-            <AuthProtected element={<VerifyOtp isInstructor={true} />} />
+            <AuthProtected
+              element={
+                <VerifyOtp isForgotPassword={false} isInstructor={true} />
+              }
+            />
           }
+        />
+        <Route
+          path="/instructor/forgot-password"
+          element={
+            <AuthProtected element={<InstructorEnterMailForgotPassword />} />
+          }
+        />
+        <Route
+          path="/instructor/forgot-password-otp-verfication"
+          element={
+            <AuthProtected
+              element={
+                <VerifyOtp isForgotPassword={true} isInstructor={true} />
+              }
+            />
+          }
+        />
+        <Route
+          path="/instructor/update-forgot-password"
+          element={<AuthProtected element={<InstructorForgotPassword />} />}
         />
         <Route
           path="/admin/login"
@@ -93,9 +121,32 @@ const RoutePage = () => {
         <Route
           path="/verify-otp"
           element={
-            <AuthProtected element={<VerifyOtp isInstructor={false} />} />
+            <AuthProtected
+              element={
+                <VerifyOtp isForgotPassword={false} isInstructor={false} />
+              }
+            />
           }
         />
+        <Route
+          path="/forgot-password"
+          element={<AuthProtected element={<EnterMailForgotPassword />} />}
+        />
+        <Route
+          path="/forgot-password-otp-verfication"
+          element={
+            <AuthProtected
+              element={
+                <VerifyOtp isForgotPassword={true} isInstructor={false} />
+              }
+            />
+          }
+        />
+        <Route
+          path="/update-forgot-password"
+          element={<AuthProtected element={<StudnetForgotPassword />} />}
+        />
+
         <Route
           path="/profile"
           element={

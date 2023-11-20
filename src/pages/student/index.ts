@@ -6,3 +6,5 @@ export { default as VerifyOtp } from "./VerifyOtp";
 export { default as ChangePassword } from "./ChangePassword";
 export { default as Courses } from "./Courses";
 export { default as SingleCourseStudent } from "./SingleCourseStudent";
+export { default as EnterMailForgotPassword } from "./EnterMailForgotPassword";
+export { default as StudnetForgotPassword } from "./StudnetForgotPassword";

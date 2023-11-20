@@ -33,6 +33,11 @@ const StudentLogin = () => {
               Login as Instructor
             </p>
           </Link>
+          <Link to={"/forgot-password"}>
+            <p className="text-center py-2 text-sm text-sky-600 cursor-pointer">
+              Forgot password ?
+            </p>
+          </Link>
         </div>
       </div>
     </div>
