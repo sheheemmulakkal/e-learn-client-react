@@ -9,10 +9,10 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
   const navigate = useNavigate();
   return (
     <div className="max-w-[270px] bg-white border border-gray-200 rounded-sm shadow">
-      <div className="">
+      <div className=" flex justify-center ">
         <img
-          className="p-4 rounded-t-sm"
-          src="/banners/nodejs.png"
+          className="rounded-t-sm h-44 object-cover"
+          src={course.image ? course.image : "/image not found.png"}
           alt="product image"
         />
       </div>

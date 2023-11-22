@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import SingleCourse from "../../components/instructor/SingleCourse";
 import { getMyCourses } from "../../api/instructorApi";
 import { Course } from "../../dtos/Course";
+import CardSkeleton from "../../components/common/utils/CardSkeleton";
 
 const MyCourses = () => {
   const [courses, setCourses] = useState<Course[]>([]);
+  const [loader, setLoader] = useState(true);
+
   const myCourses = async () => {
+    setLoader(true);
     const response: Course[] = await getMyCourses();
     setCourses(response);
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -22,6 +27,16 @@ const MyCourses = () => {
           {courses.map((course) => (
             <SingleCourse course={course} />
           ))}
+          {loader && (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          )}
         </div>
       </div>
     </div>

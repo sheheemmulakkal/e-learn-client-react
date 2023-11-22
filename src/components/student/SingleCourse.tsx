@@ -20,7 +20,7 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
     >
       <div className="w-[270px] flex justify-center ">
         <img
-          className=" rounded-t-sm h-44 object-contain"
+          className=" rounded-t-sm h-44 object-cover"
           src={course.image ? course.image : "/image not found.png"}
           alt="product image"
         />
