@@ -13,6 +13,8 @@
     "@hookform/resolvers": "^3.3.2",
     "@material-tailwind/react": "^2.1.4",
     "@reduxjs/toolkit": "^1.9.7",
+    "@stripe/react-stripe-js": "^2.4.0",
+    "@stripe/stripe-js": "^2.2.0",
     "@types/axios": "^0.14.0",
     "axios": "^1.6.0",
     "flowbite": "^2.0.0",

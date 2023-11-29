@@ -9,4 +9,5 @@ export interface User {
   image?: string;
   wallet?: number;
   status?: boolean;
+  courses?: string[];
 }

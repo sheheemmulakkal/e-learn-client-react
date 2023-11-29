@@ -23,6 +23,7 @@ import {
   SingleCourseStudent,
   EnterMailForgotPassword,
   StudnetForgotPassword,
+  StripeStatus,
 } from "../pages/student/index";
 import {
   Admin,
@@ -164,6 +165,10 @@ const RoutePage = () => {
               element={<ChangePassword />}
             />
           }
+        />
+        <Route
+          path="/status"
+          element={<ProtectedRoute element={<StripeStatus />} />}
         />
         <Route path="/courses" element={<Courses />} />
         <Route path="/view-course" element={<SingleCourseStudent />} />

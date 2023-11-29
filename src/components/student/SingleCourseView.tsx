@@ -1,18 +1,41 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Course } from "../../dtos/Course";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
-import { getSingleCourse } from "../../api/studentApi";
+import { getSingleCourse, courseEnroll } from "../../api/studentApi";
 
 const SingleCourseView = () => {
+  const user = useSelector((store: RootState) => store.user.user);
+  const navigate = useNavigate();
   const location = useLocation();
   const [course, setCourse] = useState<Course>();
+  const [enrolled, setEnrolled] = useState<boolean>(false);
 
+  const handleEnroll = async () => {
+    if (!user) {
+      navigate("/login");
+    } else {
+      try {
+        const response = await courseEnroll(course!.id!);
+        if (response) {
+          window.location.href = response;
+        }
+        console.log(response, "enrol");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
   const getCourse = async () => {
     try {
       const response = await getSingleCourse(location.state.courseId);
       if (response) {
         setCourse(response);
+        if (user?.courses?.includes(response.id)) {
+          setEnrolled(true);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -49,28 +72,31 @@ const SingleCourseView = () => {
                 ? course.language.language
                 : course?.language}
             </h5>
-            {course?.approval === "approved" && (
-              <h4 className="text-base font-semibold text-green-600">
-                Approved
-              </h4>
-            )}
-            {course?.approval === "rejected" && (
-              <h4 className="text-base font-semibold text-red-600">Rejected</h4>
-            )}
 
-            <h2 className="font-bold">
+            <h2 className="font-bold py-2">
               {"Instructor: "}
               {typeof course?.instructor === "object"
                 ? `${course.instructor.firstname} ${course.instructor.lastname}`
                 : course?.instructor}
             </h2>
-            <h2 className="font-bold py-2">
-              {"₹ "}
-              {course?.price}
-            </h2>
-            <button className="px-6 py-2 shadow-sm rounded-sm bg-black text-white font-bold">
-              Enroll now
-            </button>
+            {!enrolled && (
+              <h2 className="font-bold py-2">
+                {"₹ "}
+                {course?.price}
+              </h2>
+            )}
+            {enrolled ? (
+              <button className="px-6 py-2 shadow-sm rounded-sm bg-black text-white font-bold">
+                Go to Course
+              </button>
+            ) : (
+              <button
+                className="px-6 py-2 shadow-sm rounded-sm bg-black text-white font-bold"
+                onClick={handleEnroll}
+              >
+                Enroll now
+              </button>
+            )}
           </div>
         </div>
       </div>

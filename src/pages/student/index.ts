@@ -8,3 +8,4 @@ export { default as Courses } from "./Courses";
 export { default as SingleCourseStudent } from "./SingleCourseStudent";
 export { default as EnterMailForgotPassword } from "./EnterMailForgotPassword";
 export { default as StudnetForgotPassword } from "./StudnetForgotPassword";
+export { default as StripeStatus } from "./StripeStatus";

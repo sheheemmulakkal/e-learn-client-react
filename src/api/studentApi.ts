@@ -75,7 +75,7 @@ const updateProfileImage = async (file: File) => {
 
 const getSingleCourse = async (courseId: string) => {
   try {
-    const response = await axiosInstance.get(`/course/${courseId}`);
+    const response = await axiosAuthorized.get(`/course/${courseId}`);
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject(error);
@@ -124,6 +124,30 @@ const searchCourse = async (searchKey: string) => {
   }
 };
 
+const courseEnroll = async (courseId: string) => {
+  try {
+    const response = await axiosAuthorized.post("create-payment-intent", {
+      courseId,
+    });
+    if (response.data) {
+      return Promise.resolve(response.data.url);
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const enrollment = async (courseId: string) => {
+  try {
+    const response = await axiosAuthorized.post("create-payment", { courseId });
+    if (response) {
+      return Promise.resolve(response.data);
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
   getCourses,
   changePassword,
@@ -131,4 +155,6 @@ export {
   getSingleCourse,
   updateProfile,
   searchCourse,
+  courseEnroll,
+  enrollment,
 };
