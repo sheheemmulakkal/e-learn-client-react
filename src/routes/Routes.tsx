@@ -24,6 +24,7 @@ import {
   EnterMailForgotPassword,
   StudnetForgotPassword,
   StripeStatus,
+  LearningPage,
 } from "../pages/student/index";
 import {
   Admin,
@@ -169,6 +170,10 @@ const RoutePage = () => {
         <Route
           path="/status"
           element={<ProtectedRoute element={<StripeStatus />} />}
+        />
+        <Route
+          path="/learning"
+          element={<ProtectedRoute element={<LearningPage />} />}
         />
         <Route path="/courses" element={<Courses />} />
         <Route path="/view-course" element={<SingleCourseStudent />} />

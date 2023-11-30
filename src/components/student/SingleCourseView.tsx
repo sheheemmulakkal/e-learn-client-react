@@ -42,6 +42,9 @@ const SingleCourseView = () => {
     }
   };
 
+  const goToCourse = () => {
+    navigate("/learning", { state: { courseId: course?.id } });
+  };
   useEffect(() => {
     getCourse();
   }, []);
@@ -86,8 +89,11 @@ const SingleCourseView = () => {
               </h2>
             )}
             {enrolled ? (
-              <button className="px-6 py-2 shadow-sm rounded-sm bg-black text-white font-bold">
-                Go to Course
+              <button
+                onClick={goToCourse}
+                className="px-6 py-2 shadow-sm rounded-sm bg-black text-white font-bold"
+              >
+                Continue to Course
               </button>
             ) : (
               <button
@@ -133,7 +139,7 @@ const SingleCourseView = () => {
           ) : (
             <div className="w-full h-5 ">
               <h1 className="font-semibold text-lg text-center">
-                No course found
+                No modules found
               </h1>
             </div>
           )}

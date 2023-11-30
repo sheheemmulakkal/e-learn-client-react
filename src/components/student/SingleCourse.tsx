@@ -11,7 +11,7 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ course }) => {
   return (
     <div
       key={course.id}
-      className="w-60 mx-3 md:min-w-[270px] bg-white border border-gray-200 rounded-sm shadow cursor-pointer"
+      className="w-60 md:min-w-[270px] bg-white border border-gray-200 rounded-sm shadow cursor-pointer"
       onClick={() => {
         navigate("/view-course", {
           state: { courseId: course.id },

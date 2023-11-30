@@ -76,6 +76,8 @@ const updateProfileImage = async (file: File) => {
 const getSingleCourse = async (courseId: string) => {
   try {
     const response = await axiosAuthorized.get(`/course/${courseId}`);
+    console.log(response, "api");
+
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject(error);
