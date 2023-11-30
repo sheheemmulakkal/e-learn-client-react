@@ -1,5 +1,3 @@
-import React from "react";
-
 const ChatBody = () => {
   return (
     <div className="flex flex-col flex-grow h-0 p-4 overflow-auto">
