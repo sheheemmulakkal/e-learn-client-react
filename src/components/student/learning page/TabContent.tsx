@@ -1,7 +1,12 @@
 import { Tabs, Tab } from "./Tabs";
 import ChatPage from "../chat/ChatPage";
+import { Socket } from "socket.io-client";
+import React from "react";
 
-const TabContent = () => {
+interface SocketProps {
+  socket: Socket;
+}
+const TabContent: React.FC<SocketProps> = ({ socket }) => {
   return (
     <div className="pb-10">
       <Tabs>
@@ -27,7 +32,7 @@ const TabContent = () => {
         <Tab label="Chat room">
           <div className="container shadow-md border border-slate-300">
             <div className="h-[70vh] ">
-              <ChatPage />
+              <ChatPage socket={socket} />
             </div>
           </div>
         </Tab>

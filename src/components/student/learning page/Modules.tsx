@@ -36,27 +36,36 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
           </div>
           <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300 dark:scrollbar-thumb-slate-900 dark:scrollbar-track-gray-300 h-full">
             {modules.length > 0 ? (
-              modules.map((module) => (
+              modules.map((currentModule) => (
                 <div className="flex flex-col">
-                  <div className="w-full flex flex-row items-center">
+                  {/* <div className={"w-full flex flex-row items-center"}> */}
+                  <div
+                    className={`w-full flex flex-row items-center ${
+                      selectedModule === currentModule.module
+                        ? "selected-module"
+                        : ""
+                    }`}
+                  >
                     <div className="w-2/12 flex justify-center  items-center flex-row my-6">
                       <i className="fa-regular fa-circle-check"></i>
                     </div>
                     <div className="w-8/12">
                       <h3
                         className="font-semibold"
-                        onClick={() => playVideo(module.module as Module)}
+                        onClick={() =>
+                          playVideo(currentModule.module as Module)
+                        }
                       >
-                        {typeof module?.module === "object"
-                          ? module.module.name
-                          : module?.module}
+                        {typeof currentModule?.module === "object"
+                          ? currentModule.module.name
+                          : currentModule?.module}
                       </h3>
                     </div>
                     <div className="w-2/12">
                       <h3 className="font-semibold">
-                        {typeof module?.module === "object"
-                          ? module.module.duration
-                          : module?.module}
+                        {typeof currentModule?.module === "object"
+                          ? currentModule.module.duration
+                          : currentModule?.module}
                       </h3>
                     </div>
                   </div>
@@ -68,21 +77,6 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
                 <h1 className="font-bold">No modules found</h1>
               </div>
             )}
-
-            {/* <div className="flex flex-col">
-              <div className="w-full flex flex-row items-center">
-                <div className="w-2/12 flex justify-center  items-center flex-row my-6">
-                  <i className="fa-solid fa-circle-check"></i>
-                </div>
-                <div className="w-8/12">
-                  <h3 className="font-semibold">This is sample module</h3>
-                </div>
-                <div className="w-2/12">
-                  <h3 className="font-semibold">00 : 12</h3>
-                </div>
-              </div>
-              <hr className="h-[2px] bg-slate-300" />
-            </div> */}
           </div>
         </div>
       </div>

@@ -22,7 +22,6 @@ const SingleCourseView = () => {
         if (response) {
           window.location.href = response;
         }
-        console.log(response, "enrol");
       } catch (error) {
         console.log(error);
       }
@@ -33,6 +32,9 @@ const SingleCourseView = () => {
       const response = await getSingleCourse(location.state.courseId);
       if (response) {
         setCourse(response);
+        console.log(response, "resp");
+        console.log(user?.courses);
+
         if (user?.courses?.includes(response.id)) {
           setEnrolled(true);
         }
