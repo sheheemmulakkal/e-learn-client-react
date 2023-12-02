@@ -101,7 +101,11 @@ const CourseList = () => {
                         : course.category}
                     </td>
                     <td className="px-6 py-4">
-                      {course.approval === "pending" ? (
+                      {course.approval === "rejected" && (
+                        <p>Course already rejected</p>
+                      )}
+                      {course.approval === "pending" ||
+                      course.approval === "rejected" ? (
                         <div>
                           <button
                             onClick={(e) => {
