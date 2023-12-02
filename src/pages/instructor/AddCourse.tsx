@@ -21,7 +21,7 @@ const AddCourse = () => {
 
   return (
     <div className="container mx-auto md:px-20 px-5 overflow-y-auto my-24">
-      <div className="shadow-lg p-10 border bg-slate-200 rounded-md">
+      <div className="shadow-xl shadow-slate-700 p-10 border bg-slate-200 rounded-md">
         <h1 className="text-2xl font-bold">Add Course</h1>
         <div className="mt-4">
           <AddCourseForm

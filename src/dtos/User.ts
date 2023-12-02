@@ -10,4 +10,11 @@ export interface User {
   wallet?: number;
   status?: boolean;
   courses?: string[];
+  walletHistory?: WalletHistory[];
+}
+
+interface WalletHistory {
+  date: Date;
+  amount: number;
+  description: string;
 }

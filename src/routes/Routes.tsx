@@ -11,6 +11,7 @@ import {
   CourseOverview,
   InstructorEnterMailForgotPassword,
   InstructorForgotPassword,
+  WalletHistory,
 } from "../pages/instructor/index";
 import {
   StudentHome,
@@ -68,6 +69,7 @@ const RoutePage = () => {
           <Route index={true} element={<InstructorHome />} />
           <Route path="add-course" element={<AddCourse />} />
           <Route path="my-courses" element={<MyCourses />} />
+          <Route path="wallet-history" element={<WalletHistory />} />
           <Route path="course-overview" element={<CourseOverview />} />
         </Route>
         <Route

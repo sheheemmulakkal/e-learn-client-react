@@ -7,3 +7,4 @@ export { default as Instructor } from "./Instructor";
 export { default as CourseOverview } from "./CourseOverview";
 export { default as InstructorEnterMailForgotPassword } from "./InstructorEnterMailForgotPassword";
 export { default as InstructorForgotPassword } from "./InstructorForgotPassword";
+export { default as WalletHistory } from "./WalletHistory";
