@@ -26,6 +26,7 @@ import {
   StudnetForgotPassword,
   StripeStatus,
   LearningPage,
+  MyLearnings,
 } from "../pages/student/index";
 import {
   Admin,
@@ -160,6 +161,16 @@ const RoutePage = () => {
             />
           }
         />
+        <Route
+          path="/my-learnings"
+          element={
+            <ProtectedRoute
+              allowedRoles={[Roles.student]}
+              element={<MyLearnings />}
+            />
+          }
+        />
+
         <Route
           path="/change-password"
           element={

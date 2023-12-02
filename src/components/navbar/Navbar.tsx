@@ -53,14 +53,16 @@ export default function NavBar() {
           </Link>
           {user?.role === Roles.student && (
             <>
-              <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-semibold"
-              >
-                <div className="flex items-center">My Learnings</div>
-              </Typography>
+              <Link to={"/my-learnings"}>
+                <Typography
+                  as="li"
+                  variant="small"
+                  color="blue-gray"
+                  className="p-1 font-semibold"
+                >
+                  <div className="flex items-center">My Learnings</div>
+                </Typography>
+              </Link>
               <Link to={"/profile"}>
                 <Typography
                   as="li"

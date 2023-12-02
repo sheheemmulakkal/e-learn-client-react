@@ -13,7 +13,7 @@ export interface User {
   walletHistory?: WalletHistory[];
 }
 
-interface WalletHistory {
+export interface WalletHistory {
   date: Date;
   amount: number;
   description: string;

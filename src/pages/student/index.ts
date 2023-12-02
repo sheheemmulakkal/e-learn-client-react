@@ -10,3 +10,4 @@ export { default as EnterMailForgotPassword } from "./EnterMailForgotPassword";
 export { default as StudnetForgotPassword } from "./StudnetForgotPassword";
 export { default as StripeStatus } from "./StripeStatus";
 export { default as LearningPage } from "./LearningPage";
+export { default as MyLearnings } from "./MyLearnings";
