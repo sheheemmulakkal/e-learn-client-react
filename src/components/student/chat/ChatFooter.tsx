@@ -10,14 +10,18 @@ const ChatFooter: React.FC<{ socket: Socket; user: User | null }> = ({
 }) => {
   const inputRef = useRef(null);
   const selectedCourse = useSelector(
-    (state: RootState) => state.selecedCourse.course
+    (state: RootState) => state.selecedCourse.course?.courseId
   );
   const [message, setMessage] = useState("");
   const handleSendMessage = (e: FormEvent) => {
     e.preventDefault();
     if (message.trim() && user?.firstname) {
+      const courseId =
+        typeof selectedCourse === "string"
+          ? selectedCourse
+          : selectedCourse?.id;
       socket.emit("message", {
-        courseId: selectedCourse?.id,
+        courseId: courseId,
         message: {
           firstname: user.firstname,
           lastname: user.lastname,

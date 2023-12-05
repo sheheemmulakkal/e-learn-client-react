@@ -30,8 +30,8 @@ function MyLearnings() {
   return (
     <>
       <Navbar />
-      <div className="w-full pt-20">
-        <div className="p-5 flex justify-center flex-col">
+      <div className="w-full pt-20 flex justify-center">
+        <div className="container p-5 flex justify-center flex-col">
           <div className="w-full flex justify-between">
             <h1 className="p-6 font-bold text-2xl">My Courses</h1>
           </div>
@@ -41,10 +41,12 @@ function MyLearnings() {
             </div>
           )}
           {courses.length > 0 ? (
-            <div className="p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm bg-white shadow-md w-full py-12">
-              {courses.map((course) => (
-                <SingleCourse course={course} />
-              ))}
+            <div className="flex justify-center">
+              <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full px-16 py-12">
+                {courses.map((course) => (
+                  <SingleCourse course={course} />
+                ))}
+              </div>
             </div>
           ) : (
             <div className="w-full flex justify-center">

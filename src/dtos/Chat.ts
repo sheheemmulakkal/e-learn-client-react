@@ -1,6 +1,7 @@
 export interface Chat {
   courseId?: string;
   id?: string;
+  messages?: Message[];
 }
 
 export interface Message {

@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Module } from "../../../dtos/module";
 import ReactPlayer from "react-player";
 
 interface ModuleProps {
   modules: { module: string | Module; order: number }[];
+  progression?: string[];
 }
 
-const Modules: React.FC<ModuleProps> = ({ modules }) => {
+const Modules: React.FC<ModuleProps> = ({ progression, modules }) => {
   const [module, selectedModule] = useState<Module | null>(null);
   const playVideo = (module: Module) => {
     selectedModule(module);
   };
 
-  useEffect(() => {
-    if (modules.length > 0) {
-      playVideo(modules[0].module as Module);
-    }
-  }, []);
+  const onVideoEnd = () => {
+    console.log("vedio end");
+  };
   return (
     <div className="container mx-auto">
       <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
@@ -25,6 +24,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
             <ReactPlayer
               url={module?.module}
               controls
+              onEnded={() => onVideoEnd()}
               width="100%"
               height="100%"
             />
@@ -47,9 +47,13 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
                     }`}
                   >
                     <div className="w-2/12 flex justify-center  items-center flex-row my-6">
-                      <i className="fa-regular fa-circle-check"></i>
+                      {progression?.includes(module?.id as string) ? (
+                        <i className="fa-solid fa-circle-check"></i>
+                      ) : (
+                        <i className="fa-regular fa-circle-check"></i>
+                      )}
                     </div>
-                    <div className="w-8/12">
+                    <div className="w-8/12 cursor-pointer">
                       <h3
                         className="font-semibold"
                         onClick={() =>

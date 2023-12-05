@@ -5,7 +5,7 @@ const StudentHome: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex w-screen h-[60vh] md:h-screen bg-gray-50">
+      <div className="flex w-screen h-[60vh] md:h-[80vh] bg-gray-50">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-gray-50">
           <div className="flex flex-col justify-center items-center">
             <h4 className="font-medium text-2xl text-sky-900 text-center md:text-left">
@@ -21,14 +21,16 @@ const StudentHome: React.FC = () => {
             <button className="bg-sky-800 text-white px-5 py-2">Explore</button>
           </div>
           <div className="hidden md:flex justify-center items-center">
-            <div className="p-36">
+            <div className="p-36 pt-10">
               <img src="/banners/home.jpeg" alt="" className="object-cover" />
             </div>
           </div>
         </div>
       </div>
-      <div className=" flex flex-row overflow-hidden pl-10 py-9">
-        <NewCourses />
+      <div className="flex justify-center px-16">
+        <div className="container flex flex-row overflow-hidden py-9">
+          <NewCourses />
+        </div>
       </div>
     </>
   );

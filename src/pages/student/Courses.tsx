@@ -41,11 +41,11 @@ const Courses = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full pt-20">
+      <div className="w-full flex justify-center md:pt-20">
         <div className="p-5 flex justify-center flex-col">
-          <div className="w-full flex justify-between">
+          <div className="w-full flex flex-col md:flex-row justify-between">
             <h1 className="p-6 font-bold text-2xl">All Courses</h1>
-            <div className="search flex items-center px-5">
+            <div className="search flex items-center md:pb-0 pb-2 md:px-5">
               <input
                 type="search"
                 ref={searchInputRef}
@@ -66,7 +66,7 @@ const Courses = () => {
             </div>
           )}
           {courses.length > 0 ? (
-            <div className="p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm bg-white shadow-md w-full py-12">
+            <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full py-12 px-16">
               {courses.map((course) => (
                 <SingleCourse course={course} />
               ))}

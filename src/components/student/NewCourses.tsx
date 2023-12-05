@@ -22,7 +22,7 @@ const NewCourses = () => {
   return (
     <div className="container py-4">
       <h1 className="py-4 text-2xl font-bold">New Courses</h1>
-      <div className="overflow-x-auto grid grid-cols-4 gap-5 no-scrollbar">
+      <div className="overflow-x-auto grid grid-cols-1 md:grid-cols-4 gap-5 no-scrollbar">
         {loader && (
           <>
             <CardSkeleton />

@@ -1,11 +1,12 @@
 import Modules from "../../components/student/learning page/Modules";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
-import { getSingleCourse } from "../../api/studentApi";
+import { getEnrolledCourse } from "../../api/studentApi";
 import { useDispatch } from "react-redux";
 import NavBar from "../../components/navbar/Navbar";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Course } from "../../dtos/Course";
+// import { EnrolledCourse } from "../../dtos/EnrolledCourse";
 import TabContent from "../../components/student/learning page/TabContent";
 import { socket } from "../../components/socket/Socket";
 
@@ -13,16 +14,16 @@ const LearningPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [course, setCourse] = useState<Course>();
-  socket.on("active-members", (data) => data);
+  const [progression, setProgression] = useState<string[]>([]);
+  // socket.on("active-members", (data) => data);
   const getCourse = async () => {
     try {
-      const response = await getSingleCourse(location.state.courseId);
+      const response = await getEnrolledCourse(location.state.courseId);
       if (response) {
-        setCourse(response);
+        setCourse(response.courseId);
+        setProgression(response.progression);
         dispatch(selectCourseActions.selectCourse(response));
-        console.log(response?.id, " course");
-
-        socket.emit("join-room", { courseId: response?.id });
+        socket.emit("join-room", { courseId: response?.courseId.id });
       }
     } catch (error) {
       console.log(error);
@@ -37,7 +38,7 @@ const LearningPage = () => {
     <>
       <NavBar />
       <div className="pt-10">
-        <Modules modules={course?.modules || []} />
+        <Modules progression={progression} modules={course?.modules || []} />
         <div className="mt-6">
           <TabContent socket={socket} />
         </div>

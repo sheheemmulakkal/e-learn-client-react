@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Course } from "../dtos/Course";
+import { EnrolledCourse } from "../dtos/EnrolledCourse";
 
 interface userState {
-  course: Course | null;
+  course: EnrolledCourse | null;
 }
 
 const initialState: userState = {
@@ -13,7 +13,7 @@ const selectedCourseSlice = createSlice({
   name: "selectedCourseSlice",
   initialState,
   reducers: {
-    selectCourse(state, action: PayloadAction<Course | null>) {
+    selectCourse(state, action: PayloadAction<EnrolledCourse | null>) {
       state.course = action.payload;
     },
   },

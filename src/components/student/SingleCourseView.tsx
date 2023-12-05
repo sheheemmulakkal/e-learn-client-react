@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Course } from "../../dtos/Course";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-
 import { getSingleCourse, courseEnroll } from "../../api/studentApi";
 
 const SingleCourseView = () => {
@@ -32,9 +31,6 @@ const SingleCourseView = () => {
       const response = await getSingleCourse(location.state.courseId);
       if (response) {
         setCourse(response);
-        console.log(response, "resp");
-        console.log(user?.courses);
-
         if (user?.courses?.includes(response.id)) {
           setEnrolled(true);
         }
@@ -52,7 +48,7 @@ const SingleCourseView = () => {
   }, []);
   return (
     <>
-      <div className="pt-24 p-4 flex justify-center bg-slate-100">
+      <div className="pt-24 p-4 flex justify-center ">
         <div className="p-6 shadow-sm container border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 grid grid-cols-1 md:grid-cols-3 bg-white">
           <div className="px-8 md:max-w-[300px]  flex justify-center items-center">
             {course?.image ? (
@@ -108,7 +104,7 @@ const SingleCourseView = () => {
           </div>
         </div>
       </div>
-      <div className="pt-1 p-4 flex justify-center  bg-slate-100">
+      <div className="pt-1 p-4 flex justify-center  ">
         <div className="p-6 shadow-sm  border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 container bg-white">
           <div className="w-full flex justify-between px-3">
             <h1 className="font-bold text-lg">Modules</h1>
@@ -147,7 +143,7 @@ const SingleCourseView = () => {
           )}
         </div>
       </div>
-      <div className="pt-1 p-4 flex justify-center bg-slate-100">
+      <div className="pt-1 p-4 flex justify-center ">
         <div className="p-6 shadow-sm  border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 container bg-white">
           <div className="w-full px-3">
             <h1 className="font-bold text-lg">Description</h1>
@@ -157,7 +153,7 @@ const SingleCourseView = () => {
           </div>
         </div>
       </div>
-      <div className="pt-1 p-4 flex justify-center bg-slate-100">
+      <div className="pt-1 p-4 flex justify-center  pb-16">
         <div className="p-6 shadow-sm border border-x-slate-200 border-t-0 border-b-[#b3b3b3] border-b-2 border-x-2 container bg-white">
           <div className="w-full px-3 pb-4">
             <h1 className="font-bold text-lg">About Instructor</h1>

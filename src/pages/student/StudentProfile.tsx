@@ -136,11 +136,13 @@ function StudentProfile() {
               <h1 className="underline font-bold pt-6">Courses enrolled</h1>
               <div className="flex flex-row justify-between">
                 <h3 className="text-sm font-semibold text-slate-500">
-                  3 courses
+                  {user?.courses?.length} courses
                 </h3>
-                <h3 className="text-sm font-semibold cursor-pointer text-blue-500">
-                  See courses
-                </h3>
+                <Link to={"/my-learnings"}>
+                  <h3 className="text-sm font-semibold cursor-pointer text-blue-500">
+                    See courses
+                  </h3>
+                </Link>
               </div>
               <hr className="" />
               <h1 className="underline font-bold pt-6">Wallet balance</h1>

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { RootState } from "../../redux/store";
 import { Roles } from "../../dtos/Roles";
+import Notification from "../common/utils/Notification";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -51,6 +52,8 @@ export default function NavBar() {
               <div className="flex items-center">Courses</div>
             </Typography>
           </Link>
+          {user?.role === Roles.student && <Notification />}
+
           {user?.role === Roles.student && (
             <>
               <Link to={"/my-learnings"}>
@@ -200,7 +203,10 @@ export default function NavBar() {
             </IconButton>
           </div>
         </div>
+
         <MobileNav open={openNav}>
+          <Notification />
+
           {navList}
           {user?.role === Roles.student || user?.role === Roles.instructor ? (
             <div className="flex items-center gap-x-1">

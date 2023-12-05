@@ -76,8 +76,6 @@ const updateProfileImage = async (file: File) => {
 const getSingleCourse = async (courseId: string) => {
   try {
     const response = await axiosAuthorized.get(`/course/${courseId}`);
-    console.log(response, "api");
-
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject(error);
@@ -90,14 +88,10 @@ const updateProfile = async (details: {
 }) => {
   try {
     const response = await axiosAuthorized.put("/update-profile", details);
-    console.log(details, "det");
-
     if (response) {
       return Promise.resolve(response.data);
     }
   } catch (error) {
-    console.log(error);
-
     if (axios.isAxiosError(error)) {
       const axiosError = error;
       if (
@@ -150,6 +144,19 @@ const enrollment = async (courseId: string) => {
   }
 };
 
+const getEnrolledCourse = async (courseId: string) => {
+  try {
+    const response = await axiosAuthorized.get(
+      `/get-enrolled-course?courseId=${courseId}`
+    );
+    if (response) {
+      return Promise.resolve(response.data);
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
   getCourses,
   changePassword,
@@ -159,4 +166,5 @@ export {
   searchCourse,
   courseEnroll,
   enrollment,
+  getEnrolledCourse,
 };
