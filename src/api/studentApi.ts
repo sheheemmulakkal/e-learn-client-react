@@ -157,6 +157,30 @@ const getEnrolledCourse = async (courseId: string) => {
   }
 };
 
+const getAllEnrolledCourse = async () => {
+  try {
+    const response = await axiosAuthorized.get("get-enrolled-courses-student");
+    console.log(response.data, "datt");
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+const addProgression = async (enrollmentId: string, moduleId: string) => {
+  try {
+    const response = await axiosAuthorized.get(
+      `/add-progression?enrollmentId=${enrollmentId}&moduleId=${moduleId}`
+    );
+    if (response) {
+      return Promise.resolve(response);
+    }
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
   getCourses,
   changePassword,
@@ -167,4 +191,6 @@ export {
   courseEnroll,
   enrollment,
   getEnrolledCourse,
+  addProgression,
+  getAllEnrolledCourse,
 };

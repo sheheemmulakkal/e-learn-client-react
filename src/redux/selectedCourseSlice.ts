@@ -16,6 +16,12 @@ const selectedCourseSlice = createSlice({
     selectCourse(state, action: PayloadAction<EnrolledCourse | null>) {
       state.course = action.payload;
     },
+    addModule(state, action: PayloadAction<string | null>) {
+      state.course = {
+        ...state.course,
+        progression: [...(state.course?.progression || []), action.payload!],
+      };
+    },
   },
 });
 

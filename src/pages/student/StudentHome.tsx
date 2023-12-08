@@ -1,34 +1,42 @@
 import React from "react";
 import NewCourses from "../../components/student/NewCourses";
 import Navbar from "../../components/navbar/Navbar";
+import StudentHomeCover from "../../components/student/home/StudentHomeCover";
+import SectionThree from "../../components/student/home/SectionThree";
+import ThreeCards from "../../components/student/home/ThreeCards";
 const StudentHome: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex w-screen h-[60vh] md:h-[80vh] bg-gray-50">
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-gray-50">
-          <div className="flex flex-col justify-center items-center">
-            <h4 className="font-medium text-2xl text-sky-900 text-center md:text-left">
-              Explore with
-            </h4>
-            <h1 className=" font-extrabold text-sky-900 text-6xl text-left">
-              EduVista
-            </h1>
-            <p className="text-sky-900 md:w-screen w-3/5 text-center pt-4">
-              Embrace Learning, Embrace Success – Your Journey Begins Now.
-            </p>
-
-            <button className="bg-sky-800 text-white px-5 py-2">Explore</button>
-          </div>
-          <div className="hidden md:flex justify-center items-center">
-            <div className="p-36 pt-10">
-              <img src="/banners/home.jpeg" alt="" className="object-cover" />
-            </div>
+      <StudentHomeCover />
+      <div className="py-28 w-full flex justify-center">
+        <div className="flex justify-center text-[#2F327D] text-center w-3/5 gap-6 flex-col">
+          <h1 className=" text-2xl font-bold">
+            <span className="text-[#F48C06]">All-in-One,</span> Your Complete
+            Resource for Comprehensive Education
+          </h1>
+          <p>
+            here are many variations of passages of Lorem Ipsum available, but
+            the majority have suffered alteration in some form, by injected
+            humour, or randomised words which don't look even slightly
+            believable.{" "}
+          </p>
+          <div>
+            <button className="px-8 hover:scale-105 hover:bg-[#F48C06] hover:text-white duration-300 py-3 text-[#F48C06]  rounded-full border-2 border-[#F48C06] text-lg font-bold">
+              Explore now
+            </button>
           </div>
         </div>
       </div>
-      <div className="flex justify-center px-16">
-        <div className="container flex flex-row overflow-hidden py-9">
+      <ThreeCards />
+      <div className="flex justify-center">
+        <div className="container w-full pt-10 h-[70vh]">
+          <SectionThree />
+        </div>
+      </div>
+
+      <div className="flex justify-center p-16">
+        <div className="container flex flex-row overflow-hidden p-9">
           <NewCourses />
         </div>
       </div>

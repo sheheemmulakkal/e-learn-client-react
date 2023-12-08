@@ -6,7 +6,6 @@ import NavBar from "../../components/navbar/Navbar";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Course } from "../../dtos/Course";
-// import { EnrolledCourse } from "../../dtos/EnrolledCourse";
 import TabContent from "../../components/student/learning page/TabContent";
 import { socket } from "../../components/socket/Socket";
 
@@ -15,7 +14,7 @@ const LearningPage = () => {
   const location = useLocation();
   const [course, setCourse] = useState<Course>();
   const [progression, setProgression] = useState<string[]>([]);
-  // socket.on("active-members", (data) => data);
+
   const getCourse = async () => {
     try {
       const response = await getEnrolledCourse(location.state.courseId);
