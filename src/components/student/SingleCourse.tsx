@@ -9,33 +9,60 @@ const capitalizeFirstLetter = (str: string) => {
 };
 
 interface SingleCourseProps {
-  course: Course;
+  course?: Course | undefined;
   learning?: boolean;
+  progression?: string[];
 }
-const SingleCourse: React.FC<SingleCourseProps> = ({ learning, course }) => {
+const SingleCourse: React.FC<SingleCourseProps> = ({
+  progression,
+  learning,
+  course,
+}) => {
   const navigate = useNavigate();
   const category =
-    typeof course.category === "object"
-      ? course.category.category
-      : course.category;
+    typeof course!.category === "object"
+      ? course!.category.category
+      : course!.category;
   const level =
-    typeof course.level === "object" ? course.level.level : course.level;
+    typeof course!.level === "object" ? course!.level.level : course!.level;
   const formattedCategory = capitalizeFirstLetter(category!);
   const formattedLevel = capitalizeFirstLetter(level!);
+
+  const calculateCompletionPercentage = (
+    totalModules: number,
+    completedModules: string[]
+  ): number => {
+    if (totalModules === 0 || completedModules.length === 0) {
+      return 0;
+    }
+
+    const uniqueCompletedModules = [...new Set(completedModules)];
+    const completionPercentage =
+      (uniqueCompletedModules.length / totalModules) * 100;
+
+    return Math.round(completionPercentage);
+  };
+
+  const completionPercentage = calculateCompletionPercentage(
+    course!.modules?.length || 0,
+    progression || []
+  );
+
+  console.log(completionPercentage, "co");
 
   return (
     <div
       className="md:w-auto  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] w-full block cursor-pointer rounded-lg   hover:scale-105 ease-in-out duration-300 bg-white overflow-hidden relative group"
       onClick={() => {
         navigate("/view-course", {
-          state: { courseId: course.id },
+          state: { courseId: course!.id },
         });
       }}
     >
       <div className="relative aspect-w-16 h-44  overflow-hidden group-hover:opacity-75 transition-opacity duration-300">
         <img
           className="object-cover w-full h-full"
-          src={course.image ? course.image : "/image not found.png"}
+          src={course!.image ? course!.image : "/image not found.png"}
           alt=""
         />
         <div>
@@ -61,21 +88,23 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ learning, course }) => {
       <div className="p-6 flex flex-col h-full">
         <h3 className="mb-2 text-lg font-bold leading-tight text-neutral-800 h-12 overflow-hidden">
           <TooltipCustomStyles
-            triggerElement={<span className="line-clamp-2">{course.name}</span>}
-            tooltipContent={course.name}
+            triggerElement={
+              <span className="line-clamp-2">{course!.name}</span>
+            }
+            tooltipContent={course!.name}
           />
         </h3>
         <p className="mb-1 font-medium text-sm text-neutral-600 h-12 overflow-hidden">
           <TooltipCustomStyles
             triggerElement={
-              <span className="line-clamp-2">{course.description}</span>
+              <span className="line-clamp-2">{course!.description}</span>
             }
-            tooltipContent={course.description}
+            tooltipContent={course!.description}
           />
         </p>
         {!learning && (
           <h4 className="font-semibold text-[#2F327D]">
-            Enrollment fee: ₹ {course.price}
+            Enrollment fee: ₹ {course!.price}
           </h4>
         )}
         <div className="flex items-center my-2">
@@ -87,6 +116,24 @@ const SingleCourse: React.FC<SingleCourseProps> = ({ learning, course }) => {
             {formattedLevel}
           </h4>
         </div>
+        {learning && (
+          <div className=" w-full rounded-full bg-grey-light pt-1">
+            <h6 className="text-sm font-semibold">Course progression</h6>
+            <div
+              className={`text-xs rounded-full w-1/5 leading-none py-1 text-center ${
+                completionPercentage > 0
+                  ? "text-white"
+                  : " text-[#2F327D] font font-semibold"
+              }`}
+              style={{
+                width: `${completionPercentage || 0}%`,
+                backgroundColor: "#2F327D",
+              }}
+            >
+              <h5>{completionPercentage}%</h5>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import SingleCourse from "../../components/student/SingleCourse";
 import { getAllEnrolledCourse } from "../../api/studentApi";
-import { Course } from "../../dtos/Course";
+// import { Course } from "../../dtos/Course";
 import Navbar from "../../components/navbar/Navbar";
 import { CustomSpinner } from "../../components/common/utils/Spinner";
 import { EnrolledCourse } from "../../dtos/EnrolledCourse";
 
 function MyLearnings() {
-  const [courses, setCourses] = useState<Course[]>([]);
+  const [courses, setCourses] = useState<EnrolledCourse[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const getCourse = async () => {
     setLoading(true);
     const response: EnrolledCourse[] = await getAllEnrolledCourse();
-    const filteredCourses = response.map(
-      (enrolldCourse) => enrolldCourse.courseId
-    );
+    // const filteredCourses = response.map(
+    //   (enrolldCourse) => enrolldCourse.courseId
+    // );
     setLoading(false);
     // console.log(response);
 
-    setCourses(filteredCourses as Course[]);
+    setCourses(response);
+    console.log(courses, "course");
   };
 
   useEffect(() => {
@@ -43,9 +44,14 @@ function MyLearnings() {
               <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full md:px-16 px-8 py-12">
                 {courses.map((course) => (
                   <SingleCourse
+                    progression={course.progression}
                     key={course.id}
                     learning={true}
-                    course={course}
+                    course={
+                      typeof course.courseId === "object"
+                        ? course.courseId
+                        : course
+                    }
                   />
                 ))}
               </div>
