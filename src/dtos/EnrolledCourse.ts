@@ -8,4 +8,5 @@ export interface EnrolledCourse {
   status?: boolean;
   studentId?: string | User;
   progression?: string[];
+  notes?: string[];
 }

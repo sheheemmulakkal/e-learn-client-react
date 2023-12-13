@@ -182,11 +182,21 @@ const RoutePage = () => {
         />
         <Route
           path="/status"
-          element={<ProtectedRoute element={<StripeStatus />} />}
+          element={
+            <ProtectedRoute
+              allowedRoles={[Roles.student]}
+              element={<StripeStatus />}
+            />
+          }
         />
         <Route
           path="/learning"
-          element={<ProtectedRoute element={<LearningPage />} />}
+          element={
+            <ProtectedRoute
+              allowedRoles={[Roles.student]}
+              element={<LearningPage />}
+            />
+          }
         />
         <Route path="/courses" element={<Courses />} />
         <Route path="/view-course" element={<SingleCourseStudent />} />

@@ -13,6 +13,8 @@ const LearningPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [course, setCourse] = useState<Course>();
+  const [notes, setNotes] = useState<string[]>([]);
+  const [enrolledId, setEnrolledId] = useState<string>("");
   const [progression, setProgression] = useState<string[]>([]);
 
   const getCourse = async () => {
@@ -21,6 +23,8 @@ const LearningPage = () => {
       if (response) {
         setCourse(response.courseId);
         setProgression(response.progression);
+        setNotes(response.notes);
+        setEnrolledId(response.id);
         dispatch(selectCourseActions.selectCourse(response));
         socket.emit("join-room", { courseId: response?.courseId.id });
       }
@@ -39,7 +43,7 @@ const LearningPage = () => {
       <div className="pt-10">
         <Modules progression={progression} modules={course?.modules || []} />
         <div className="mt-6">
-          <TabContent socket={socket} />
+          <TabContent courseId={enrolledId} notes={notes} socket={socket} />
         </div>
       </div>
     </>

@@ -22,6 +22,14 @@ const selectedCourseSlice = createSlice({
         progression: [...(state.course?.progression || []), action.payload!],
       };
     },
+    addNote(state, action: PayloadAction<string | null>) {
+      console.log("ehloo");
+
+      state.course = {
+        ...state.course,
+        notes: [...(state.course?.notes || []), action.payload!],
+      };
+    },
   },
 });
 

@@ -181,6 +181,24 @@ const addProgression = async (enrollmentId: string, moduleId: string) => {
   }
 };
 
+const addNotes = async ({
+  enrolledId,
+  notes,
+}: {
+  enrolledId: string;
+  notes: string;
+}) => {
+  try {
+    const response = await axiosAuthorized.post("/add-notes", {
+      enrolledId,
+      notes,
+    });
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
   getCourses,
   changePassword,
@@ -193,4 +211,5 @@ export {
   getEnrolledCourse,
   addProgression,
   getAllEnrolledCourse,
+  addNotes,
 };

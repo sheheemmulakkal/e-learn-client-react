@@ -36,7 +36,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
           typeof currentModule.module === "object" &&
           currentModule.module.id === moduleId
       );
-      console.log(completedIndex, "co");
+      // console.log(completedIndex, "co");
       const nextModule = modules[completedIndex + 1];
       if (nextModule && typeof nextModule.module === "object") {
         playVideo(nextModule.module);
@@ -48,7 +48,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
     // Automatically play the first video when the component mounts
     if (modules.length > 0 && typeof modules[0].module === "object") {
       playVideo(modules[0].module as Module);
-      console.log("hi");
+      // console.log("hi");
     }
   }, [modules]);
   return (

@@ -6,8 +6,10 @@ import Notes from "./Notes";
 
 interface SocketProps {
   socket: Socket;
+  notes?: string[];
+  courseId?: string;
 }
-const TabContent: React.FC<SocketProps> = ({ socket }) => {
+const TabContent: React.FC<SocketProps> = ({ courseId, notes, socket }) => {
   return (
     <div className="pb-10">
       <Tabs>
@@ -39,7 +41,7 @@ const TabContent: React.FC<SocketProps> = ({ socket }) => {
         </Tab>
         <Tab label="Notes">
           <div className="py-4">
-            <Notes courseId="111" studentId="111" />
+            <Notes courseId={courseId} notes={notes} />
           </div>
         </Tab>
       </Tabs>

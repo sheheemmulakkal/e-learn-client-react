@@ -1,33 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
-interface Note {
-  _id: string;
-  content: string;
-}
+import { addNotes } from "../../../api/studentApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCourseActions } from "../../../redux/selectedCourseSlice";
+import { RootState } from "../../../redux/store";
 
 interface NoteComponentProps {
   courseId?: string;
   studentId?: string;
+  notes?: string[];
 }
 
-const Notes: React.FC<NoteComponentProps> = () => {
-  const [notes, setNotes] = useState<Note[]>([]);
+const Notes: React.FC<NoteComponentProps> = ({ courseId }) => {
+  const notes = useSelector(
+    (state: RootState) => state.selecedCourse.course?.notes
+  );
+  console.log(notes, "notes");
+
   const [newNote, setNewNote] = useState<string>("");
+  const dispatch = useDispatch();
+  const handleAddNote = async () => {
+    if (courseId && newNote.trim() !== "") {
+      const response = await addNotes({ enrolledId: courseId, notes: newNote });
+      if (response) {
+        console.log(response);
 
-  const handleAddNote = () => {
-    // Add a new note locally
-    const newNoteObj: Note = {
-      _id: String(Date.now()), // Generate a temporary ID (replace with actual logic)
-      content: newNote,
-    };
+        dispatch(selectCourseActions.addNote(newNote));
+      }
+    }
 
-    setNotes([...notes, newNoteObj]);
-
-    // Clear the Quill editor
     setNewNote("");
   };
+  useEffect(() => {}, [notes]);
 
   return (
     <div className="container px-6 md:px-0">
@@ -50,15 +55,11 @@ const Notes: React.FC<NoteComponentProps> = () => {
       <div className="p-5 border">
         <h2 className="font-bold text-xl">Notes</h2>
         <ul>
-          {notes.map((note) => (
-            <>
-              <li
-                className="py-2"
-                key={note._id}
-                dangerouslySetInnerHTML={{ __html: note.content }}
-              />
+          {notes!.map((note, index) => (
+            <React.Fragment key={index}>
+              <li className="py-2" dangerouslySetInnerHTML={{ __html: note }} />
               <hr />
-            </>
+            </React.Fragment>
           ))}
         </ul>
       </div>
