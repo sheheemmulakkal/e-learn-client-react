@@ -16,7 +16,6 @@ const Notes: React.FC<NoteComponentProps> = ({ courseId }) => {
   const notes = useSelector(
     (state: RootState) => state.selecedCourse.course?.notes
   );
-  console.log(notes, "notes");
 
   const [newNote, setNewNote] = useState<string>("");
   const dispatch = useDispatch();
@@ -24,12 +23,9 @@ const Notes: React.FC<NoteComponentProps> = ({ courseId }) => {
     if (courseId && newNote.trim() !== "") {
       const response = await addNotes({ enrolledId: courseId, notes: newNote });
       if (response) {
-        console.log(response);
-
         dispatch(selectCourseActions.addNote(newNote));
       }
     }
-
     setNewNote("");
   };
   useEffect(() => {}, [notes]);
