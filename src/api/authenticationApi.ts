@@ -1,5 +1,6 @@
 import { axiosInstance } from "./config";
 import axios from "axios";
+import { socket } from "../components/socket/Socket";
 
 interface StudentCredentials {
   firstname?: string;
@@ -316,6 +317,7 @@ const adminLogin = async (adminCredentials: AdminCredentials) => {
 };
 
 const userLogout = async () => {
+  socket.disconnect();
   localStorage.removeItem("token");
 };
 

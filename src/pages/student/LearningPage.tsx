@@ -34,8 +34,8 @@ const LearningPage = () => {
   };
 
   useEffect(() => {
-    socket.connect();
     getCourse();
+    return () => {};
   }, []);
   return (
     <>

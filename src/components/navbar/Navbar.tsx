@@ -1,12 +1,10 @@
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { RootState } from "../../redux/store";
 import { Roles } from "../../dtos/Roles";
 import Notification from "../common/utils/Notification";
-
 import { Link, useNavigate } from "react-router-dom";
-
-import React from "react";
 import {
   Navbar,
   MobileNav,
@@ -14,12 +12,43 @@ import {
   Button,
   IconButton,
 } from "@material-tailwind/react";
+import { socket } from "../socket/Socket";
+
+interface EventData {
+  message: string;
+  courseName: string;
+  image: string;
+  // Adjust the type based on what data you expect
+}
 
 export default function NavBar() {
   const user = useSelector((store: RootState) => store.user.user);
-
+  // const notification = useSelector((store: RootState) => store.user.notification);
+  const [openNav, setOpenNav] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user?.role === Roles.student) {
+      const handleCourseCreated = (data: EventData) => {
+        console.log(data, "cre");
+        dispatch(
+          userActions.addNotification({
+            id: new Date().getTime().toString(),
+            message: data.message,
+            image: data.image,
+            name: data.courseName,
+          })
+        );
+      };
+
+      socket.on("course-created", handleCourseCreated);
+
+      return () => {
+        socket.off("course-created", handleCourseCreated);
+      };
+    }
+  }, [user?.role, dispatch]);
 
   const handleLogout = () => {
     dispatch(userActions.userLogout());
@@ -29,14 +58,6 @@ export default function NavBar() {
       navigate("/instructor/login");
     }
   };
-  const [openNav, setOpenNav] = React.useState(false);
-
-  React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
-  }, []);
 
   const navList = (
     <>
@@ -53,7 +74,6 @@ export default function NavBar() {
             </Typography>
           </Link>
           {user?.role === Roles.student && <Notification />}
-
           {user?.role === Roles.student && (
             <>
               <Link to={"/my-learnings"}>
@@ -78,16 +98,6 @@ export default function NavBar() {
               </Link>
             </>
           )}
-          {/* {user?.role === Roles.instructor && (
-          <Typography
-            as="li"
-            variant="small"
-            color="blue-gray"
-            className="p-1 font-semibold"
-          >
-            <div className="flex items-center">Docs</div>
-          </Typography>
-          )} */}
         </ul>
       )}
       {user?.role === Roles.instructor && (
@@ -203,7 +213,6 @@ export default function NavBar() {
             </IconButton>
           </div>
         </div>
-
         <MobileNav open={openNav}>
           <Notification />
 

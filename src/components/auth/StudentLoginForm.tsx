@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { loginSchema } from "../../validations/loginSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { socket } from "../socket/Socket";
 
 interface Credentials {
   email: string;
@@ -33,6 +34,7 @@ const StudentLoginForm = () => {
       const response = await studentLogin(data);
       if (response) {
         dispatch(userActions.saveUser(response));
+        socket.connect();
         navigate("/");
       }
     } catch (error) {

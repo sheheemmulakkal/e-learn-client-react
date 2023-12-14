@@ -1,14 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../dtos/User";
 
+interface Notification {
+  id?: string;
+  message?: string;
+  image?: string;
+  name?: string;
+}
 interface userState {
   userEmail: string | null;
   user: User | null;
+  notification: Notification[];
 }
 
 const initialState: userState = {
   userEmail: null,
   user: null,
+  notification: [],
 };
 
 const userSlice = createSlice({
@@ -27,8 +35,37 @@ const userSlice = createSlice({
       state.user?.courses?.push(action.payload!);
     },
 
+    addNotification(state, action: PayloadAction<Notification>) {
+      // Check if the notification with the same id already exists
+      console.log(action.payload, "ap");
+
+      const existingNotification = state.notification.find(
+        (n) => n.id === action.payload.id
+      );
+
+      if (!existingNotification) {
+        // If not, add the new notification
+        state.notification.push(action.payload);
+      } else {
+        // If exists, remove the existing one and add the updated notification
+        state.notification = state.notification.filter(
+          (n) => n.id !== action.payload.id
+        );
+        state.notification.push(action.payload);
+      }
+    },
+
+    removeNotification(state, action: PayloadAction<string>) {
+      // Remove the notification with the specified id
+      state.notification = state.notification.filter(
+        (n) => n.id !== action.payload
+      );
+    },
+
     userLogout(state) {
-      (state.user = null), (state.userEmail = null);
+      state.user = null;
+      state.userEmail = null;
+      state.notification = [];
     },
   },
 });
