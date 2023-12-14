@@ -1,10 +1,53 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import NewCourses from "../../components/student/NewCourses";
 import Navbar from "../../components/navbar/Navbar";
 import StudentHomeCover from "../../components/student/home/StudentHomeCover";
 import SectionThree from "../../components/student/home/SectionThree";
 import ThreeCards from "../../components/student/home/ThreeCards";
+import { createRoadmap } from "../../api/studentApi";
+import { SmallSpinner } from "../../components/common/utils/Spinner";
+
 const StudentHome: React.FC = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [content, setContent] = useState("");
+  const addBullets = (htmlContent: string) => {
+    const lines = htmlContent.split("\n");
+    let modifiedContent = "";
+
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim().startsWith("<li>")) {
+        const bulletPoint = `<li>&#8226; ${lines[i].trim().substring(4)}</li>`;
+        modifiedContent += bulletPoint;
+      } else {
+        modifiedContent += lines[i];
+      }
+      if (i < lines.length - 1) {
+        modifiedContent += "\n";
+      }
+    }
+
+    return modifiedContent;
+  };
+
+  const handleClick = async () => {
+    setContent("");
+    const value = inputRef.current?.value;
+    if (value && value?.trim() !== "") {
+      const modal = document.getElementById(
+        "my_modal_3"
+      ) as HTMLDialogElement | null;
+      if (modal) {
+        modal.showModal();
+      }
+      const response = await createRoadmap(value!);
+      if (response) {
+        const result = addBullets(response);
+        setContent(result);
+        inputRef.current.value = "";
+      }
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -28,6 +71,68 @@ const StudentHome: React.FC = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-center">
+        <div className="w-10/12 bg-[#FFF3E4] rounded-lg flex justify-center flex-col py-6 px-10">
+          <h1 className="font-bold text-2xl text-[#2F327D] text-center py-3">
+            Create your <span className="text-[#F48C06]">roadmap</span> for
+            learning
+          </h1>
+          <p className="text-center text-[#2F327D]">
+            Embark on a personalized learning journey with our{" "}
+            <b>Create Your Roadmap</b> feature!
+          </p>
+          <p className="text-center text-[#2F327D]">
+            Whether you're passionate about programming, interested in graphic
+            design, or eager to delve into business management, this tool is
+            designed just for you. Simply enter your preferred topic below, and
+            our platform will guide you through selecting courses, setting
+            goals, and arranging a visual roadmap tailored to your unique
+            interests and aspirations. Take control of your educational path and
+            unlock a world of knowledge at your own pace. Let's make learning an
+            exciting adventure together!
+          </p>
+          <div className="flex flex-row gap-3 py-5">
+            <input
+              ref={inputRef}
+              type="text"
+              placeholder="Enter your topic"
+              className="w-full rounded-lg border px-5 bg-white"
+            />
+            <button
+              className="bg-[#F48C06] py-2 px-4 rounded-lg"
+              onClick={handleClick}
+            >
+              <i className="fa-solid text-white font-bold fa-magnifying-glass"></i>
+            </button>
+            <dialog id="my_modal_3" className="modal">
+              <div className="modal-box bg-white text-black">
+                <form method="dialog">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                    ✕
+                  </button>
+                </form>
+                {content ? (
+                  <>
+                    <h3 className="font-bold text-lg">Here is your roadmap!</h3>
+                    <div dangerouslySetInnerHTML={{ __html: content }} />
+                  </>
+                ) : (
+                  <div className="flex flex-col p-5 justify-center items-center">
+                    <div className="flex flex-row p-6 justify-center items-center gap-3">
+                      <SmallSpinner />
+                      <p>Generating roadmap please wait...</p>
+                    </div>
+
+                    <p>This will take some moments</p>
+                  </div>
+                )}
+              </div>
+            </dialog>
+          </div>
+        </div>
+      </div>
+
       <ThreeCards />
       <div className="flex justify-center">
         <div className="container w-full pt-10 h-[70vh]">

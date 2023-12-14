@@ -199,6 +199,19 @@ const addNotes = async ({
   }
 };
 
+const createRoadmap = async (topic: string) => {
+  try {
+    console.log("api cll");
+
+    const resposne = await axiosInstance.get(`/create-roadmap?topic=${topic}`);
+    console.log(resposne, "respon");
+
+    return Promise.resolve(resposne.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
   getCourses,
   changePassword,
@@ -212,4 +225,5 @@ export {
   addProgression,
   getAllEnrolledCourse,
   addNotes,
+  createRoadmap,
 };

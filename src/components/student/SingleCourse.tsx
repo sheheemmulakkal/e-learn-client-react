@@ -48,8 +48,6 @@ const SingleCourse: React.FC<SingleCourseProps> = ({
     progression || []
   );
 
-  console.log(completionPercentage, "co");
-
   return (
     <div
       className="md:w-auto  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] w-full block cursor-pointer rounded-lg   hover:scale-105 ease-in-out duration-300 bg-white overflow-hidden relative group"
