@@ -4,27 +4,26 @@ import Navbar from "../../components/navbar/Navbar";
 import StudentHomeCover from "../../components/student/home/StudentHomeCover";
 import SectionThree from "../../components/student/home/SectionThree";
 import ThreeCards from "../../components/student/home/ThreeCards";
-import { createRoadmap } from "../../api/studentApi";
+// import { createRoadmap } from "../../api/studentApi";
 import { SmallSpinner } from "../../components/common/utils/Spinner";
+import Typewriter from "typewriter-effect";
 
 const StudentHome: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState("");
-  const addBullets = (htmlContent: string) => {
-    const lines = htmlContent.split("\n");
-    let modifiedContent = "";
+  const addBullets = (textContent: string) => {
+    const steps = textContent.split("\n");
 
-    for (let i = 0; i < lines.length; i++) {
-      if (lines[i].trim().startsWith("<li>")) {
-        const bulletPoint = `<li>&#8226; ${lines[i].trim().substring(4)}</li>`;
-        modifiedContent += bulletPoint;
-      } else {
-        modifiedContent += lines[i];
-      }
-      if (i < lines.length - 1) {
-        modifiedContent += "\n";
-      }
-    }
+    const modifiedContent = steps
+      .map((step) => {
+        const trimmedStep = step.trim();
+        if (trimmedStep !== "") {
+          // Add bullet point to non-empty lines
+          return `&#8226; ${trimmedStep}`;
+        }
+        return ""; // Skip empty lines
+      })
+      .join("<br>");
 
     return modifiedContent;
   };
@@ -39,7 +38,8 @@ const StudentHome: React.FC = () => {
       if (modal) {
         modal.showModal();
       }
-      const response = await createRoadmap(value!);
+      // const response = await createRoadmap(value!);
+      const response = ` 1. Start with the Basics: Begin by learning the fundamentals of JavaScript, as Node.js is built on it. Understand concepts like variables, data types, arrays, loops, functions, and objects.\n2. Introduction to Node.js: After mastering JavaScript, start learning about Node.js, its installation, and how it works. Understand its event-driven architecture and non-blocking I/O model.\n3. Learn about Node.js Core Modules: Node.js comes with several built-in modules. Learn about modules like HTTP, URL, query string, file system, events, and streams.\n4. Working with Express.js: Express.js is a popular web application framework for Node.js. Learn how to build web applications using Express.js, handle requests, and create routes.\n5. Databases and Node.js: Learn how to connect Node.js with databases like MongoDB or MySQL. Understand how to perform CRUD operations and handle data.`;
       if (response) {
         const result = addBullets(response);
         setContent(result);
@@ -115,7 +115,16 @@ const StudentHome: React.FC = () => {
                 {content ? (
                   <>
                     <h3 className="font-bold text-lg">Here is your roadmap!</h3>
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
+                    {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
+                    <Typewriter
+                      options={{
+                        strings: [content],
+                        autoStart: true,
+                        loop: false,
+                        delay: 0,
+                        deleteSpeed: "natural",
+                      }}
+                    />
                   </>
                 ) : (
                   <div className="flex flex-col p-5 justify-center items-center">

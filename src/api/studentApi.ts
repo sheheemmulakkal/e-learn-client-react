@@ -160,8 +160,6 @@ const getEnrolledCourse = async (courseId: string) => {
 const getAllEnrolledCourse = async () => {
   try {
     const response = await axiosAuthorized.get("get-enrolled-courses-student");
-    console.log(response.data, "datt");
-
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject(error);
@@ -201,11 +199,7 @@ const addNotes = async ({
 
 const createRoadmap = async (topic: string) => {
   try {
-    console.log("api cll");
-
     const resposne = await axiosInstance.get(`/create-roadmap?topic=${topic}`);
-    console.log(resposne, "respon");
-
     return Promise.resolve(resposne.data);
   } catch (error) {
     return Promise.reject(error);
