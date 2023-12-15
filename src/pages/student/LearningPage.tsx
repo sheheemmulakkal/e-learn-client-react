@@ -1,13 +1,13 @@
-import Modules from "../../components/student/learning page/Modules";
 import { selectCourseActions } from "../../redux/selectedCourseSlice";
+import { useState, useEffect } from "react";
 import { getEnrolledCourse } from "../../api/studentApi";
 import { useDispatch } from "react-redux";
-import NavBar from "../../components/navbar/Navbar";
 import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { Course } from "../../dtos/Course";
-import TabContent from "../../components/student/learning page/TabContent";
 import { socket } from "../../components/socket/Socket";
+import TabContent from "../../components/student/learning page/TabContent";
+import Modules from "../../components/student/learning page/Modules";
+import NavBar from "../../components/navbar/Navbar";
 
 const LearningPage = () => {
   const dispatch = useDispatch();

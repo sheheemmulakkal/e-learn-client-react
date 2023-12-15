@@ -5,7 +5,7 @@ import { RootState } from "../../redux/store";
 const Dashboard = () => {
   const user = useSelector((state: RootState) => state.user.user);
   return (
-    <div className="w-full grid grid-cols-3 gap-6">
+    <div className="w-full grid md:grid-cols-3 grid-cols-1 gap-6">
       <Link to={"/instructor/my-courses"}>
         <div className="h-32 shadow-lg shadow-slate-300 rounded-md bg-slate-100 border drop-shadow-xl cursor-pointer hover:bg-slate-200 flex justify-center items-center">
           <div className="flex items-center gap-1">
@@ -86,7 +86,9 @@ const Dashboard = () => {
               <path d="M2.273 5.625A4.483 4.483 0 015.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 3H5.25a3 3 0 00-2.977 2.625zM2.273 8.625A4.483 4.483 0 015.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0018.75 6H5.25a3 3 0 00-2.977 2.625zM5.25 9a3 3 0 00-3 3v6a3 3 0 003 3h13.5a3 3 0 003-3v-6a3 3 0 00-3-3H15a.75.75 0 00-.75.75 2.25 2.25 0 01-4.5 0A.75.75 0 009 9H5.25z" />
             </svg>
 
-            <h1 className="font-bold text-xl">₹ {user?.wallet} Earned</h1>
+            <h1 className="font-bold text-xl">
+              ₹ {user?.wallet?.toFixed(0)} Earned
+            </h1>
           </div>
         </div>
       </Link>

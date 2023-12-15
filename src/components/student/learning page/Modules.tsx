@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import { addProgression } from "../../../api/studentApi";
 import { RootState } from "../../../redux/store";
 import { selectCourseActions } from "../../../redux/selectedCourseSlice";
+import { useVideo } from "./VideoContext";
 
 interface ModuleProps {
   modules: { module: string | Module; order: number }[];
@@ -12,13 +13,18 @@ interface ModuleProps {
 }
 
 const Modules: React.FC<ModuleProps> = ({ modules }) => {
+  // const playerRef = useRef<ReactPlayer>(null);
   const dispatch = useDispatch();
   const selectedCourse = useSelector(
     (state: RootState) => state.selecedCourse.course
   );
+  const { playerRef } = useVideo();
   const [module, selectedModule] = useState<Module | null>(null);
   const [moduleId, selectedModuleId] = useState<string | null>(null);
 
+  const handleSeek = () => {
+    playerRef.current?.seekTo(5, "seconds");
+  };
   const playVideo = (module: Module) => {
     selectedModule(module);
     selectedModuleId(module.id as string);
@@ -36,7 +42,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
           typeof currentModule.module === "object" &&
           currentModule.module.id === moduleId
       );
-      // console.log(completedIndex, "co");
+
       const nextModule = modules[completedIndex + 1];
       if (nextModule && typeof nextModule.module === "object") {
         playVideo(nextModule.module);
@@ -45,10 +51,8 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
   };
 
   useEffect(() => {
-    // Automatically play the first video when the component mounts
     if (modules.length > 0 && typeof modules[0].module === "object") {
       playVideo(modules[0].module as Module);
-      // console.log("hi");
     }
   }, [modules]);
   return (
@@ -57,6 +61,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
         <div className="col-span-2 h-auto md:h-[70vh]">
           {module && (
             <ReactPlayer
+              ref={playerRef}
               url={module?.module}
               controls
               onEnded={() => onVideoEnd(module.id!)}
@@ -65,6 +70,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
               playing={true}
             />
           )}
+          <button onClick={handleSeek}>Jump to seconds</button>
         </div>
         <div className="col-span-1 h-auto md:h-[70vh] bg-slate-50 overflow-hidden pb-5 shadow-slate-400 shadow-md">
           <div className="h-14 bg-slate-200 flex items-center">

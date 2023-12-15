@@ -10,8 +10,8 @@ function InstructorHome() {
           backgroundSize: "cover",
         }}
       >
-        <div>
-          <h1 className="font-extrabold text-5xl my-3">
+        <div className="flex justify-center">
+          <h1 className="font-extrabold text-center text-5xl my-3">
             Create your own course
           </h1>
         </div>
