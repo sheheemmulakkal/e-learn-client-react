@@ -7,6 +7,7 @@ import {
 } from "../../api/instructorApi";
 import { Course } from "../../dtos/Course";
 import AddModulePopup from "../../components/instructor/AddModulePopup";
+import TimeInput from "../../components/instructor/TimeSelector";
 
 interface ModuleFormData {
   moduleName: string;
@@ -21,10 +22,36 @@ const CourseOverview = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [updating, setUpdating] = useState(false);
   const [err, setErr] = useState("");
+  const [selectedTime, setSelectedTime] = useState<number>();
+  const [chapter, setChapter] = useState<string>("");
 
   const getCourse = async () => {
     const response = await getSingleCourse(location.state.courseId);
     setCourse(response);
+  };
+
+  function timeToSeconds(timeString: string): number {
+    // Split the time string into hours, minutes, and seconds
+    const [hours, minutes, seconds] = timeString.split(":").map(Number);
+
+    // Calculate the total seconds
+    const totalSeconds: number = hours * 3600 + minutes * 60 + seconds;
+    return totalSeconds;
+  }
+
+  const handleAddChapter = () => {
+    const formData = new FormData();
+    formData.append("chapter", chapter.trim());
+    formData.append("time", selectedTime?.toString() || "");
+    console.log(chapter, selectedTime, "sh");
+
+    console.log(formData, "form");
+  };
+
+  const handleTimeChange = (newTime: string) => {
+    // Handle the selected time in the parent component
+    const seconds = timeToSeconds(newTime);
+    setSelectedTime(seconds);
   };
 
   const handleAddModuleClick = () => {
@@ -52,6 +79,15 @@ const CourseOverview = () => {
       }
     } catch (error) {
       return { success: false };
+    }
+  };
+
+  const handleClick = () => {
+    const modal = document.getElementById(
+      "my_modal_5"
+    ) as HTMLDialogElement | null;
+    if (modal) {
+      modal.showModal();
     }
   };
 
@@ -177,7 +213,7 @@ const CourseOverview = () => {
             <div className="py-5">
               {course.modules.map((module, index) => (
                 <div key={index} className="w-full">
-                  <div className="icon flex justify-between px-3 mb-3">
+                  <div className="icon flex justify-between items-center px-3 mb-3">
                     <div>
                       <i className="fa-regular fa-circle-play px-2"></i>
                       <span className="px-2 font-semibold">
@@ -187,11 +223,63 @@ const CourseOverview = () => {
                       </span>
                     </div>
                     <div className="">
-                      <h4 className="text-right font-semibold">
+                      <h4 className="text-right font-semibold ">
                         {typeof module?.module === "object"
                           ? module.module.duration
                           : module?.module}
                       </h4>
+                    </div>
+
+                    <div>
+                      <button
+                        className=" text-sm text-white bg-[#2F327D] px-2 py-1"
+                        onClick={handleClick}
+                      >
+                        Add chapters
+                      </button>
+                      <dialog
+                        id="my_modal_5"
+                        className="modal modal-bottom sm:modal-middle text-black "
+                      >
+                        <div className="modal-box bg-white">
+                          <h3 className="font-bold text-lg">Hello!</h3>
+                          <p className="py-4">
+                            Selected time is : {selectedTime}
+                          </p>
+                          <div className="modal-action">
+                            <div className="flex flex-col w-full gap-4">
+                              <div className="flex flex-row justify-between">
+                                <input
+                                  type="text"
+                                  placeholder="Enter text"
+                                  value={chapter}
+                                  onChange={(e) => setChapter(e.target.value)}
+                                  className="bg-slate-300 rounded-md shadow-lg placeholder:text-black placeholder:italic border px-4"
+                                />
+                                <TimeInput
+                                  maxTime={"00:01:02"}
+                                  onTimeChange={handleTimeChange}
+                                  onClose={handleClosePopup}
+                                />
+                              </div>
+                              <div className="flex-row flex gap-2">
+                                <button
+                                  onClick={handleAddChapter}
+                                  className="text-sm bg-[#2F327D] text-white px-3 py-1 rounded-md"
+                                >
+                                  Add chapter
+                                </button>
+                                <form method="dialog">
+                                  {/* if there is a button in form, it will close the modal */}
+                                  <button className="text-sm bg-red-700 text-white px-3 py-1 rounded-md">
+                                    Close
+                                  </button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </dialog>
                     </div>
                   </div>
                   <hr className="mb-2" />

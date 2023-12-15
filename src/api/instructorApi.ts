@@ -76,7 +76,7 @@ const getSingleCourse = async (courseId: string) => {
     const response = await axiosAuthorized.get(
       `/instructor/course/${courseId}`
     );
-    console.log(response.data);
+
     return Promise.resolve(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
