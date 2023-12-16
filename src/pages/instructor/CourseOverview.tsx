@@ -4,6 +4,7 @@ import {
   getSingleCourse,
   addModule,
   addCourseImage,
+  addChapter,
 } from "../../api/instructorApi";
 import { Course } from "../../dtos/Course";
 import AddModulePopup from "../../components/instructor/AddModulePopup";
@@ -22,8 +23,9 @@ const CourseOverview = () => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [updating, setUpdating] = useState(false);
   const [err, setErr] = useState("");
-  const [selectedTime, setSelectedTime] = useState<number>();
+  const [selectedTime, setSelectedTime] = useState<number>(0);
   const [chapter, setChapter] = useState<string>("");
+  const [currentModuleId, setCurrentModuleId] = useState<string | null>(null);
 
   const getCourse = async () => {
     const response = await getSingleCourse(location.state.courseId);
@@ -39,13 +41,20 @@ const CourseOverview = () => {
     return totalSeconds;
   }
 
-  const handleAddChapter = () => {
-    const formData = new FormData();
-    formData.append("chapter", chapter.trim());
-    formData.append("time", selectedTime?.toString() || "");
-    console.log(chapter, selectedTime, "sh");
-
-    console.log(formData, "form");
+  const handleAddChapter = async () => {
+    console.log(chapter, "mo");
+    if (currentModuleId && chapter.trim() !== "") {
+      const formData = new FormData();
+      formData.append("chapter", chapter.trim());
+      formData.append("time", selectedTime?.toString() || "");
+      formData.append("moduleId", currentModuleId);
+      try {
+        console.log([...formData.entries()], "data");
+        await addChapter(formData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   const handleTimeChange = (newTime: string) => {
@@ -82,7 +91,8 @@ const CourseOverview = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (moduleId: string) => {
+    setCurrentModuleId(moduleId);
     const modal = document.getElementById(
       "my_modal_5"
     ) as HTMLDialogElement | null;
@@ -233,7 +243,13 @@ const CourseOverview = () => {
                     <div>
                       <button
                         className=" text-sm text-white bg-[#2F327D] px-2 py-1"
-                        onClick={handleClick}
+                        onClick={() =>
+                          handleClick(
+                            typeof module?.module === "object"
+                              ? (module?.module.id as string)
+                              : module.module
+                          )
+                        }
                       >
                         Add chapters
                       </button>
@@ -264,7 +280,7 @@ const CourseOverview = () => {
                               </div>
                               <div className="flex-row flex gap-2">
                                 <button
-                                  onClick={handleAddChapter}
+                                  onClick={() => handleAddChapter()}
                                   className="text-sm bg-[#2F327D] text-white px-3 py-1 rounded-md"
                                 >
                                   Add chapter

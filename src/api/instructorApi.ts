@@ -148,6 +148,37 @@ const addCourseImage = async (image: FormData) => {
   }
 };
 
+const addChapter = async (formData: FormData) => {
+  const headers = {
+    "Content-Type": "multipart/form-data",
+  };
+  try {
+    const response = await axiosAuthorized.post(
+      "/instructor/add-chapter",
+      formData,
+      { headers }
+    );
+    if (response) {
+      return Promise.resolve(response.data);
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const axiosError = error;
+      if (
+        axiosError.response &&
+        axiosError.response.data &&
+        axiosError.response.data.errors
+      ) {
+        return Promise.reject(axiosError.response.data.errors[0].message);
+      } else {
+        return Promise.reject("An unexpected error occurred.");
+      }
+    } else {
+      return Promise.reject("An unexpected error occurred.");
+    }
+  }
+};
+
 export {
   addCourse,
   getMyCourses,
@@ -155,4 +186,5 @@ export {
   getSingleCourse,
   addModule,
   addCourseImage,
+  addChapter,
 };
