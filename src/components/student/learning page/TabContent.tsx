@@ -16,7 +16,7 @@ const TabContent: React.FC<SocketProps> = ({ courseId, notes, socket }) => {
       <Tabs>
         <Tab label="Course overview">
           <div className="py-4">
-            <h2 className="text-lg font-medium mb-2">Tab 1 Content</h2>
+            {/* <h2 className="text-lg font-medium mb-2">Tab 1 Content</h2> */}
             <Overview />
           </div>
         </Tab>

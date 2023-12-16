@@ -273,7 +273,12 @@ const CourseOverview = () => {
                                   className="bg-slate-300 rounded-md shadow-lg placeholder:text-black placeholder:italic border px-4"
                                 />
                                 <TimeInput
-                                  maxTime={"00:01:02"}
+                                  maxTime={
+                                    typeof module?.module === "object" &&
+                                    module.module?.duration
+                                      ? module.module.duration
+                                      : "00:00:00"
+                                  }
                                   onTimeChange={handleTimeChange}
                                   onClose={handleClosePopup}
                                 />

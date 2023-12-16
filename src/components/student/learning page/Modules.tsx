@@ -22,10 +22,11 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
   const [module, selectedModule] = useState<Module | null>(null);
   const [moduleId, selectedModuleId] = useState<string | null>(null);
 
-  const handleSeek = () => {
-    playerRef.current?.seekTo(5, "seconds");
-  };
+  // const handleSeek = () => {
+  //   playerRef.current?.seekTo(5, "seconds");
+  // };
   const playVideo = (module: Module) => {
+    dispatch(selectCourseActions.selectModule(module));
     selectedModule(module);
     selectedModuleId(module.id as string);
   };
@@ -70,7 +71,7 @@ const Modules: React.FC<ModuleProps> = ({ modules }) => {
               playing={true}
             />
           )}
-          <button onClick={handleSeek}>Jump to seconds</button>
+          {/* <button onClick={handleSeek}>Jump to seconds</button> */}
         </div>
         <div className="col-span-1 h-auto md:h-[70vh] bg-slate-50 overflow-hidden pb-5 shadow-slate-400 shadow-md">
           <div className="h-14 bg-slate-200 flex items-center">

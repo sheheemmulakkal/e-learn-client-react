@@ -40,7 +40,7 @@ const LearningPage = () => {
   return (
     <>
       <NavBar />
-      <div className="pt-10">
+      <div className="pt-10 text-black">
         <Modules progression={progression} modules={course?.modules || []} />
         <div className="mt-6">
           <TabContent courseId={enrolledId} notes={notes} socket={socket} />

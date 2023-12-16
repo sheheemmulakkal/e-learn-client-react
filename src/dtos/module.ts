@@ -6,4 +6,11 @@ export interface Module {
   duration?: string;
   status?: boolean;
   createdAt?: Date;
+  chapters?: IChapter[];
+}
+
+export interface IChapter {
+  chapter: string;
+  seconds: number;
+  duration: string;
 }

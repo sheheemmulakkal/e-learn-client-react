@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EnrolledCourse } from "../dtos/EnrolledCourse";
+import { Module } from "../dtos/module";
 
 interface userState {
   course: EnrolledCourse | null;
+  module: Module | null;
 }
 
 const initialState: userState = {
   course: null,
+  module: null,
 };
 
 const selectedCourseSlice = createSlice({
@@ -27,6 +30,9 @@ const selectedCourseSlice = createSlice({
         ...state.course,
         notes: [...(state.course?.notes || []), action.payload!],
       };
+    },
+    selectModule(state, action: PayloadAction<Module | null>) {
+      state.module = action.payload;
     },
   },
 });
