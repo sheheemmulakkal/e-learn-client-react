@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userActions } from "../../redux/userSlice";
 import { RootState } from "../../redux/store";

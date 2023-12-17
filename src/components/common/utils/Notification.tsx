@@ -23,16 +23,10 @@ const NotificationComponent: React.FC<NotificationProps> = () => {
 
   useEffect(() => {
     if (notifications.length > 0) {
-      // Show notification when a new one is added
       setShowNotification(true);
-
-      // Automatically hide notification after a delay (adjust as needed)
       const timeout = setTimeout(() => {
         setShowNotification(false);
-        // Remove the first notification after hiding
-      }, 5000); // 5000 milliseconds (5 seconds)
-
-      // Cleanup the timeout to avoid memory leaks
+      }, 5000);
       return () => clearTimeout(timeout);
     }
   }, [dispatch, notifications]);
