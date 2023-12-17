@@ -21,8 +21,6 @@ const NotificationComponent: React.FC<NotificationProps> = () => {
     (store: RootState) => store.user.notification
   );
 
-  console.log(notifications, "nti");
-
   useEffect(() => {
     if (notifications.length > 0) {
       // Show notification when a new one is added
@@ -70,40 +68,44 @@ const NotificationComponent: React.FC<NotificationProps> = () => {
             data-popover-placement="bottom"
             className="z-10 flex w-72 flex-col gap-2 overflow-auto rounded-md border border-blue-gray-50 bg-white p-3 font-sans text-sm font-normal text-blue-gray-500 shadow-lg shadow-blue-gray-500/10 focus:outline-none"
           >
-            {notifications.map((notification: Notification) => (
-              <li key={notification.id}>
-                <button
-                  role="menuitem"
-                  className="flex items-center w-full gap-4 px-3 py-2 pl-2  leading-tight transition-all rounded-md outline-none cursor-pointer select-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
-                >
-                  <div className="flex flex-row items-center gap-4">
-                    <img
-                      src={notification.image}
-                      className="rounded-full  w-11 h-11"
-                      alt=""
-                    />
-                    <div className="flex flex-col gap-1">
-                      <p className="block font-sans text-sm antialiased font-semibold leading-normal text-[#F48C06] line-clamp-1">
-                        {notification.message}
-                      </p>
-                      <p className="flex items-center gap-1 font-sans text-sm antialiased font-medium text-[#2F327D] line-clamp-1">
-                        {notification.name} {/* Add other fields as needed */}
-                      </p>
-                    </div>
-                  </div>
+            {notifications.length > 0 ? (
+              notifications.map((notification: Notification) => (
+                <li key={notification.id}>
                   <button
-                    onClick={() => {
-                      dispatch(
-                        userActions.removeNotification(notification.id!)
-                      );
-                    }}
-                    className="ml-auto text-blue-gray-500 hover:text-blue-gray-700 focus:outline-none"
+                    role="menuitem"
+                    className="flex items-center w-full gap-4 px-3 py-2 pl-2  leading-tight transition-all rounded-md outline-none cursor-pointer select-none text-start hover:bg-blue-gray-50 hover:bg-opacity-80 hover:text-blue-gray-900 focus:bg-blue-gray-50 focus:bg-opacity-80 focus:text-blue-gray-900 active:bg-blue-gray-50 active:bg-opacity-80 active:text-blue-gray-900"
                   >
-                    <i className="fas fa-times"></i>
+                    <div className="flex flex-row items-center gap-4">
+                      <img
+                        src={notification.image}
+                        className="rounded-full  w-11 h-11"
+                        alt=""
+                      />
+                      <div className="flex flex-col gap-1">
+                        <p className="block font-sans text-sm antialiased font-semibold leading-normal text-[#F48C06] line-clamp-1">
+                          {notification.message}
+                        </p>
+                        <p className="flex items-center gap-1 font-sans text-sm antialiased font-medium text-[#2F327D] line-clamp-1">
+                          {notification.name} {/* Add other fields as needed */}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        dispatch(
+                          userActions.removeNotification(notification.id!)
+                        );
+                      }}
+                      className="ml-auto text-blue-gray-500 hover:text-blue-gray-700 focus:outline-none"
+                    >
+                      <i className="fas fa-times"></i>
+                    </button>
                   </button>
-                </button>
-              </li>
-            ))}
+                </li>
+              ))
+            ) : (
+              <h1 className="font-semibold">No notifications</h1>
+            )}
           </ul>
         </div>
       )}
