@@ -275,6 +275,16 @@ const getSingleCourse = async (courseId: string) => {
   }
 };
 
+const dashboard = async () => {
+  try {
+    const response = await axiosAuthorized.get("/admin/dashboard");
+    console.log(response, "r");
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    return Promise.reject();
+  }
+};
 // const getLevelList = async () => {
 //   try {
 //     const response = await axiosAuthorized.get("/admin/")
@@ -305,4 +315,5 @@ export {
   approveCourse,
   rejectCourse,
   getSingleCourse,
+  dashboard,
 };

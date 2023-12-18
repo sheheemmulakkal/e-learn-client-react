@@ -12,6 +12,7 @@ import NavBar from "../../components/navbar/Navbar";
 const LearningPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+
   const [course, setCourse] = useState<Course>();
   const [notes, setNotes] = useState<string[]>([]);
   const [enrolledId, setEnrolledId] = useState<string>("");
