@@ -37,7 +37,7 @@ const StripeCancel = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-screen flex justify-center items-center text-black">
       <div className="md:w-3/5 w-4/5 min-h-[30vh] flex flex-col gap-4 justify-center items-center shadow-2xl rounded-md bg-slate-300">
         <h1
           className={

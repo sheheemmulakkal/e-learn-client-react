@@ -29,7 +29,7 @@ function MyLearnings() {
   return (
     <>
       <Navbar />
-      <div className="w-full pt-20 flex justify-center">
+      <div className="w-full pt-20 flex justify-center text-black">
         <div className="container p-5 flex justify-center flex-col">
           <div className="w-full flex justify-between">
             <h1 className="p-6 font-bold text-2xl">My Courses</h1>

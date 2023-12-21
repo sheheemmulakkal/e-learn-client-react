@@ -18,10 +18,9 @@ const StudentHome: React.FC = () => {
       .map((step) => {
         const trimmedStep = step.trim();
         if (trimmedStep !== "") {
-          // Add bullet point to non-empty lines
           return `&#8226; ${trimmedStep}`;
         }
-        return ""; // Skip empty lines
+        return "";
       })
       .join("<br>");
 
@@ -108,7 +107,6 @@ const StudentHome: React.FC = () => {
             <dialog id="my_modal_3" className="modal">
               <div className="modal-box bg-white text-black">
                 <form method="dialog">
-                  {/* if there is a button in form, it will close the modal */}
                   <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                     ✕
                   </button>
@@ -116,7 +114,6 @@ const StudentHome: React.FC = () => {
                 {content ? (
                   <>
                     <h3 className="font-bold text-lg">Here is your roadmap!</h3>
-                    {/* <div dangerouslySetInnerHTML={{ __html: content }} /> */}
                     <Typewriter
                       options={{
                         strings: [content],
@@ -143,7 +140,7 @@ const StudentHome: React.FC = () => {
       </div>
 
       <ThreeCards />
-      <div className="flex justify-center">
+      <div className="flex justify-center text-black">
         <div className="container w-full pt-10 h-[70vh]">
           <SectionThree />
         </div>

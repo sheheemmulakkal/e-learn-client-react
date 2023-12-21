@@ -41,7 +41,7 @@ const Courses = () => {
   return (
     <>
       <Navbar />
-      <div className="w-full flex justify-center md:pt-20">
+      <div className="w-full flex justify-center md:pt-20 text-black">
         <div className="p-5 flex justify-center flex-col">
           <div className="w-full flex flex-col md:flex-row justify-between">
             <h1 className="p-6 font-bold text-2xl">All Courses</h1>

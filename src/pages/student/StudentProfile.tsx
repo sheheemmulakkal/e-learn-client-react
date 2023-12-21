@@ -67,7 +67,7 @@ function StudentProfile() {
   return (
     <>
       <Navbar />
-      <div className="w-full">
+      <div className="w-full text-black">
         <div className=" justify-center grid grid-cols-1 md:grid-cols-3 mt-28 w-full">
           <div className="flex  w-full flex-col justify-center items-center h-64">
             <div className="shadow-md rounded-md flex w-3/5 flex-col min-h-full justify-center items-center border pb-4 ">

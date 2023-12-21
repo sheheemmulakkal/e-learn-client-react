@@ -47,7 +47,7 @@ const SingleCourseView = () => {
     getCourse();
   }, []);
   return (
-    <div className="w-full flex justify-center flex-col">
+    <div className="w-full flex justify-center flex-col text-black">
       {/* <div className=" "> */}
       <div className="w-full flex justify-center bg-[#fff1de]">
         <div className="pt-16 md:w-4/5 p-4 flex justify-center ">

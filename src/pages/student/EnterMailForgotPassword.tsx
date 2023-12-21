@@ -2,7 +2,7 @@ import EnterMailForgotPasswordForm from "../../components/auth/EnterMailForgotPa
 
 function EnterMailForgotPassword() {
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-screen flex justify-center items-center text-black">
       <EnterMailForgotPasswordForm isInstructor={false} />
     </div>
   );

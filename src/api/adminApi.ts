@@ -8,7 +8,7 @@ const getAllStudents = async () => {
       return Promise.resolve(students.data.students);
     }
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -19,7 +19,7 @@ const getAllInstructors = async () => {
       return Promise.resolve(instructors.data.instructors);
     }
   } catch (error) {
-    console.log(error);
+    return Promise.reject(error);
   }
 };
 
@@ -120,8 +120,6 @@ const editCategory = async (categoryId: string, data: string) => {
     const { category } = response.data;
     return Promise.resolve(category);
   } catch (error) {
-    console.log(error, "axios eroor");
-
     if (axios.isAxiosError(error)) {
       const axiosError = error;
       if (

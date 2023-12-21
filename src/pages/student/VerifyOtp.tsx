@@ -7,7 +7,7 @@ const VerifyOtp: React.FC<{
   isForgotPassword: boolean;
 }> = (props) => {
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-screen flex justify-center items-center text-black">
       {props.isForgotPassword ? (
         <ForgotPasswordOtpVerificationForm isInstructor={props.isInstructor} />
       ) : (

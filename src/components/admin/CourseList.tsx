@@ -90,29 +90,31 @@ const CourseList = () => {
                       {course.description}
                     </td>
                     <td className="px-6 py-4">{course.price}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-xs">
                       {typeof course.level === "object"
                         ? course.level!.level
                         : course.level}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-xs">
                       {typeof course.category === "object"
                         ? course.category!.category
                         : course.category}
                     </td>
                     <td className="px-6 py-4">
                       {course.approval === "rejected" && (
-                        <p>Course already rejected</p>
+                        <p className="text-xs text-yellow-500 py-1  ">
+                          Course already rejected
+                        </p>
                       )}
                       {course.approval === "pending" ||
                       course.approval === "rejected" ? (
-                        <div>
+                        <div className="flex">
                           <button
                             onClick={(e) => {
                               handleApprove(course.id!, e);
                             }}
-                            className={`text-white mt-2 bg-green-700 hover:bg-green-800
-                           font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2`}
+                            className={`text-white mt-1 bg-green-700 hover:bg-green-800
+                           font-medium rounded-lg text-xs px-3 py-2 mr-2 mb-1`}
                           >
                             Approve
                           </button>
@@ -120,8 +122,8 @@ const CourseList = () => {
                             onClick={(e) => {
                               handleReject(course.id!, e);
                             }}
-                            className={`text-white mt-2 bg-red-700 hover:bg-red-300-800
-                           font-medium rounded-lg text-sm px-5 py-2 mr-2 mb-2`}
+                            className={`text-white mt-1 bg-red-700 hover:bg-red-300-800
+                           font-medium rounded-lg text-xs px-3 py-2 mr-2 mb-1`}
                           >
                             Reject
                           </button>

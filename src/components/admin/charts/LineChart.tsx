@@ -28,7 +28,6 @@ const LineChart: React.FC = () => {
     try {
       const responseData: adminDashboardData = await dashboard();
       const response = responseData.enrolledCountByCategoryAndDate;
-      // Extract unique dates from all categories
       const uniqueDates: string[] = Array.from(
         new Set(
           response.flatMap((category) =>
@@ -37,10 +36,8 @@ const LineChart: React.FC = () => {
         )
       );
 
-      // Initialize an object to store counts for each date
       const dateCounts: Record<string, number> = {};
 
-      // Loop through the response and populate dateCounts
       response.forEach((category) => {
         category.data.forEach((entry) => {
           if (!dateCounts[entry.date]) {
@@ -49,11 +46,7 @@ const LineChart: React.FC = () => {
           dateCounts[entry.date] += entry.enrolledCount;
         });
       });
-
-      // Create x-axis categories from uniqueDates
       const formattedCategories: string[] = uniqueDates.map((date) => {
-        // Format date as needed (e.g., "2023-12-01" to "Dec 01")
-        // Modify this formatting based on your requirements
         const formattedDate = new Date(date).toLocaleString("default", {
           month: "short",
           day: "numeric",
@@ -62,8 +55,6 @@ const LineChart: React.FC = () => {
       });
 
       setCategories(formattedCategories);
-
-      // Create series data based on category data
       const formattedSeries = response.map((category) => ({
         name: category.categoryDetails[0].category,
         data: uniqueDates.map((date) => {
@@ -84,9 +75,7 @@ const LineChart: React.FC = () => {
     getCategoryData();
   }, []);
 
-  useEffect(() => {
-    console.log(series, "se");
-  }, [series]); // Log series when it changes
+  useEffect(() => {}, [series]);
 
   return (
     <ReactApexChart
