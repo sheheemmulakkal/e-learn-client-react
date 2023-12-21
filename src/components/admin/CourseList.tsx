@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Course } from "../../dtos/Course";
 import { getAllCourses, approveCourse, rejectCourse } from "../../api/adminApi";
 import { useNavigate } from "react-router-dom";
+import { Pagination } from "../common/utils/Pagination";
 
 const CourseList = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -147,6 +148,9 @@ const CourseList = () => {
           {!courses && (
             <h1 className="px-6 py-4 font-semibold">No Courses found</h1>
           )}
+        </div>
+        <div className="w-full flex justify-center py-3">
+          <Pagination />
         </div>
       </div>
     </div>
