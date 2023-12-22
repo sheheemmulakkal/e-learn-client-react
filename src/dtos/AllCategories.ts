@@ -3,3 +3,9 @@ export interface AllCategories {
   languages: { language: string; id: string; status: boolean }[];
   levels: { level: string; id: string; status: boolean }[];
 }
+
+export interface Category {
+  id?: string;
+  category: string;
+  status: boolean;
+}
