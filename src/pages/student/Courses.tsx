@@ -4,17 +4,25 @@ import { getCourses, searchCourse } from "../../api/studentApi";
 import { Course } from "../../dtos/Course";
 import Navbar from "../../components/navbar/Navbar";
 import { CustomSpinner } from "../../components/common/utils/Spinner";
+import { Pagination } from "../../components/common/utils/Pagination";
 
 const Courses = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [courses, setCourses] = useState<Course[]>([]);
+  const [totalCount, setTotalCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getCourse = async () => {
+  const handlePageChange = (page: number) => {
+    getCourse(page);
+  };
+
+  const getCourse = async (page?: number) => {
     setLoading(true);
-    const response: Course[] = await getCourses();
+    const response: { courses: Course[]; totalCount: number } | null =
+      await getCourses(page);
     setLoading(false);
-    setCourses(response);
+    setCourses(response?.courses as Course[]);
+    setTotalCount(response?.totalCount as number);
   };
 
   const handleChange = () => {
@@ -66,11 +74,20 @@ const Courses = () => {
             </div>
           )}
           {courses.length > 0 ? (
-            <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full py-12 px-8 md:px-16">
-              {courses.map((course) => (
-                <SingleCourse course={course} />
-              ))}
-            </div>
+            <>
+              <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full py-12 px-8 md:px-16">
+                {courses.map((course, index) => (
+                  <SingleCourse key={index} course={course} />
+                ))}
+              </div>
+              <div className="flex w-full justify-center pb-10">
+                <Pagination
+                  totalCount={totalCount}
+                  limit={8}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            </>
           ) : (
             <div className="w-full flex justify-center">
               <h1 className="font-bold text-3xl">No course found</h1>

@@ -2,9 +2,9 @@ import { axiosAuthorized, axiosInstance } from "./config";
 // import { Course } from "../dtos/Course";
 import axios from "axios";
 
-const getCourses = async () => {
+const getCourses = async (page?: number) => {
   try {
-    const response = await axiosInstance.get("/courses");
+    const response = await axiosInstance.get(`/courses?page=${page}`);
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject();

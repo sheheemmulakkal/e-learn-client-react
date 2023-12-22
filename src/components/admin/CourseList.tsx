@@ -6,11 +6,13 @@ import { Pagination } from "../common/utils/Pagination";
 
 const CourseList = () => {
   const [courses, setCourses] = useState<Course[]>([]);
+  const [totalCount, setTotalCount] = useState<number>(0);
   const navigate = useNavigate();
   const getCourses = async () => {
     try {
       const response: Course[] = await getAllCourses();
       setCourses(response);
+      setTotalCount(1);
     } catch (error) {
       console.log(error);
     }
@@ -150,7 +152,7 @@ const CourseList = () => {
           )}
         </div>
         <div className="w-full flex justify-center py-3">
-          <Pagination />
+          <Pagination totalCount={totalCount} limit={5} />
         </div>
       </div>
     </div>

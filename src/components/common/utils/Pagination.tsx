@@ -1,10 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-export function Pagination() {
+interface PaginationProps {
+  totalCount: number;
+  limit: number;
+  onPageChange: (page: number) => void;
+}
+
+export function Pagination({
+  totalCount,
+  limit,
+  onPageChange,
+}: PaginationProps) {
   const [active, setActive] = React.useState(1);
+  const [totalPages, setTotalPages] = React.useState(1);
 
   const getItemProps = (index: any) =>
     ({
@@ -14,20 +25,30 @@ export function Pagination() {
       variant: active === index ? "filled" : "text",
       color: "gray",
       bg: active === index ? "black" : "transparent",
-      onClick: () => setActive(index),
+      onClick: () => {
+        setActive(index);
+        onPageChange(index);
+      },
     } as any);
 
   const next = () => {
-    if (active === 5) return;
+    if (active === totalPages) return;
 
     setActive(active + 1);
+    onPageChange(active + 1);
   };
 
   const prev = () => {
     if (active === 1) return;
 
     setActive(active - 1);
+    onPageChange(active - 1);
   };
+
+  useEffect(() => {
+    const pages = Math.ceil(totalCount / limit);
+    setTotalPages(pages);
+  }, [totalCount, limit]);
 
   return (
     <div className="flex items-center gap-4">
@@ -40,11 +61,11 @@ export function Pagination() {
         <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
       </Button>
       <div className="flex items-center gap-2 text-gray-800">
-        <IconButton {...getItemProps(1)}>1</IconButton>
-        <IconButton {...getItemProps(2)}>2</IconButton>
-        <IconButton {...getItemProps(3)}>3</IconButton>
-        <IconButton {...getItemProps(4)}>4</IconButton>
-        <IconButton {...getItemProps(5)}>5</IconButton>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <IconButton key={index + 1} {...getItemProps(index + 1)}>
+            {index + 1}
+          </IconButton>
+        ))}
       </div>
       <Button
         variant="text"

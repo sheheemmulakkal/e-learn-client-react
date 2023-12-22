@@ -9,9 +9,10 @@ const NewCourses = () => {
   const [loader, setLoader] = useState(true);
   const getCourse = async () => {
     setLoader(true);
-    const response: Course[] = await getCourses();
+    const response: { courses: Course[]; totalCount: number } | null =
+      await getCourses();
     // setTimeout(() => {
-    setCourses(response);
+    setCourses(response?.courses as Course[]);
     setLoader(false);
     // }, 1000);
   };
