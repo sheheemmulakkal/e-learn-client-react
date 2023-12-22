@@ -49,9 +49,11 @@ const getCategoryList = async () => {
   }
 };
 
-const getMyCourses = async () => {
+const getMyCourses = async (page: number) => {
   try {
-    const response = await axiosAuthorized.get("/instructor/my-courses");
+    const response = await axiosAuthorized.get(
+      `/instructor/my-courses?page=${page}`
+    );
     return Promise.resolve(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {

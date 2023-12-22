@@ -8,14 +8,19 @@ const CourseList = () => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const navigate = useNavigate();
-  const getCourses = async () => {
+  const getCourses = async (page: number) => {
     try {
-      const response: Course[] = await getAllCourses();
-      setCourses(response);
-      setTotalCount(1);
+      const response: { courses: Course[]; totalCount: number } =
+        await getAllCourses(page);
+      setCourses(response.courses);
+      setTotalCount(response.totalCount);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    getCourses(page);
   };
 
   const handleApprove = async (
@@ -45,9 +50,11 @@ const CourseList = () => {
       setCourses(newList);
     }
   };
-  const memoizedGetCourses = useCallback(getCourses, []);
+  const memoizedGetCourses = useCallback((page: number) => {
+    getCourses(page);
+  }, []);
   useEffect(() => {
-    memoizedGetCourses();
+    memoizedGetCourses(1);
   }, [memoizedGetCourses]);
 
   return (
@@ -152,7 +159,11 @@ const CourseList = () => {
           )}
         </div>
         <div className="w-full flex justify-center py-3">
-          <Pagination totalCount={totalCount} limit={5} />
+          <Pagination
+            onPageChange={handlePageChange}
+            totalCount={totalCount}
+            limit={10}
+          />
         </div>
       </div>
     </div>

@@ -233,9 +233,10 @@ const unlistLanguage = async (languageId: string) => {
   }
 };
 
-const getAllCourses = async () => {
+const getAllCourses = async (page?: number) => {
   try {
-    const response = await axiosAuthorized.get("/admin/courses");
+    console.log(page);
+    const response = await axiosAuthorized.get(`/admin/courses?page=${page}`);
     return Promise.resolve(response.data);
   } catch (error) {
     return Promise.reject();
