@@ -9,6 +9,8 @@ import {
 import { Course } from "../../dtos/Course";
 import AddModulePopup from "../../components/instructor/AddModulePopup";
 import TimeInput from "../../components/instructor/TimeSelector";
+import { EnrolledCourse } from "../../dtos/EnrolledCourse";
+import EnrolledStudentsTable from "../../components/instructor/EnrolledStudentsTable";
 
 interface ModuleFormData {
   moduleName: string;
@@ -20,6 +22,7 @@ const CourseOverview = () => {
   const location = useLocation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [course, setCourse] = useState<Course>();
+  const [enrollments, setEnrollments] = useState<EnrolledCourse[]>();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [updating, setUpdating] = useState(false);
   const [err, setErr] = useState("");
@@ -28,8 +31,11 @@ const CourseOverview = () => {
   const [currentModuleId, setCurrentModuleId] = useState<string | null>(null);
 
   const getCourse = async () => {
-    const response = await getSingleCourse(location.state.courseId);
-    setCourse(response);
+    const response: { course: Course; enrollments: EnrolledCourse[] } =
+      await getSingleCourse(location.state.courseId);
+    setCourse(response.course);
+    setEnrollments(response.enrollments);
+    console.log(response, "res");
   };
 
   function timeToSeconds(timeString: string): number {
@@ -232,7 +238,7 @@ const CourseOverview = () => {
                           : module?.module}
                       </span>
                     </div>
-                    <div className="">
+                    <div className="flex justify-end">
                       <h4 className="text-right font-semibold ">
                         {typeof module?.module === "object"
                           ? module.module.duration
@@ -331,7 +337,12 @@ const CourseOverview = () => {
           <div className="w-full px-3">
             <h1 className="font-bold text-lg">Enrolled Students</h1>
           </div>
-          <div className="text-md px-3"></div>
+          <div className="text-md px-3">
+            <EnrolledStudentsTable
+              modules={course?.modules?.length as number}
+              enrollments={enrollments!}
+            />
+          </div>
         </div>
       </div>
     </>
