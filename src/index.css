@@ -20,6 +20,16 @@
   }
 }
 
+input {
+  @apply bg-white;
+}
+textarea {
+  @apply bg-white;
+}
+select {
+  @apply bg-white;
+}
+
 .selected-module {
   background-color: rgb(168, 168, 168);
 }

@@ -28,7 +28,7 @@ const MyCourses = () => {
   }, []);
 
   return (
-    <div className="container mx-auto px-5 md:px-20 my-24">
+    <div className="container mx-auto px-5 md:px-20 my-24 text-black">
       <h1 className="text-2xl font-bold">My courses</h1>
       <div className="mt-4 md:flex-none flex justify-center">
         <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-3">

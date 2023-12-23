@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Dashboard from "../../components/instructor/Dashboard";
 function InstructorHome() {
   return (
-    <div className="w-full">
+    <div className="w-full text-black">
       <div
         className="h-[80vh] w-full flex flex-col justify-center items-center"
         style={{

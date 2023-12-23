@@ -136,7 +136,7 @@ const CourseOverview = () => {
   }, []);
   return (
     <>
-      <div className="pt-32 p-6 flex justify-center bg-slate-100">
+      <div className="pt-32 p-6 flex justify-center bg-slate-100 text-black">
         <div className="p-6 shadow-lg container grid grid-cols-1 md:grid-cols-3 bg-white">
           <div className="px-8 md:max-w-[300px]  flex justify-center items-center">
             {course?.image ? (
@@ -199,7 +199,7 @@ const CourseOverview = () => {
           </div>
         </div>
       </div>
-      <div className="pt-1 p-6 flex justify-center bg-slate-100">
+      <div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
         <div className="p-6 shadow-lg container bg-white">
           <div className="w-full flex justify-between px-3">
             <h1 className="font-bold text-lg">Modules</h1>
@@ -316,7 +316,7 @@ const CourseOverview = () => {
           )}
         </div>
       </div>
-      <div className="pt-1 p-6 flex justify-center bg-slate-100">
+      <div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
         <div className="p-6 shadow-lg container bg-white">
           <div className="w-full px-3">
             <h1 className="font-bold text-lg">Description</h1>
@@ -324,6 +324,14 @@ const CourseOverview = () => {
           <div className="text-md px-3">
             <p>{course?.description}</p>
           </div>
+        </div>
+      </div>
+      <div className="pt-1 p-6 flex justify-center bg-slate-100 text-black">
+        <div className="p-6 shadow-lg container bg-white">
+          <div className="w-full px-3">
+            <h1 className="font-bold text-lg">Enrolled Students</h1>
+          </div>
+          <div className="text-md px-3"></div>
         </div>
       </div>
     </>
