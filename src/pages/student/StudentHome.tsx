@@ -4,7 +4,7 @@ import Navbar from "../../components/navbar/Navbar";
 import StudentHomeCover from "../../components/student/home/StudentHomeCover";
 import SectionThree from "../../components/student/home/SectionThree";
 import ThreeCards from "../../components/student/home/ThreeCards";
-// import { createRoadmap } from "../../api/studentApi";
+import { createRoadmap } from "../../api/studentApi";
 import { SmallSpinner } from "../../components/common/utils/Spinner";
 import Typewriter from "typewriter-effect";
 
@@ -37,8 +37,8 @@ const StudentHome: React.FC = () => {
       if (modal) {
         modal.showModal();
       }
-      // const response = await createRoadmap(value!);
-      const response = ` 1. Start with the Basics: Begin by learning the fundamentals of JavaScript, as Node.js is built on it`;
+      const response = await createRoadmap(value!);
+      // const response = ` 1. Start with the Basics: Begin by learning the fundamentals of JavaScript, as Node.js is built on it`;
       //  Understand concepts like variables, data types, arrays, loops, functions, and objects.\n2. Introduction to Node.js: After mastering JavaScript, start learning about Node.js, its installation, and how it works. Understand its event-driven architecture and non-blocking I/O model.\n3. Learn about Node.js Core Modules: Node.js comes with several built-in modules. Learn about modules like HTTP, URL, query string, file system, events, and streams.\n4. Working with Express.js: Express.js is a popular web application framework for Node.js. Learn how to build web applications using Express.js, handle requests, and create routes.\n5. Databases and Node.js: Learn how to connect Node.js with databases like MongoDB or MySQL. Understand how to perform CRUD operations and handle data.`;
       if (response) {
         const result = addBullets(response);
