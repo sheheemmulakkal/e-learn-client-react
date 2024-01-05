@@ -5,7 +5,7 @@ import { RootState } from "../../redux/store";
 const Dashboard = () => {
   const user = useSelector((state: RootState) => state.user.user);
   return (
-    <div className="w-full grid md:grid-cols-3 grid-cols-1 gap-6">
+    <div className="w-full grid md:grid-cols-2 grid-cols-1 gap-6">
       <Link to={"/instructor/my-courses"}>
         <div className="h-32 shadow-lg shadow-slate-300 rounded-md bg-slate-100 border drop-shadow-xl cursor-pointer hover:bg-slate-200 flex justify-center items-center">
           <div className="flex items-center gap-1">
@@ -92,7 +92,7 @@ const Dashboard = () => {
           </div>
         </div>
       </Link>
-      <div className="h-32 shadow-lg shadow-slate-300 rounded-md bg-slate-100 border drop-shadow-xl cursor-pointer hover:bg-slate-200 flex justify-center items-center"></div>
+      {/* <div className="h-32 shadow-lg shadow-slate-300 rounded-md bg-slate-100 border drop-shadow-xl cursor-pointer hover:bg-slate-200 flex justify-center items-center"></div> */}
       <Link to={"/instructor/add-course"}>
         <div className="h-32 shadow-lg shadow-slate-300 rounded-md bg-slate-100 border drop-shadow-xl cursor-pointer hover:bg-slate-200 flex justify-center items-center">
           <div className="flex items-center gap-1">
