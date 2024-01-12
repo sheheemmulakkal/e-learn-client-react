@@ -146,7 +146,7 @@ const StudentHome: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-center p-16">
+      <div className="flex justify-center pt-16 md:p-16">
         <div className="container flex flex-row overflow-hidden p-9">
           <NewCourses />
         </div>
