@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Socket } from "socket.io-client";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
@@ -13,8 +13,8 @@ const ChatFooter: React.FC<{ socket: Socket; user: User | null }> = ({
     (state: RootState) => state.selecedCourse.course?.courseId
   );
   const [message, setMessage] = useState("");
-  const handleSendMessage = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSendMessage = () => {
+    // e.preventDefault();
     if (message.trim() && user?.firstname) {
       const courseId =
         typeof selectedCourse === "string"
@@ -32,6 +32,14 @@ const ChatFooter: React.FC<{ socket: Socket; user: User | null }> = ({
     }
     setMessage("");
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   return (
     <div className="bg-gray-300 p-4 flex justify-between items-center">
       <input
@@ -41,6 +49,7 @@ const ChatFooter: React.FC<{ socket: Socket; user: User | null }> = ({
         placeholder="Type your message…"
         ref={inputRef}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={handleKeyDown}
       />
       <i
         className="fa-solid fa-paper-plane text-2xl mx-4"
