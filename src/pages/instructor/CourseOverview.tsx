@@ -121,6 +121,8 @@ const CourseOverview = () => {
       try {
         const formData = new FormData();
         formData.append("image", file);
+        console.log(file, "file");
+
         formData.append("courseId", location.state.courseId);
         setUpdating(true);
         const response = await addCourseImage(formData);

@@ -5,6 +5,7 @@ import { addCourse } from "../../api/instructorApi";
 import { courseSchema } from "../../validations/courseValidation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+// import { Course } from "../../dtos/Course";
 
 interface Credentials {
   name: string;
@@ -13,6 +14,7 @@ interface Credentials {
   category: string;
   language: string;
   level: string;
+  image?: File;
 }
 
 const AddCourseForm: React.FC<AllCategories> = ({
@@ -33,10 +35,15 @@ const AddCourseForm: React.FC<AllCategories> = ({
     resolver: zodResolver(courseSchema),
   });
 
+  console.log(errors, "erer");
+
   const submitData = async (data: Credentials) => {
+    console.log(data, "ree");
+
     setErr("");
     try {
-      const response = await addCourse(data);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const response = await addCourse(data as any);
       if (response) {
         setSuccess("Course successfully added");
         setTimeout(() => navigate("/instructor/my-courses"), 2000);
@@ -48,7 +55,11 @@ const AddCourseForm: React.FC<AllCategories> = ({
     }
   };
   return (
-    <form onSubmit={handleSubmit(submitData)} className="italic">
+    <form
+      onSubmit={handleSubmit(submitData)}
+      className="italic"
+      encType="multipart/form-data"
+    >
       {err && (
         <div className="err">
           <h3 className="text-red-900 font-semibold bg-red-400 w-full py-2 px-3 border-2 rounded-md">
@@ -175,6 +186,25 @@ const AddCourseForm: React.FC<AllCategories> = ({
         {errors.category && (
           <span className="text-red-600 text-sm italic">
             *{errors.category.message}
+          </span>
+        )}
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="image" className="block font-medium">
+          Image
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          id="image"
+          className="w-full px-3 py-2 border rounded-lg shadow-md"
+          required
+          {...register("image")}
+        />
+        {errors.name && (
+          <span className="text-red-600 text-sm italic">
+            *{errors.name.message}
           </span>
         )}
       </div>

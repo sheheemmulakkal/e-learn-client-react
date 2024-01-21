@@ -1,13 +1,35 @@
 import { axiosAuthorized } from "./config";
-import { Course } from "../dtos/Course";
+// import { Course } from "../dtos/Course";
 import axios from "axios";
 
-const addCourse = async (courseCredentials: Course) => {
+interface CourseAdd {
+  id?: string;
+  name?: string;
+  description?: string;
+  price?: number;
+  image: File[];
+  level?: string;
+  category?: string;
+  language?: string;
+  approval?: string;
+  instructor?: string;
+  status?: boolean;
+  modules?: { module: string; order: number }[];
+}
+
+const addCourse = async (courseCredentials: CourseAdd) => {
   try {
+    console.log(courseCredentials.image[0] as File, "cre");
+    const formData = new FormData();
     const response = await axiosAuthorized.post(
       "/instructor/course",
       courseCredentials
     );
+    formData.append("image", courseCredentials.image[0]!);
+    console.log(response.data.id);
+
+    formData.append("courseId", response.data.id);
+    await axiosAuthorized.put("/instructor/add-course-image", formData);
     return Promise.resolve(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
