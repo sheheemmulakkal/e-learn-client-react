@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosError } from "axios";
 
-const BASE_URL = "https://server.eduvista.site/";
+const BASE_URL = "http://localhost:3000";
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: BASE_URL,

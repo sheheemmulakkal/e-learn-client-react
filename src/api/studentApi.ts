@@ -214,7 +214,20 @@ const createRoadmap = async (topic: string) => {
   }
 };
 
+const removeNote = async (courseId: string, data: string) => {
+  try {
+    const resposne = await axiosAuthorized.post("/remove-note", {
+      courseId,
+      data,
+    });
+    return Promise.resolve(resposne.data);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 export {
+  removeNote,
   getCourses,
   changePassword,
   updateProfileImage,

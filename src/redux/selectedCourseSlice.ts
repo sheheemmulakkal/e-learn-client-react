@@ -31,6 +31,13 @@ const selectedCourseSlice = createSlice({
         notes: [...(state.course?.notes || []), action.payload!],
       };
     },
+    removeNote(state, action: PayloadAction<string | null>) {
+      state.course = {
+        ...state.course,
+        notes:
+          state.course?.notes?.filter((note) => note !== action.payload) || [],
+      };
+    },
     selectModule(state, action: PayloadAction<Module | null>) {
       state.module = action.payload;
     },

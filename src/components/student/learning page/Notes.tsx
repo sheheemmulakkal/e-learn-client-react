@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { addNotes } from "../../../api/studentApi";
+import { addNotes, removeNote } from "../../../api/studentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCourseActions } from "../../../redux/selectedCourseSlice";
 import { RootState } from "../../../redux/store";
@@ -28,6 +28,17 @@ const Notes: React.FC<NoteComponentProps> = ({ courseId }) => {
     }
     setNewNote("");
   };
+
+  const deleteNode = async (note: string) => {
+    try {
+      const response = await removeNote(courseId!, note);
+      if (response) {
+        dispatch(selectCourseActions.removeNote(note));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {}, [notes]);
 
   return (
@@ -46,14 +57,32 @@ const Notes: React.FC<NoteComponentProps> = ({ courseId }) => {
             ],
           }}
         />
-        <button onClick={handleAddNote}>Add Note</button>
+        <button
+          className=" bg-black text-white px-4 py-2 my-4"
+          onClick={handleAddNote}
+        >
+          Add Note
+        </button>
       </div>
       <div className="p-5 border">
         <h2 className="font-bold text-xl">Notes</h2>
         <ul>
           {notes!.map((note, index) => (
             <React.Fragment key={index}>
-              <li className="py-2" dangerouslySetInnerHTML={{ __html: note }} />
+              <div className="w-full flex flex-row justify-between">
+                <div>
+                  <li
+                    className="py-2"
+                    dangerouslySetInnerHTML={{ __html: note }}
+                  />
+                </div>
+                <div>
+                  <i
+                    className="fa-solid fa-trash text-blue-800 cursor-pointer"
+                    onClick={() => deleteNode(note)}
+                  ></i>
+                </div>
+              </div>
               <hr />
             </React.Fragment>
           ))}
