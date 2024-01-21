@@ -9,6 +9,7 @@ import { Category } from "../../dtos/AllCategories";
 
 const Courses = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [selectedCat, setSelectedCat] = useState<string | null>();
   const [courses, setCourses] = useState<Course[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,6 +21,7 @@ const Courses = () => {
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedCategory = e.target.value;
+    setSelectedCat(e.target.value);
     if (selectedCategory) {
       console.log(selectedCategory);
       getCourse({ category: selectedCategory });
@@ -55,7 +57,7 @@ const Courses = () => {
     const searchTerm = searchInputRef.current?.value;
     if (searchTerm) {
       setLoading(true);
-      const response = await searchCourse(searchTerm);
+      const response = await searchCourse(searchTerm, selectedCat!);
       if (response) {
         setLoading(false);
         setCourses(response);

@@ -5,13 +5,15 @@ import axios from "axios";
 const getCourses = async ({
   page,
   category,
+  searchTerm,
 }: {
   page?: number;
   category?: string;
+  searchTerm?: string;
 }) => {
   try {
     const response = await axiosInstance.get(
-      `/courses?page=${page}&category=${category}`
+      `/courses?page=${page}&category=${category}&search=${searchTerm}`
     );
     return Promise.resolve(response.data);
   } catch (error) {
@@ -117,10 +119,10 @@ const updateProfile = async (details: {
   }
 };
 
-const searchCourse = async (searchKey: string) => {
+const searchCourse = async (searchKey: string, category?: string) => {
   try {
     const response = await axiosInstance.get(
-      `search-course?search=${searchKey}`
+      `search-course?search=${searchKey}&category=${category}`
     );
     return Promise.resolve(response.data);
   } catch (error) {
