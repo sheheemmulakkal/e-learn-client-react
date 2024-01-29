@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function StudentHomeCover() {
   return (
     <div className="flex justify-center bg-[#FFF3E4]">
@@ -17,9 +19,11 @@ function StudentHomeCover() {
             </p>
           </div>
           <div className="px-10 flex justify-start w-full">
-            <button className="px-8 hover:scale-105 duration-300 py-3 rounded-full bg-[#F48C06] text-white text-lg font-semibold">
-              Explore now
-            </button>
+            <Link to={"/courses"}>
+              <button className="px-8 hover:scale-105 duration-300 py-3 rounded-full bg-[#F48C06] text-white text-lg font-semibold">
+                Explore now
+              </button>
+            </Link>
           </div>
         </div>
         <div className=" h-full md:flex hidden justify-center items-end w-full">

@@ -7,6 +7,7 @@ import ThreeCards from "../../components/student/home/ThreeCards";
 import { createRoadmap } from "../../api/studentApi";
 import { SmallSpinner } from "../../components/common/utils/Spinner";
 import Typewriter from "typewriter-effect";
+import { Link } from "react-router-dom";
 
 const StudentHome: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -65,9 +66,11 @@ const StudentHome: React.FC = () => {
             believable.{" "}
           </p>
           <div>
-            <button className="px-8 hover:scale-105 hover:bg-[#F48C06] hover:text-white duration-300 py-3 text-[#F48C06]  rounded-full border-2 border-[#F48C06] text-lg font-bold">
-              Explore now
-            </button>
+            <Link to={"/courses"}>
+              <button className="px-8 hover:scale-105 hover:bg-[#F48C06] hover:text-white duration-300 py-3 text-[#F48C06]  rounded-full border-2 border-[#F48C06] text-lg font-bold">
+                Explore now
+              </button>
+            </Link>
           </div>
         </div>
       </div>
