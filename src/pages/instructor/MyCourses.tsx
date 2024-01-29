@@ -36,12 +36,16 @@ const MyCourses = () => {
             {courses.map((course) => (
               <SingleCourse course={course} />
             ))}
-            <div className="w-full flex justify-center">
-              <Pagination
-                limit={8}
-                totalCount={totalCount}
-                onPageChange={handlePageChange}
-              />
+            <div className="w-[80vw]">
+              <div className="w-full flex justify-center">
+                {!loader && (
+                  <Pagination
+                    limit={8}
+                    totalCount={totalCount}
+                    onPageChange={handlePageChange}
+                  />
+                )}
+              </div>
             </div>
           </>
           {loader && (
