@@ -134,7 +134,7 @@ export default function NavBar() {
           <Link to={user?.role === Roles.instructor ? "/instructor" : "/"}>
             <Typography
               as="a"
-              className="mr-4 px-5 text-2xl cursor-pointer py-1.5 font-bold text-[#2F327D]"
+              className="mr-4 px-5 text-3xl cursor-pointer py-1.5 font-extrabold text-[#2F327D]"
             >
               <span className="text-[#F48C06] ">Edu</span>
               Vista
