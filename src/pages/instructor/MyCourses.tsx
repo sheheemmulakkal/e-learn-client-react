@@ -49,14 +49,16 @@ const MyCourses = () => {
             </div>
           </>
           {loader && (
-            <>
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-            </>
+            <div className="w-[80vw]  col-span-full">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <CardSkeleton />
+                <CardSkeleton />
+                <CardSkeleton />
+                <CardSkeleton />
+                <CardSkeleton />
+                <CardSkeleton />
+              </div>
+            </div>
           )}
         </div>
       </div>
