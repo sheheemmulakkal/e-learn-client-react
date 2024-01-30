@@ -2,11 +2,8 @@ import React from "react";
 import { Course } from "../../dtos/Course";
 import { TooltipCustomStyles } from "../common/utils/Tooltip";
 import { useNavigate } from "react-router-dom";
+import { toTitleCase } from "alter-case";
 // import { FaSmile } from "react-icons/fa";
-
-const capitalizeFirstLetter = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-};
 
 interface SingleCourseProps {
   course?: Course | undefined;
@@ -25,8 +22,8 @@ const SingleCourse: React.FC<SingleCourseProps> = ({
       : course!.category;
   const level =
     typeof course!.level === "object" ? course!.level.level : course!.level;
-  const formattedCategory = capitalizeFirstLetter(category!);
-  const formattedLevel = capitalizeFirstLetter(level!);
+  const formattedCategory = toTitleCase(category!);
+  const formattedLevel = toTitleCase(level!);
 
   const calculateCompletionPercentage = (
     totalModules: number,
@@ -87,7 +84,9 @@ const SingleCourse: React.FC<SingleCourseProps> = ({
         <h3 className="mb-2 text-lg font-bold leading-tight text-neutral-800 h-12 overflow-hidden">
           <TooltipCustomStyles
             triggerElement={
-              <span className="line-clamp-2">{course!.name}</span>
+              <span className="line-clamp-2">
+                {toTitleCase(course!.name as string)}
+              </span>
             }
             tooltipContent={course!.name}
           />
