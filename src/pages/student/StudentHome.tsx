@@ -68,7 +68,14 @@ const StudentHome: React.FC = () => {
           </p>
           <div>
             <Link to={"/courses"}>
-              <button className="px-8 hover:scale-105 hover:bg-[#F48C06] hover:text-white duration-300 py-3 text-[#F48C06]  rounded-full border-2 border-[#F48C06] text-lg font-bold">
+              <button
+                className="px-8 hover:scale-105  hover:text-white duration-300 py-3 text-[#F48C06]  rounded-full border-2 border-[#F48C06] text-lg font-bold
+              relative  bg-white isolation-auto z-10 before:absolute before:w-full 
+              before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full 
+              before:bg-[#F48C06] before:-z-10 before:aspect-square 
+              before:hover:scale-150 overflow-hidden before:hover:duration-700
+              "
+              >
                 Explore now
               </button>
             </Link>
