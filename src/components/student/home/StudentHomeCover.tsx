@@ -20,8 +20,30 @@ function StudentHomeCover() {
           </div>
           <div className="px-10 flex justify-start w-full">
             <Link to={"/courses"}>
-              <button className="px-8 hover:scale-105 duration-300 py-3 rounded-full bg-[#F48C06] text-white text-lg font-semibold">
+              <button
+                className="px-8 hover:scale-105 duration-300 py-3 rounded-full bg-[#F48C06] text-white text-lg font-semibold
+              
+              flex items-center   gap-1 px-4 py-2 cursor-pointer 
+              tracking-widest  hover:bg-[#ffa735]
+              duration-300 hover:gap-2 hover:translate-x-3
+              
+              "
+              >
                 Explore now
+                <svg
+                  className="w-5 h-5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
+                    stroke-linejoin="round"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
               </button>
             </Link>
           </div>
@@ -31,7 +53,7 @@ function StudentHomeCover() {
             className="h-full w-full bg-cover flex items-end  bg-center"
             style={{ backgroundImage: "url('/banners/cover hero.png')" }}
           >
-            <div className="w-full h-4/5">
+            <div className="w-full h-4/5 text-black">
               <div className="w-full  justify-center grid grid-cols-2">
                 <div></div>
                 <div className="flex justify-center pr-14">
