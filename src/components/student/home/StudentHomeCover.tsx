@@ -21,13 +21,8 @@ function StudentHomeCover() {
           <div className="px-10 flex justify-start w-full">
             <Link to={"/courses"}>
               <button
-                className="px-8 hover:scale-105 duration-300 py-3 rounded-full bg-[#F48C06] text-white text-lg font-semibold
-              
-              flex items-center   gap-1 px-4 py-2 cursor-pointer 
-              tracking-widest  hover:bg-[#ffa735]
-              duration-300 hover:gap-2 hover:translate-x-3
-              
-              "
+                className="px-8 hover:scale-105 duration-300 py-3 rounded-full bg-[#F48C06] text-white text-lg font-semibold flex items-center  
+                gap-1 cursor-pointer tracking-widest  hover:bg-[#ffa735] hover:gap-2 hover:translate-x-3"
               >
                 Explore now
                 <svg
@@ -57,7 +52,7 @@ function StudentHomeCover() {
               <div className="w-full  justify-center grid grid-cols-2">
                 <div></div>
                 <div className="flex justify-center pr-14">
-                  <button className="bg-white  px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 shadow-lg">
+                  <button className="bg-white  px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 shadow-lg hover:scale-105 duration-300 ease-in-out">
                     <div className="px-2 py-1 rounded-md bg-[#ee23d3]">
                       <i className="text-white text-lg fa-solid fa-chart-simple"></i>
                     </div>
@@ -65,7 +60,7 @@ function StudentHomeCover() {
                 </div>
               </div>
               <div className="pl-10 w-full mb-2">
-                <button className="bg-white bg-opacity-90 px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 shadow-lg">
+                <button className="bg-white bg-opacity-90 px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 shadow-lg hover:scale-105 duration-300 ease-in-out">
                   <div className="px-2 py-1 rounded-md bg-[#23BDEE]">
                     <i className="text-white text-lg fa-solid fa-graduation-cap"></i>
                   </div>
@@ -80,7 +75,7 @@ function StudentHomeCover() {
                 </button>
               </div>
               <div className="pr-10 w-full flex justify-end mb-2">
-                <button className="bg-white bg-opacity-90 px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 shadow-lg">
+                <button className="bg-white bg-opacity-90 px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 shadow-lg hover:scale-105 duration-300 ease-in-out">
                   <div className="px-2 py-1 rounded-md bg-[#88e080]">
                     <i className="text-white text-lg fa-solid fa-comments"></i>
                   </div>
@@ -95,7 +90,7 @@ function StudentHomeCover() {
                 </button>
               </div>
               <div className="pr-20 w-full flex justify-center">
-                <button className="bg-white bg-opacity-90 px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3">
+                <button className="bg-white bg-opacity-90 px-5 py-4 items-center font-semibold rounded-lg flex flex-row gap-3 hover:scale-105 duration-300 ease-in-out">
                   <div className="px-2 py-1 rounded-md bg-[#e080a8]">
                     <i className="text-white text-lg fa-solid fa-certificate"></i>
                   </div>
