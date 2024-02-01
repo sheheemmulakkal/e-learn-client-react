@@ -5,7 +5,7 @@ function SectionThree() {
         <div className="w-full h-full flex justify-end">
           <div className="relative w-10/12 h-5/6">
             <div className="absolute h-20 w-20 pt-2">
-              <div className="rounded-full w-12 h-12 bg-yellow-600"></div>
+              <div className="rounded-full w-12 h-12 bg-[#F3AC50]"></div>
             </div>
             <div className="absolute flex flex-col py-3 px-2">
               <h3 className="font-bold text-3xl leading-10 text-[#2F327D] pb-6">
@@ -13,12 +13,13 @@ function SectionThree() {
                 <span className="text-[#F48C06]">you can do with EduVista</span>
               </h3>
               <p className=" pr-10 text-[#2F327D]">
-                is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever
-                since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived
-                not only five centuries, but also the leap into electronic
-                typesetting, remaining essentially unchanged.
+                EduVista revolutionizes online learning by seamlessly
+                replicating the full spectrum of a physical classroom
+                experience. With our platform, you can engage in dynamic group
+                discussions through our intuitive group chat feature, ensuring
+                collaborative learning akin to traditional classrooms. Capture
+                and organize your insights effortlessly with our advanced
+                note-taking tools, personalizing your educational journey.
               </p>
               <h6 className=" py-2 text-[#2F327D] underline cursor-pointer font-medium">
                 Learn more
