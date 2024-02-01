@@ -9,11 +9,11 @@ function ThreeCards() {
                 <i className="text-xl text-white fa-solid fa-user-group"></i>
               </div>
             </div>
-            <div className=" w-full  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  py-10 px-8 text-[#2F327D] rounded-md">
-              <h1 className="text-center text-xl font-semibold py-3 ">
-                One Billing, Invoicing and contracts
+            <div className=" w-full  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  py-10 px-6 text-[#2F327D] rounded-md">
+              <h1 className="text-center text-lg font-bold py-3 ">
+                Unleashing Interactive Learning with Chatroom-Enhanced Courses
               </h1>
-              <p className="text-center">
+              <p className="text-center text-base ">
                 Contrary to popular belief, Lorem Ipsum is not simply random
                 text. It has roots in a piece of classical Latin literature from
                 45 BC.
@@ -26,14 +26,15 @@ function ThreeCards() {
                 <i className="text-2xl text-white fa-solid fa-stamp"></i>
               </div>
             </div>
-            <div className=" w-full  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  py-10 px-8 text-[#2F327D] rounded-md">
-              <h1 className="text-center text-xl font-semibold py-3 ">
-                One Billing, Invoicing and contracts
+            <div className=" w-full  shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  py-10 px-6 text-[#2F327D] rounded-md">
+              <h1 className="text-center text-lg font-bold py-3 ">
+                Elevate Your Skills with Recognized Accreditation and
+                Certification
               </h1>
               <p className="text-center">
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC.
+                Unlock a world of opportunities and validate your expertise with
+                our Certification Excellence programs. Connect with certified
+                instructors.
               </p>
             </div>
           </div>
@@ -43,14 +44,14 @@ function ThreeCards() {
                 <i className="text-2xl text-white fa-solid fa-calendar-check"></i>
               </div>
             </div>
-            <div className=" w-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  py-10 px-8 text-[#2F327D] rounded-md">
-              <h1 className="text-center text-xl font-semibold py-3 ">
-                One Billing, Invoicing and contracts
+            <div className=" w-full shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  py-10 px-6 text-[#2F327D] rounded-md">
+              <h1 className="text-center text-lg font-bold py-3 ">
+                Seamlessly Plan Your Learning Adventure With Proper Note Taking
               </h1>
               <p className="text-center">
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC.
+                Empower learning experience with Note-Taking Mastery feature.
+                Our platform integrates note-taking into your learning
+                environment
               </p>
             </div>
           </div>
