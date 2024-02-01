@@ -3,6 +3,7 @@ import { Course } from "../../dtos/Course";
 import { TooltipCustomStyles } from "../common/utils/Tooltip";
 import { useNavigate } from "react-router-dom";
 import { toTitleCase } from "alter-case";
+// import { TooltipCustomStyles } from "../common/utils/Tooltip";
 // import { FaSmile } from "react-icons/fa";
 
 interface SingleCourseProps {
@@ -105,9 +106,15 @@ const SingleCourse: React.FC<SingleCourseProps> = ({
           </h4>
         )}
         <div className="flex items-center my-2">
-          <h4 className="font-medium px-3 py-1 text-sm rounded-full text-[#2F327D] bg-[#cecfcf]">
-            {formattedCategory}
-          </h4>
+          <TooltipCustomStyles
+            tooltipContent={formattedCategory}
+            triggerElement={
+              <h4 className="font-medium px-3 py-1 text-sm truncate rounded-full text-[#2F327D] bg-[#cecfcf]">
+                {formattedCategory}
+              </h4>
+            }
+          />
+
           <span className="mx-1"></span>
           <h4 className="font-medium px-3 py-1 text-sm rounded-full text-[#2F327D] bg-[#cecfcf]">
             {formattedLevel}
