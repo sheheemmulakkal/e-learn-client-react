@@ -14,9 +14,9 @@ function ThreeCards() {
                 Unleashing Interactive Learning with Chatroom-Enhanced Courses
               </h1>
               <p className="text-center text-base ">
-                Contrary to popular belief, Lorem Ipsum is not simply random
-                text. It has roots in a piece of classical Latin literature from
-                45 BC.
+                Our interactive courses are designed to break the barriers of
+                traditional learning, offering you a space where discussions,
+                questions, answers, and ideas
               </p>
             </div>
           </div>
