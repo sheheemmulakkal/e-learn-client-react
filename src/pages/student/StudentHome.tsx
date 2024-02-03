@@ -9,6 +9,7 @@ import { SmallSpinner } from "../../components/common/utils/Spinner";
 import Typewriter from "typewriter-effect";
 import { Link } from "react-router-dom";
 import { toSentenceCase } from "alter-case";
+// import HoverScaleText from "../../components/common/utils/LetterHover";
 
 const StudentHome: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -60,6 +61,7 @@ const StudentHome: React.FC = () => {
             <span className="text-[#F48C06]">All-in-One,</span> Your Complete
             Resource for Comprehensive Education
           </h1>
+          {/* <HoverScaleText /> */}
           <p>
             {toSentenceCase(`here are many variations of passages of Lorem Ipsum available, but
             the majority have suffered alteration in some form, by injected
