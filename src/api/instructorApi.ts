@@ -19,15 +19,12 @@ interface CourseAdd {
 
 const addCourse = async (courseCredentials: CourseAdd) => {
   try {
-    console.log(courseCredentials.image[0] as File, "cre");
     const formData = new FormData();
     const response = await axiosAuthorized.post(
       "/instructor/course",
       courseCredentials
     );
     formData.append("image", courseCredentials.image[0]!);
-    console.log(response.data.id);
-
     formData.append("courseId", response.data.id);
     await axiosAuthorized.put("/instructor/add-course-image", formData);
     return Promise.resolve(response.data);
