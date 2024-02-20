@@ -5,7 +5,7 @@ function ThreeCards() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-9">
           <div className="flex flex-col w-full  justify-center">
             <div className="w-full flex justify-center translate-y-1/2 z-10">
-              <div className="h-14 w-14 rounded-full bg-red-600 flex justify-center items-center">
+              <div className="h-14 w-14 rounded-full bg-red-600 flex justify-center items-center hover:scale-105 cursor-pointer ease-in-out duration-300">
                 <i className="text-xl text-white fa-solid fa-user-group"></i>
               </div>
             </div>
@@ -22,7 +22,7 @@ function ThreeCards() {
           </div>
           <div className="flex flex-col w-full  justify-center">
             <div className="w-full flex justify-center translate-y-1/2 z-10">
-              <div className="h-14 w-14 rounded-full bg-[#2f7d46] flex justify-center items-center">
+              <div className="h-14 w-14 rounded-full bg-[#2f7d46] flex justify-center items-center hover:scale-105 cursor-pointer ease-in-out duration-300">
                 <i className="text-2xl text-white fa-solid fa-stamp"></i>
               </div>
             </div>
@@ -40,7 +40,7 @@ function ThreeCards() {
           </div>
           <div className="flex flex-col w-full  justify-center">
             <div className="w-full flex justify-center translate-y-1/2 z-10">
-              <div className="h-14 w-14 rounded-full bg-[#3b65c0dc] flex justify-center items-center">
+              <div className="h-14 w-14 rounded-full bg-[#3b65c0dc] flex justify-center items-center hover:scale-105 cursor-pointer ease-in-out duration-300">
                 <i className="text-2xl text-white fa-solid fa-calendar-check"></i>
               </div>
             </div>
