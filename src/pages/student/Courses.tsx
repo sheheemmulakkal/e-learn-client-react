@@ -114,7 +114,7 @@ const Courses = () => {
           )}
           {courses.length > 0 ? (
             <>
-              <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full py-12 px-8 md:px-16">
+              <div className="container p-6 grid grid-cols-1 md:grid-cols-4 gap-4 frounded-sm w-full py-12 px-8 md:px-16 fade-ef">
                 {courses.map((course, index) => (
                   <SingleCourse key={index} course={course} />
                 ))}

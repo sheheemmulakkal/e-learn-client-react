@@ -49,7 +49,7 @@ const SingleCourseView = () => {
   return (
     <div className="w-full flex justify-center flex-col text-black">
       {/* <div className=" "> */}
-      <div className="w-full flex justify-center bg-[#fff1de]">
+      <div className="w-full flex justify-center bg-[#fff1de] fade-ef">
         <div className="pt-16 md:w-4/5 p-4 flex justify-center ">
           <div className="p-6 container grid grid-cols-1 md:grid-cols-3">
             <div className="px-8 md:max-w-[300px]  flex justify-center items-center">
@@ -107,7 +107,7 @@ const SingleCourseView = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center fade-ef">
         <div className="pt-1 md:w-4/5 p-4 flex justify-center  ">
           <div className="p-6  container">
             <div className="w-full flex justify-between px-3">
@@ -148,7 +148,7 @@ const SingleCourseView = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center fade-ef">
         <div className=" md:w-4/5 pt-1 p-4 flex justify-center ">
           <div className="p-6  container ">
             <div className="w-full px-3">
@@ -160,7 +160,7 @@ const SingleCourseView = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center fade-ef">
         <div className="pt-1 md:w-4/5 p-4 flex justify-center  pb-16">
           <div className="p-6  container">
             <div className="w-full px-3 pb-4">

@@ -59,7 +59,7 @@ function StudentsList() {
 
   return (
     <div>
-      <div className="p-20 ">
+      <div className="p-20 fade-ef">
         <div className="relative overflow-x-auto shadow-md sm:rounded-sm mt-28">
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs text-white uppercase bg-sky-800 ">
